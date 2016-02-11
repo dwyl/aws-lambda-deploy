@@ -34,7 +34,7 @@ do this now.
 The script needs to know which `IAM_ROLE` you want to use to deploy/run
 the function.
 
-### Parameters
+### Parameters  
 
 
 
@@ -52,8 +52,12 @@ runner. Gulp is *well documented*, *tested* and *maintained*. [![Build Status](h
 ### Babel ?
 
 Given that AWS Lambda only supports Node.js **v0.10.36** (*at present*)
-the code you *deploy* to Lambda needs to be ES5.
+the code you *deploy* to Lambda needs to be **ES5 _Only_**.
 Since most of the *cool kids* are using ES6/2015
 (*aka* [***modern javascript***](https://twitter.com/ericdfields/status/677677470590570496) ...)
 the *build* script includes a *transform* step to translate ES6 into ES5
-so it will run on Lambda.
+so your ES6 Code will run on Lambda.
+
+### Name?
+
++ https://www.npmjs.com/package/deploy-aws-lambda > https://github.com/aesinv/aws-lambda-toolkit *looks un-maintained/abandoned with lots of "Todo" items and no tests.*.
