@@ -40,11 +40,23 @@ the function.
 
 ### Steps
 
-#### 1. Create the `/dist` (*distribution*) Directory (*if it does not exist*)
+#### 1. Create the `/dist` (*distribution*) directory (*if it does not exist*)
 
 Instead of uploading *all* the files in a project to S3/Lambda we upload only
-the *required* files. These are placed inside the `/dist` directory
-which will be *zipped* in step 5.
+the *required* files. e.g: `/src` or `/lib` and `./index.js`.
+While we are preparing this package, these required files are *copied* to
+the (*temporary*) `/dist` directory which will be *zipped* in step 5.
+
+#### 2. Copy required files into `/dist` directory
+
+
+
+#### 3. Copy `package.json` into `/dist` directory
+
+
+
+#### 4. Install (*only production*) `node_modules` in `/dist` directory
+
 
 
 #### 7. Get Name of Lambda from `package.json`
@@ -73,3 +85,11 @@ so your ES6 Code will run on Lambda.
 ### Name?
 
 + https://www.npmjs.com/package/deploy-aws-lambda > https://github.com/aesinv/aws-lambda-toolkit *looks un-maintained/abandoned with lots of "Todo" items and no tests.*.
+
+## Background
+
+We *briefly* considered using [`node-fs-extra`](https://github.com/jprichardson/node-fs-extra)
+to do the heavy lifting, but they are about to remove support for node.js v.0.10
+which, if we want to be able to run the deploy script from a CI Environment
+running node v.0.10.36 (*the Lambda version of node!*)
+we need to DIY the file operations.

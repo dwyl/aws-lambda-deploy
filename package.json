@@ -1,15 +1,17 @@
 {
-  "name": "aws-lambda-deploy",
-  "version": "1.0.0",
-  "description": "deploy your lambda function to AWS with a single command",
+  "name": "dpl",
+  "version": "1.0.1",
+  "description": "deploy your lambda function to AWS the quick & easy way.",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
     "coverage":"node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcov -- -R spec",
-
     "s3-deploy": "gulp deploy",
-    "cov1":"node_modules/.bin/istanbul cover node_modules/.bin/_mocha test/create_dist.test.js --report lcov -- -R spec",
-    "test1":"node_modules/.bin/mocha test/create_dist.test.js"
+    "cov1":"node_modules/.bin/istanbul cover node_modules/.bin/_mocha test/copy_files.test.js --report lcov -- -R spec",
+    "test1":"node_modules/.bin/mocha test/copy_files.test.js"
+  },
+  "deploy": {
+    "files":[ "lib" ]
 
   },
   "repository": {
@@ -31,7 +33,6 @@
   "homepage": "https://github.com/numo-labs/aws-lambda-deploy#readme",
   "devDependencies": {
     "aws-lambda-test-utils": "^1.0.2",
-    "aws-sdk": "^2.2.29",
     "babel-cli": "^6.4.5",
     "babel-istanbul": "^0.6.0",
     "babel-plugin-transform-runtime": "^6.4.3",
@@ -43,12 +44,11 @@
     "gulp-zip": "^3.0.2",
     "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
-    "nodemon": "^1.8.1",
     "run-sequence": "^1.1.5",
     "semistandard": "^7.0.5"
   },
   "dependencies": {
-    "starwars": "^1.0.0"
+    "aws-sdk": "^2.2.29"
   },
   "semistandard": {
     "globals": [
