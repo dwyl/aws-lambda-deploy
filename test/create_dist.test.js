@@ -3,7 +3,7 @@ var assert = require('assert');
 var create_dist = require('../lib/create_dist');
 var fs = require('fs');
 
-describe('Create /dist directory to store our Lambda function & modules', function() {
+describe('Create /dist directory to store all the files we are going to zip', function() {
 
   it('delete existing /dist directory (if there is one)', function(done) {
     var dist_path = process.env.TMPDIR + 'dist';
@@ -27,7 +27,7 @@ describe('Create /dist directory to store our Lambda function & modules', functi
     done();
   });
 
-  it('attempt to re-create /dist directory again (catch test)', function(done) {
+  it('attempt to re-create /dist directory again (try/catch branch test)', function(done) {
     var dist_path = process.env.TMPDIR + 'dist';
     // console.log('>> dist_path:',dist_path);
     var err = create_dist(dist_path); // expect to return error
@@ -36,7 +36,7 @@ describe('Create /dist directory to store our Lambda function & modules', functi
     done();
   });
 
-  it('create a directory *inside* the /dist dir', function(done) {
+  it('create a directory *inside* the /dist dir (so we can test deletion)', function(done) {
     var dir_path = process.env.TMPDIR + 'dist/node_modules'; // fake node_modules
     // console.log('node_modules path:',dir_path);
     var res = create_dist(dir_path); // sync
@@ -44,7 +44,7 @@ describe('Create /dist directory to store our Lambda function & modules', functi
     done();
   });
 
-  it('create a file *inside* /dist and dist/node_modules dir to test deletion', function(done) {
+  it('create files *inside* /dist and dist/node_modules dirs to test deletion', function(done) {
     var dist_path = process.env.TMPDIR + 'dist'; // temporary /dist directory
     var dir_path  = dist_path + '/node_modules'; // fake node_modules
     var file1 = dist_path+'/hello.txt'
@@ -62,7 +62,7 @@ describe('Create /dist directory to store our Lambda function & modules', functi
     done();
   });
 
-  it('delete existing /dist directory (if there is one)', function(done) {
+  it('delete existing /dist directory and all its contents', function(done) {
     var dist_path = process.env.TMPDIR + 'dist';
     var exists = false;
     try {
@@ -71,7 +71,6 @@ describe('Create /dist directory to store our Lambda function & modules', functi
     } catch(e) {
       // console.log(e);
     }
-    // console.log('exist?', exists);
     assert.equal(exists, false);
     done();
   });
