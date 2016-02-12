@@ -38,6 +38,18 @@ the function.
 
 
 
+### Steps
+
+#### 1. Create the `/dist` (*distribution*) Directory (*if it does not exist*)
+
+Instead of uploading *all* the files in a project to S3/Lambda we upload only
+the *required* files. These are placed inside the `/dist` directory
+which will be *zipped* in step 5.
+
+
+#### 7. Get Name of Lambda from `package.json`
+
+
 
 
 

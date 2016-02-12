@@ -31,7 +31,7 @@ gulp.task('js', function () {
      }))
      .pipe(gulp.dest('dist/'));
 });
-
+https://codeship.com/projects/132026/builds/12128707
 /**
  * This task will copy all the required dependencies to
  * the dist folder.
