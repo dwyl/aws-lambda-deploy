@@ -47,6 +47,9 @@ the *required* files. e.g: `/src` or `/lib` and `./index.js`.
 While we are preparing this package, these required files are *copied* to
 the (*temporary*) `/dist` directory which will be *zipped* in step 5.
 
+> Why a *temporary* directory?
+see: http://stackoverflow.com/questions/17946360/what-are-the-benefits-of-using-the-official-temp-directory-for-the-os
+
 #### 2. Copy required files into `/dist` directory
 
 

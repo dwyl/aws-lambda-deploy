@@ -23,6 +23,4 @@ describe('Copy selected files from project to /dist', function() {
     done();
   });
 
-
-
 });
