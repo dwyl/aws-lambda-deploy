@@ -86,11 +86,55 @@ describe('utils.delete_dir_contents', function() {
     done();
   });
 
+  it('delete contents of directory but NOT the directory itself', function(done) {
+    var dist_path = process.env.TMPDIR + 'dist'; // temporary /dist directory
+    var dir_path  = dist_path + '/another_dir'; // another_dir to delete shortly
+    mkdir_sync(dir_path);
+    var file1 = dist_path+'/picaboo.go'
+    var file2 = dir_path+'/anotherfile.doc'
+    fs.writeFileSync(file1, 'hello world');
+    fs.writeFileSync(file2, 'hello world');
+    var stat = false;
+    try {
+      stat = fs.statSync(file1);
+      // console.log(exists);
+    } catch(e) {
+      console.log(e);
+    }
+    assert.equal(stat.size, 11, 'file created: '+ file1);
+    // now delete the CONTENTS of dir_path but not the dir itself:
+    var exists = false;
+    try {
+      utils.delete_dir_contents(dir_path); // no second argument!
+      exists = fs.statSync(dir_path);
+    } catch(e) {
+      // console.log(e);
+    }
+    assert(exists.size > 0);
+    var files = fs.readdirSync(dir_path);
+    assert.equal(files.length, 0);
+    done();
+  });
+
+
   it('delete existing /dist directory and all its contents', function(done) {
     var dist_path = process.env.TMPDIR + 'dist';
     var exists = false;
     try {
-      mkdir_sync.delete_dir_contents(dist_path, true); // sync
+      utils.delete_dir_contents(dist_path, true); // sync
+      exists = fs.statSync(dist_path);
+    } catch(e) {
+      // console.log(e);
+    }
+    assert.equal(exists, false);
+    done();
+  });
+
+  it('attempt to delete non-existent directory (catch test)', function(done) {
+    var dist_path = process.env.TMPDIR + 'fakedir';
+    var exists = false;
+    try {
+      utils.delete_dir_contents(dist_path, true); // sync
       exists = fs.statSync(dist_path);
     } catch(e) {
       // console.log(e);
