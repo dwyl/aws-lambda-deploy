@@ -5,7 +5,7 @@ var path = require('path');
 var utils = require('../lib/utils');
 var mkdir_sync = require('../lib/mkdir_sync');
 
-describe('utils.get_base_path returns the root for your project', function() {
+describe('utils.get_base_path', function() {
 
   it('get_base_path for the project with nested start', function(done) {
     var dir = path.resolve(__dirname + '/../node_modules/aws_sdk/node_modules/sax');
@@ -27,7 +27,7 @@ describe('utils.get_base_path returns the root for your project', function() {
 });
 
 
-describe('utils.delete_dir_contents recursively delete directory contents', function() {
+describe('utils.delete_dir_contents', function() {
 
   it('delete existing /dist directory (if there is one)', function(done) {
     var dist_path = process.env.TMPDIR + 'dist';
@@ -47,7 +47,6 @@ describe('utils.delete_dir_contents recursively delete directory contents', func
     var dist_path = process.env.TMPDIR + 'dist';
     // console.log('>> dist_path:',dist_path);
     var res = mkdir_sync(dist_path); // sync
-    
     assert.equal(dist_path, res, 'dist_path: '+dist_path);
     done();
   });
