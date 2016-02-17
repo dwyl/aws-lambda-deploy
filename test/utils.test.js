@@ -99,6 +99,7 @@ describe('utils.delete_dir_contents', function() {
       stat = fs.statSync(file1);
       // console.log(exists);
     } catch(e) {
+
       console.log(e);
     }
     assert.equal(stat.size, 11, 'file created: '+ file1);
