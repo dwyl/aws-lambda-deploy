@@ -16,17 +16,17 @@ describe('zip', function() {
     install_node_modules(dist_path);
 
     var pkg_path = dist_path + 'package.json';
-    console.log(pkg_path);
+    // console.log(pkg_path);
     var pkg = require(pkg_path);
-    console.log('>>>> pkg.name:', pkg.name);
+    // console.log('>>>> pkg.name:', pkg.name);
 
     var base_path = utils.get_base_path(); // get project root
-    var zip_file_name = dist_path +'/'+ pkg.name + '.zip';
+    var zip_file_name = dist_path + pkg.name + '.zip';
 
-    console.log(zip_file_name);
+    // console.log(zip_file_name);
     zip(zip_file_name, dist_path);
     var stat = fs.statSync(zip_file_name);
-    console.log(stat);
+    // console.log(stat);
 
     assert(stat.size > 1000000); // the zip is bigger than a megabyte!
     done();
