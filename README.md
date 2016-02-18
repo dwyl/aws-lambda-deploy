@@ -38,7 +38,8 @@ the function.
 
 
 
-### Steps
+
+### The `dpl` ()
 
 #### 1. Create the `/dist` (*distribution*) directory (*if it does not exist*)
 

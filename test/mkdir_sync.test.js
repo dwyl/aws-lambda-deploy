@@ -7,7 +7,7 @@ var fs = require('fs');
 describe('mkdir_sync', function() {
 
   it('delete existing /dist directory (if there is one - so we can test creation...)', function(done) {
-    var dist_path = process.env.TMPDIR + 'dist';
+    var dist_path = process.env.TMPDIR + 'my_dir';
     var exists = false;
     try {
       utils.delete_dir_contents(dist_path, true); // sync
@@ -21,7 +21,7 @@ describe('mkdir_sync', function() {
   });
 
   it('create *NEW* /dist directory', function(done) {
-    var dist_path = process.env.TMPDIR + 'dist';
+    var dist_path = process.env.TMPDIR + 'my_dir';
     // console.log('>> dist_path:',dist_path);
     var res = create_dist(dist_path); // sync
     assert.equal(dist_path, res, 'dist_path: '+dist_path);

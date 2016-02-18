@@ -30,7 +30,7 @@ describe('utils.get_base_path', function() {
 describe('utils.delete_dir_contents', function() {
 
   it('delete existing /dist directory (if there is one)', function(done) {
-    var dist_path = process.env.TMPDIR + 'dist';
+    var dist_path = process.env.TMPDIR + 'my_dir';
     var exists = false;
     try {
       utils.delete_dir_contents(dist_path, true); // completely remove /dist
@@ -44,7 +44,7 @@ describe('utils.delete_dir_contents', function() {
   });
 
   it('create *NEW* /dist directory', function(done) {
-    var dist_path = process.env.TMPDIR + 'dist';
+    var dist_path = process.env.TMPDIR + 'my_dir';
     // console.log('>> dist_path:',dist_path);
     var res = mkdir_sync(dist_path); // sync
     assert.equal(dist_path, res, 'dist_path: '+dist_path);
@@ -52,7 +52,7 @@ describe('utils.delete_dir_contents', function() {
   });
 
   it('attempt to re-create /dist directory again (try/catch branch test)', function(done) {
-    var dist_path = process.env.TMPDIR + 'dist';
+    var dist_path = process.env.TMPDIR + 'my_dir';
     // console.log('>> dist_path:',dist_path);
     var err = mkdir_sync(dist_path); // expect to return error
     // console.log(err);
@@ -61,7 +61,7 @@ describe('utils.delete_dir_contents', function() {
   });
 
   it('create a directory *inside* the /dist dir (so we can test deletion)', function(done) {
-    var dir_path = process.env.TMPDIR + 'dist/node_modules'; // fake node_modules
+    var dir_path = process.env.TMPDIR + 'my_dir/node_modules'; // fake node_modules
     // console.log('node_modules path:',dir_path);
     var res = mkdir_sync(dir_path); // sync
     assert.equal(dir_path, res, 'node_modules folder created')
@@ -69,7 +69,7 @@ describe('utils.delete_dir_contents', function() {
   });
 
   it('create files *inside* /dist and dist/node_modules dirs to test deletion', function(done) {
-    var dist_path = process.env.TMPDIR + 'dist'; // temporary /dist directory
+    var dist_path = process.env.TMPDIR + 'my_dir'; // temporary /dist directory
     var dir_path  = dist_path + '/node_modules'; // fake node_modules
     var file1 = dist_path+'/hello.txt'
     var file2 = dir_path+'/another.txt'
@@ -87,7 +87,7 @@ describe('utils.delete_dir_contents', function() {
   });
 
   it('delete contents of directory but NOT the directory itself', function(done) {
-    var dist_path = process.env.TMPDIR + 'dist'; // temporary /dist directory
+    var dist_path = process.env.TMPDIR + 'my_dir'; // temporary /dist directory
     var dir_path  = dist_path + '/another_dir'; // another_dir to delete shortly
     mkdir_sync(dir_path);
     var file1 = dist_path+'/picaboo.go'
@@ -119,7 +119,7 @@ describe('utils.delete_dir_contents', function() {
 
 
   it('delete existing /dist directory and all its contents', function(done) {
-    var dist_path = process.env.TMPDIR + 'dist';
+    var dist_path = process.env.TMPDIR + 'my_dir';
     var exists = false;
     try {
       utils.delete_dir_contents(dist_path, true); // sync
