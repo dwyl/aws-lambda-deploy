@@ -11,8 +11,8 @@ describe('copy_files', function() {
     var files_to_pack = ['package.json'];
     copy_files(files_to_pack, dist_path);
     var file_path = dist_path + files_to_pack[0];
-    console.log(' - - - - - - - - - - - - - - - - - - - - - - - - ')
-    console.log(file_path);
+    // console.log(' - - - - - - - - - - - - - - - - - - - - - - - - ')
+    // console.log(file_path);
     var exists = fs.statSync(file_path);
     assert(exists);
     done();
@@ -23,8 +23,8 @@ describe('copy_files', function() {
     copy_files(files_to_pack); // deliberately not passing destination as second arg.
     var dist_path = process.env.TMPDIR + 'dist/';
     var file_path = dist_path + files_to_pack[0];
-    console.log(' - - - - - - - - - - - - - - - - - - - - - - - - ')
-    console.log(file_path);
+    // console.log(' - - - - - - - - - - - - - - - - - - - - - - - - ')
+    // console.log(file_path);
     var exists = fs.statSync(file_path);
     assert(exists);
     done();
@@ -35,8 +35,8 @@ describe('copy_files', function() {
     var files_to_pack = ['lib/'];
     copy_files(files_to_pack, dist_path);
     var file_path = dist_path + 'lib/utils.js';
-    console.log(' - - - - - - - - - - - - - - - - - - - - - - - - ')
-    console.log(file_path);
+    // console.log(' - - - - - - - - - - - - - - - - - - - - - - - - ')
+    // console.log(file_path);
     var exists = fs.statSync(file_path);
     assert(exists);
     done();
@@ -62,8 +62,8 @@ describe('copy_files', function() {
     var files_to_pack = ['package.json', 'index.js', 'lib/'];
     copy_files(files_to_pack, dist_path);
     var file_path = dist_path + 'lib/utils.js';
-    console.log(' - - - - - - - - - - - - - - - - - - - - - - - - ')
-    console.log(file_path);
+    // console.log(' - - - - - - - - - - - - - - - - - - - - - - - - ')
+    // console.log(file_path);
     var exists = fs.statSync(file_path);
     assert(exists);
     done();
