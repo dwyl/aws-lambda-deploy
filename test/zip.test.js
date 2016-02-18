@@ -11,7 +11,7 @@ describe('zip', function() {
 
   it(' all files in the /dist directory', function(done) {
     var dist_path = process.env.TMPDIR + 'dist/';
-    var files_to_pack = ['package.json'];
+    var files_to_pack = ['package.json', 'lib/', 'index.js'];
     copy_files(files_to_pack, dist_path);
     install_node_modules(dist_path);
 
@@ -32,16 +32,21 @@ describe('zip', function() {
     done();
   });
 
-  it(' when dist_path does not end in a forwardslash...', function(done){
-    var dist_path = process.env.TMPDIR + 'dist';
+
+  it(' unzip the package and confirm the package.json is intact', function(done) {
+    var dist_path = process.env.TMPDIR + 'dist/';
+    var unzipped = path.resolve(__dirname + '/../') + '/unzipped';
+    console.log('unzipped:', unzipped); 
     var pkg = require(dist_path + '/package.json');
-    var zip_file_name = dist_path +'/'+ pkg.name + '.zip';
-    zip(zip_file_name, dist_path);
-    var stat = fs.statSync(zip_file_name);
+    var zip_file_name = dist_path + pkg.name + '.zip';
+    zip.unzip(zip_file_name, unzipped);
+    // var stat = fs.statSync(unzipped + '/package.json');
     // console.log(stat);
-    assert(stat.size > 1000000); // same zip file.
+    // assert(stat.size > 100); // same zip file.
+    var unzipped_pkg = require(unzipped + '/package.json')
+    assert.deepEqual(pkg, unzipped_pkg);
     utils.delete_dir_contents(dist_path, true);  // cleanup for next test
+    utils.delete_dir_contents(unzipped, true);   // delete unzipped completely
     done();
   });
-
 });
