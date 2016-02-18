@@ -2,7 +2,8 @@ console.log(process.env);
 
 
 if(typeof process.env.TMPDIR === 'undefined') {
-  process.env.TMPDIR = __dirname + 'dist/'
+  var path = require('path');
+  process.env.TMPDIR = path.resolve(__dirname + '/../') + '/';
 }
 
 console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - - ');
