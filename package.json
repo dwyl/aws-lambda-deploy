@@ -4,7 +4,7 @@
   "description": "deploy your lambda function to AWS the quick & easy way.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 20000",
+    "test": "mocha --timeout 30000",
     "coverage":"node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcov -- -R spec --timeout 30000",
     "s3-deploy": "gulp deploy",
     "cov1":"node_modules/.bin/istanbul cover node_modules/.bin/_mocha test/copy_files.test.js --report lcov -- -R spec",
