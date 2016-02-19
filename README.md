@@ -39,7 +39,7 @@ the function.
 
 Example:
 ```sh
-export IAM_ROLE=arn:aws:iam::123456789:role/LambdaExecRole
+export AWS_IAM_ROLE=arn:aws:iam::123456789:role/LambdaExecRole
 ```
 
 #### `AWS_REGION` (*where your lambda function will be deployed*)
