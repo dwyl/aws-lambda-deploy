@@ -11,11 +11,73 @@ but gets old pretty quickly. When you feel the pain, we have the cure.
 
 ## What?
 
-Simplify the process of deploying a new (*version of your*)
-AWS Lambda Function and check it is working.
+Simplify the process of deploying a AWS Lambda Function.
 
 
 ## How?
+
+There are ***5 Steps*** to setup deployment your Lambda Function (*takes 1 minute*):
+
+### 1. install the `dpl` package from NPM
+
+```sh
+npm install dpl --save-dev
+```
+
+### 2. Ensure that the *required* AWS Environment Variables are set:
+
+You need to have `AWS_REGION` and `AWS_IAM_ROLE` set:
+
+Example:
+```sh
+export AWS_REGION=eu-west-1
+export AWS_IAM_ROLE=arn:aws:iam::123456789:role/LambdaExecRole
+```
+<small>*these need to be your real values*</small>
+
+> **Note**: You *also* need to have your AWS Credentials set 
+to use the `aws-sdk` if you have not yet done this, 
+see below for instructions.
+
+
+### 2. Add the *list* of `files_to_pack` entry to your `package.json`
+
+In your `package.json` file, add the list of files & directories
+you want to be included in your distribution.
+
+Example:
+```js
+"files_to_pack": [ "package.json", "index.js", "lib/" ]
+```
+
+### 3. Add the deployment script to the `scripts` section in your `package.json`
+
+Example:
+```
+"scripts": {
+	"deploy": "node ./node_modules/dpl/"
+}
+```
+
+
+### 5. Use the script to *Deploy*!
+
+```sh
+npm run deploy
+```
+
+### *Congratulations* your Lambda Function is Deployed!  
+
+### *Troubleshooting*
+
+> If you see an *error* message in your console, 
+> read the message and resolve it by correcting your setup.
+> you have either not set your AWS Credentials or not defined
+> the required environment variables.
+> If you get stuck or have questions, *ping* us!
+
+
+## *Implementation Detail*
 
 ### *Required* Environment Variables
 
@@ -25,16 +87,16 @@ to be set.
 #### AWS Credentials
 
 As with all node.js code which uses the `aws-sdk`,
-it expects to have your AWS credentials stored on locally.
+it expects to have your AWS credentials stored on *locally*.
 Your credentials are *expected* to be at: `~/.aws/credentials`
 (*e.g: if your username is* ***alex***, *your AWS credentials will
   be stored at* `/Users/alex/.aws/credentials`)
 If you have not yet set your AWS credentials on your machine
-do this now.
+do this *now*.
 
-#### AWS `IAM_ROLE`
+#### `AWS_IAM_ROLE`
 
-The script needs to know which `IAM_ROLE` you want to use to deploy/run
+The script needs to know which `AWS_IAM_ROLE` you want to use to deploy/run
 the function.
 
 Example:
