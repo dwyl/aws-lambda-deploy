@@ -3,6 +3,13 @@
 
 Deploy your Amazon Web Services Lambda function(s) with a single command.
 
+[ ![Codeship Status for numo-labs/aws-lambda-deploy](https://codeship.com/projects/cb362fc0-b8a0-0133-b733-0e8881fc1b37/status?branch=master)](https://codeship.com/projects/135243)
+[![codecov.io](https://codecov.io/github/numo-labs/aws-lambda-deploy/coverage.svg?branch=master)](https://codecov.io/github/numo-labs/aws-lambda-deploy?branch=master)
+[![Dependency Status](https://david-dm.org/numo-labs/aws-lambda-deploy.svg)](https://david-dm.org/numo-labs/aws-lambda-deploy)
+[![devDependency Status](https://david-dm.org/numo-labs/aws-lambda-deploy/dev-status.svg)](https://david-dm.org/numo-labs/aws-lambda-deploy#info=devDependencies)
+[![npm install dpl](https://nodei.co/npm/dpl.png?downloads=true)](https://www.npmjs.com/package/dpl)
+[![NPM](https://nodei.co/npm-dl/aws-sdk-mock.png?months=3)](https://nodei.co/npm/aws-sdk-mock/)
+
 ## Why?
 
 Deploying your lambda functions *manually* involves quite a few steps.
@@ -17,7 +24,7 @@ Simplify the process of deploying a AWS Lambda Function.
 
 ## How?
 
-There are ***5 Steps*** to setup deployment your Lambda Function (*takes 1 minute*):
+There are ***5 Steps*** to setup deployment for your Lambda Function:
 
 ### 1. install the `dpl` package from NPM
 
@@ -41,14 +48,14 @@ to use the `aws-sdk` if you have not yet done this,
 see below for instructions.
 
 
-### 2. Add the *list* of `files_to_pack` entry to your `package.json`
+### 2. Add the *list* of `files_to_deploy` entry to your `package.json`
 
 In your `package.json` file, add the list of files & directories
 you want to be included in your distribution.
 
 Example:
 ```js
-"files_to_pack": [ "package.json", "index.js", "lib/" ]
+"files_to_deploy": [ "package.json", "index.js", "lib/" ]
 ```
 
 ### 3. Add the deployment script to the `scripts` section in your `package.json`
@@ -125,14 +132,14 @@ in your OS's Temporary storage.
 For the deploy scrip to do its job,
 we need to add two lines to our `package.json`
 
-### List of `files_to_pack`  
+### List of `files_to_deploy`  
 
 In your `package.json` file, add the list of files & directories
 you want to be included in your distribution.
 
 Example:
 ```js
-"files_to_pack": [ "package.json", "index.js", "lib/" ]
+"files_to_deploy": [ "package.json", "index.js", "lib/" ]
 ```
 
 This tells `dpl` to copy these files and directory (with all contents)

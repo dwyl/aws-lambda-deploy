@@ -6,7 +6,7 @@ var copy_files = require('../lib/copy_files');
 var utils = require('../lib/utils');
 var base_path = utils.get_base_path();
 var pkg = require(base_path + 'package.json');
-var files_to_pack = pkg.files_to_pack;
+var files_to_deploy = pkg.files_to_deploy;
 
 
 describe('copy_files', function() {
@@ -14,7 +14,7 @@ describe('copy_files', function() {
   it('copies the package.json file to the /dist directory', function(done) {
      var dist_path = process.env.TMPDIR + 'dist/';
     copy_files();
-    var exists = fs.statSync(dist_path + files_to_pack[0]);
+    var exists = fs.statSync(dist_path + files_to_deploy[0]);
     assert(exists);
     done();
   });
