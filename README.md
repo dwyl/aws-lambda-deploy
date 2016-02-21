@@ -1,4 +1,5 @@
-# aws-lambda-deploy
+![dpl-logo](https://cloud.githubusercontent.com/assets/194400/13200090/e0a7831c-d831-11e5-809e-4a802b267045.png)
+
 
 Deploy your Amazon Web Services Lambda function(s) with a single command.
 
@@ -35,8 +36,8 @@ export AWS_IAM_ROLE=arn:aws:iam::123456789:role/LambdaExecRole
 ```
 <small>*these need to be your real values*</small>
 
-> **Note**: You *also* need to have your AWS Credentials set 
-to use the `aws-sdk` if you have not yet done this, 
+> **Note**: You *also* need to have your AWS Credentials set
+to use the `aws-sdk` if you have not yet done this,
 see below for instructions.
 
 
@@ -70,7 +71,7 @@ npm run deploy
 
 ### *Troubleshooting*
 
-> If you see an *error* message in your console, 
+> If you see an *error* message in your console,
 > read the message and resolve it by correcting your setup.
 > you have either not set your AWS Credentials or not defined
 > the required environment variables.

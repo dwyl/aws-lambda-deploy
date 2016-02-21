@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha --timeout 30000",
     "coverage":"node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcov -- -R spec --timeout 30000",
-    "s3-deploy": "gulp deploy",
+    "deply": "gulp deploy",
     "cov1":"node_modules/.bin/istanbul cover node_modules/.bin/_mocha test/copy_files.test.js --report lcov -- -R spec",
     "test1":"node_modules/.bin/mocha test/copy_files.test.js"
   },
