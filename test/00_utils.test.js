@@ -146,19 +146,30 @@ describe('utils.delete_dir_contents', function() {
 
 });
 
-
+var git = require('git-rev'); // ONLY used in testing
 describe('utils.get_git_hash', function() {
-  var git = require('git-rev');
 
   it('retrieve the latest git hash', function(done) {
-    var dir = path.resolve(__dirname + '/../node_modules/aws_sdk/node_modules/sax');
-    var parent = path.resolve(__dirname + '/../') + '/';
-    var git_hash = utils.get_git_hash(); // synchronous
+    var git_hash = utils.git_commit_hash(); // synchronous
     console.log('git_hash:',git_hash);
-    git.long(function (str) {
-      assert.equal(git_hash, str);
+    git.long(function (hash) {
+      assert.equal(git_hash, hash);
       done();
     })
   });
+});
 
+describe('utils.github_commit_url', function() {
+
+  it.only('retrieve the latest git hash', function(done) {
+    var github_url = utils.github_commit_url(); // synchronous
+    console.log('github_url:', github_url);
+    git.long(function (hash) {
+      var pkg = require(utils.get_base_path() + 'package.json');
+      var url = pkg.repository.url.replace('git+', '').replace('.git', '');
+      var gurl = url + '/commit/' + hash;
+      assert.equal(github_url, gurl);
+      done();
+    })
+  });
 });
