@@ -161,7 +161,7 @@ describe('utils.get_git_hash', function() {
 
 describe('utils.github_commit_url', function() {
 
-  it.only('retrieve the latest git hash', function(done) {
+  it('retrieve the latest git hash', function(done) {
     var github_url = utils.github_commit_url(); // synchronous
     console.log('github_url:', github_url);
     git.long(function (hash) {
@@ -169,6 +169,21 @@ describe('utils.github_commit_url', function() {
       var url = pkg.repository.url.replace('git+', '').replace('.git', '');
       var gurl = url + '/commit/' + hash;
       assert.equal(github_url, gurl);
+      done();
+    })
+  });
+});
+
+describe('utils.description', function() {
+
+  it('retrieve the description for the lambda', function(done) {
+    var pkg = require(utils.get_base_path() + 'package.json');
+    var url = utils.github_commit_url(); // synchronous
+    var description = utils.description();
+    console.log('description:', description);
+    git.long(function (hash) {
+      var expected = pkg.description + ' | ' + hash + ' | ' + url;
+      assert.equal(description, expected);
       done();
     })
   });
