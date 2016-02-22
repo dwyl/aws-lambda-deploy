@@ -16,7 +16,8 @@ describe('upload', function () {
     install_node_modules();
     zip();
     upload(function (err, data) {
-      console.log(err);
+      // console.log(err);
+      assert(!err);
       console.log('Lambda Function CREATED:');
       console.log(data);
       FUNCTION_NAME = data.FunctionName;
@@ -28,7 +29,8 @@ describe('upload', function () {
   it('Call upload again to exercise the "updateFunctionCode" branch', function (done) {
     upload(function (err, data) {
       console.log('Lambda Function UPDATED:');
-      console.log(err);
+      // console.log(err);
+      assert(!err);
       console.log(data);
       assert(data.CodeSize > 100000);
       done();

@@ -20,7 +20,8 @@ but gets old pretty quickly. When you feel the pain, we have the cure.
 
 ## What?
 
-Simplify the process of deploying a AWS Lambda Function.
+Simplify the process of deploying a AWS Lambda Function
+*without having to adopt a build tool/system*.
 
 
 ## How?
@@ -49,7 +50,7 @@ to use the `aws-sdk` if you have not yet done this,
 see below for instructions.
 
 
-### 2. Add the *list* of `files_to_deploy` entry to your `package.json`
+### 3. Add the *list* of `files_to_deploy` entry to your `package.json`
 
 In your `package.json` file, add the list of files & directories
 you want to be included in your distribution.
@@ -59,7 +60,7 @@ Example:
 "files_to_deploy": [ "package.json", "index.js", "lib/" ]
 ```
 
-### 3. Add the deployment script to the `scripts` section in your `package.json`
+### 4. Add the deployment script to the `scripts` section in your `package.json`
 
 Example:
 ```js
