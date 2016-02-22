@@ -8,7 +8,7 @@
     "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcov -- -R spec",
     "deploy": "gulp deploy",
     "check-coverage": "npm run coverage && node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
-    "eslint": "semistandard"
+    "eslint": "semistandard  --verbose | snazzy"
   },
   "files_to_deploy": [
     "package.json",
@@ -39,31 +39,25 @@
     "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
     "pre-commit": "^1.1.2",
-    "semistandard": "^7.0.5"
+    "semistandard": "^7.0.5",
+    "snazzy": "^3.0.0"
   },
   "dependencies": {
     "aws-sdk": "^2.2.29"
   },
   "semistandard": {
+    "rules": {
+      "no-multi-spaces": [2, { "exceptions": { "VariableDeclarator": true } }],
+      "brace-style":[2, "stroustrup", { "allowSingleLine": true }],
+      "no-trailing-spaces": 0
+    },
     "globals": [
       "describe",
       "it"
-    ],
-    "rules": {
-      "no-multi-spaces": [
-        2,
-        {
-          "exceptions": {
-            "VariableDeclarator": true
-          }
-        }
-      ],
-      "brace-style": 0,
-      "no-trailing-spaces": 0
-    }
+    ]
   },
   "pre-commit": [
-    "jslint",
+    "eslint",
     "check-coverage"
   ]
 }

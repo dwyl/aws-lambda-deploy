@@ -6,20 +6,15 @@ var utils = require('../lib/utils');
 var base_path = utils.get_base_path();
 var copy_files = require('../lib/copy_files');
 var install_node_modules = require('../lib/install_node_modules');
-var dist_path = process.env.TMPDIR + 'dist/';
 var pkg = require(base_path + 'package.json');
 // console.log('pkg.name', pkg.name);
 var zip = require('../lib/zip');
 
-describe('zip', function() {
-
-  it('zip the /dist directory', function(done) {
+describe('zip', function () {
+  it('zip the /dist directory', function (done) {
     copy_files(); // setup /dist
     install_node_modules();
     var zip_file_path = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
-    // console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ');
-    // console.log('zip_file_path:', zip_file_path);
-    // console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ');
     zip();
     var stat = fs.statSync(zip_file_path);
     // console.log(stat);
@@ -27,8 +22,7 @@ describe('zip', function() {
     done();
   });
 
-
-  it(' unzip the package and confirm the package.json is intact', function(done) {
+  it(' unzip the package and confirm the package.json is intact', function (done) {
     zip.unzip();
     var unzipped = path.normalize(process.env.TMPDIR + 'unzipped');
     // console.log('unzipped:', unzipped);

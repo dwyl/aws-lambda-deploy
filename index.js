@@ -1,4 +1,3 @@
-
 require('./test/00_env.test.js');
 require('./lib/copy_files')();
 require('./lib/install_node_modules')();

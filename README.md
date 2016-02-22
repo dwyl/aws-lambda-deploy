@@ -1,10 +1,11 @@
 ![dpl-logo](https://cloud.githubusercontent.com/assets/194400/13200090/e0a7831c-d831-11e5-809e-4a802b267045.png)
 
 
-Deploy your Amazon Web Services Lambda function(s) with a single command.
+Deploy Amazon Web Services Lambda function(s) with a single command.
 
 [ ![Codeship Status for numo-labs/aws-lambda-deploy](https://codeship.com/projects/cb362fc0-b8a0-0133-b733-0e8881fc1b37/status?branch=master)](https://codeship.com/projects/135243)
 [![codecov.io](https://codecov.io/github/numo-labs/aws-lambda-deploy/coverage.svg?branch=master)](https://codecov.io/github/numo-labs/aws-lambda-deploy?branch=master)
+[![Code Climate](https://codeclimate.com/github/numo-labs/aws-lambda-deploy/badges/gpa.svg)](https://codeclimate.com/github/numo-labs/aws-lambda-deploy)
 [![Dependency Status](https://david-dm.org/numo-labs/aws-lambda-deploy.svg)](https://david-dm.org/numo-labs/aws-lambda-deploy)
 [![devDependency Status](https://david-dm.org/numo-labs/aws-lambda-deploy/dev-status.svg)](https://david-dm.org/numo-labs/aws-lambda-deploy#info=devDependencies)
 [![npm install dpl](https://nodei.co/npm/dpl.png?downloads=true)](https://www.npmjs.com/package/dpl)
@@ -12,7 +13,7 @@ Deploy your Amazon Web Services Lambda function(s) with a single command.
 
 ## Why?
 
-Deploying your lambda functions *manually* involves quite a few steps.
+Deploying Lambda functions *manually* involves quite a few steps.
 Manually clicking buttons to upload zip files is fine the first few times
 but gets old pretty quickly. When you feel the pain, we have the cure.
 
