@@ -8,7 +8,7 @@ Deploy your Amazon Web Services Lambda function(s) with a single command.
 [![Dependency Status](https://david-dm.org/numo-labs/aws-lambda-deploy.svg)](https://david-dm.org/numo-labs/aws-lambda-deploy)
 [![devDependency Status](https://david-dm.org/numo-labs/aws-lambda-deploy/dev-status.svg)](https://david-dm.org/numo-labs/aws-lambda-deploy#info=devDependencies)
 [![npm install dpl](https://nodei.co/npm/dpl.png?downloads=true)](https://www.npmjs.com/package/dpl)
-[![NPM](https://nodei.co/npm-dl/aws-sdk-mock.png?months=3)](https://nodei.co/npm/aws-sdk-mock/)
+
 
 ## Why?
 
@@ -61,7 +61,7 @@ Example:
 ### 3. Add the deployment script to the `scripts` section in your `package.json`
 
 Example:
-```
+```js
 "scripts": {
 	"deploy": "node ./node_modules/dpl/"
 }
@@ -197,6 +197,8 @@ Lambda function has.
 #### 5. *Upload*
 
 Once the `zip` has been packaged we upload it to AWS using the `aws-sdk`.
+Your Lambda function will be named according to the `"name"` in
+the `package.json` file for your project.
 
 <br />
 
@@ -274,3 +276,9 @@ to do the heavy lifting, but they are about to remove support for node.js v.0.10
 which, if we want to be able to run the deploy script from a CI Environment
 running node v.0.10.36 (*the Lambda version of node!*)
 we need to DIY the file operations.
+
+## Suggested Reading
+
++ Using NPM as a build tool:
+http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/
+(*you don't need gulp/grunt/etc...*)

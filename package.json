@@ -1,16 +1,20 @@
 {
   "name": "dpl",
-  "version": "1.0.2",
-  "description": "deploy your lambda function to AWS the quick & easy way.",
+  "version": "1.0.3",
+  "description": "deploy your lambda function to AWS the quick and easy way.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 30000",
-    "coverage":"node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcov -- -R spec --timeout 30000",
-    "deply": "gulp deploy",
-    "cov1":"node_modules/.bin/istanbul cover node_modules/.bin/_mocha test/copy_files.test.js --report lcov -- -R spec",
-    "test1":"node_modules/.bin/mocha test/copy_files.test.js"
+    "test": "node_modules/.bin/mocha",
+    "coverage": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcov -- -R spec",
+    "deploy": "gulp deploy",
+    "check-coverage": "npm run coverage && node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
+    "eslint":"semistandard"
   },
-  "files_to_deploy": [ "package.json", "index.js", "lib/" ],
+  "files_to_deploy": [
+    "package.json",
+    "index.js",
+    "lib/"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/numo-labs/aws-lambda-deploy.git"
@@ -30,8 +34,10 @@
   "homepage": "https://github.com/numo-labs/aws-lambda-deploy#readme",
   "devDependencies": {
     "aws-lambda-test-utils": "^1.0.2",
+    "eslint": "^2.2.0",
     "istanbul": "^0.4.2",
     "mocha": "^2.4.5",
+    "pre-commit": "^1.1.2",
     "semistandard": "^7.0.5"
   },
   "dependencies": {
@@ -44,15 +50,19 @@
     ],
     "rules": {
       "no-multi-spaces": [
-        1,
+        2,
         {
           "exceptions": {
-            "VariableDeclaration": true
+            "VariableDeclarator": true
           }
         }
       ],
       "brace-style": 0,
       "no-trailing-spaces": 0
     }
-  }
+  },
+  "pre-commit": [
+    "jslint",
+    "check-coverage"
+  ]
 }
