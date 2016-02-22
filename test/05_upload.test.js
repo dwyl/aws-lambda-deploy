@@ -14,7 +14,7 @@ var lambda = new AWS.Lambda();
 
 var FUNCTION_NAME; // GLOBAL used to delete the function.
 
-describe('upload', function() {
+describe.only('upload', function() {
 
   it('upload the lambda function to S3', function(done) {
     copy_files();
