@@ -145,3 +145,20 @@ describe('utils.delete_dir_contents', function() {
   });
 
 });
+
+
+describe('utils.get_git_hash', function() {
+  var git = require('git-rev');
+
+  it('retrieve the latest git hash', function(done) {
+    var dir = path.resolve(__dirname + '/../node_modules/aws_sdk/node_modules/sax');
+    var parent = path.resolve(__dirname + '/../') + '/';
+    var git_hash = utils.get_git_hash(); // synchronous
+    console.log('git_hash:',git_hash);
+    git.long(function (str) {
+      assert.equal(git_hash, str);
+      done();
+    })
+  });
+
+});
