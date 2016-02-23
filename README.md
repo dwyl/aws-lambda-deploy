@@ -65,7 +65,7 @@ Example:
 Example:
 ```js
 "scripts": {
-	"deploy": "node ./node_modules/dpl/"
+	"deploy": "node ./node_modules/dpl/dpl.js"
 }
 ```
 
