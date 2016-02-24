@@ -25,11 +25,13 @@ describe('copy_files', function () {
   });
 
   // Regression test for: https://github.com/numo-labs/aws-lambda-deploy/issues/21
-  it('confirm nested directory is correctly copied over', function (done) {
+  it('confirm file in nested directory is correctly copied over', function (done) {
     copy_files();
     var file_path = process.env.TMPDIR + 'dist/lib/schema/index.js';
     var exists = fs.statSync(file_path);
     assert(exists);
+    var schema = require(file_path);
+    assert(schema.properties.body.required[0] === 'functionName');
     done();
   });
 
