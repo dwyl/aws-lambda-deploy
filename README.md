@@ -128,6 +128,11 @@ and avoid forcing people to add entries into their `.gitignore` file,
 we store the `/dist` directory and resulting `.zip` file
 in your OS's Temporary storage.
 
+e.g:
+```sh
+export TMPDIR=/path/to/where/you/want/dist/
+```
+
 
 ### Two things to add to your `package.json`
 

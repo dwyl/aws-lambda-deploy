@@ -16,8 +16,13 @@ describe('copy_files', function () {
     var file_path = process.env.TMPDIR + 'dist/lib/utils.js'; // nested
     var exists = fs.statSync(file_path);
     assert(exists);
+    done();
+  });
+
+  it('ES6 Babel Test for the JS Hipsters', function (done) {
+    copy_files();
     // Regression test for: https://github.com/numo-labs/aws-lambda-deploy/issues/21
-    file_path = process.env.TMPDIR + 'dist/lib/schema/index.js'; // deep-nested
+    var file_path = process.env.TMPDIR + 'dist/lib/schema/index.js'; // deep-nested
     // check that an ES6 File has been transpiled when it is copied
     var babel_str = '_interopRequireDefault(obj)';
     var file_contents = fs.readFileSync(file_path).toString();

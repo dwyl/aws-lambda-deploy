@@ -13,6 +13,7 @@ var zip = require('../lib/zip');
 describe('zip', function () {
   it('zip the /dist directory', function (done) {
     copy_files(); // setup /dist
+    require('./dont_install_babel_in_prod.js')(); // don't install 200mb of Babel!!
     install_node_modules();
     var zip_file_path = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
     zip();
@@ -27,7 +28,7 @@ describe('zip', function () {
     var unzipped = path.normalize(process.env.TMPDIR + 'unzipped');
     // console.log('unzipped:', unzipped);
     var unzipped_pkg = require(path.normalize(unzipped + '/package.json'));
-    assert.deepEqual(pkg, unzipped_pkg);
+    assert.deepEqual(pkg.devDependencies, unzipped_pkg.devDependencies);
     // utils.delete_dir_contents(dist_path, true);  // cleanup for next test?
     utils.delete_dir_contents(unzipped, true);   // delete unzipped completely
     done();
