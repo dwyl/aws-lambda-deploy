@@ -10,11 +10,14 @@
     "check-coverage": "npm run coverage && node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
     "eslint": "semistandard  --verbose | snazzy"
   },
-  "files_to_deploy": [
-    "package.json",
-    "index.js",
-    "lib/"
-  ],
+  "dpl": {
+    "source": null,
+    "files_to_deploy": [
+      "package.json",
+      "index.js",
+      "lib/"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/numo-labs/aws-lambda-deploy.git"
@@ -40,6 +43,7 @@
     "mocha": "^2.4.5",
     "pre-commit": "^1.1.2",
     "semistandard": "^7.0.5",
+    "simple-mock": "^0.6.0",
     "snazzy": "^3.0.0"
   },
   "dependencies": {
@@ -47,8 +51,21 @@
   },
   "semistandard": {
     "rules": {
-      "no-multi-spaces": [2, { "exceptions": { "VariableDeclarator": true } }],
-      "brace-style":[2, "stroustrup", { "allowSingleLine": true }],
+      "no-multi-spaces": [
+        2,
+        {
+          "exceptions": {
+            "VariableDeclarator": true
+          }
+        }
+      ],
+      "brace-style": [
+        2,
+        "stroustrup",
+        {
+          "allowSingleLine": true
+        }
+      ],
       "no-trailing-spaces": 0
     },
     "globals": [

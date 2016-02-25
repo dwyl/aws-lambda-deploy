@@ -53,12 +53,27 @@ see below for instructions.
 ### 3. Add the *list* of `files_to_deploy` entry to your `package.json`
 
 In your `package.json` file, add the list of files & directories
-you want to be included in your distribution.
+you want to be included in your distribution. These options should be included
+in *dpl* property.
 
 Example:
 ```js
-"files_to_deploy": [ "package.json", "index.js", "lib/" ]
+"dpl": {
+  "files_to_deploy": [ "package.json", "index.js", "lib/" ]
+}
 ```
+
+If you want to deploy files which are located in a specific folder - use the *source* 
+option.
+
+Example:
+```js
+"dpl": {
+  "source": "src/"
+}
+```
+
+> ***Note***: *also you can use the both options*.
 
 ### 4. Add the deployment script to the `scripts` section in your `package.json`
 
@@ -141,7 +156,9 @@ you want to be included in your distribution.
 
 Example:
 ```js
-"files_to_deploy": [ "package.json", "index.js", "lib/" ]
+"dpl": {
+  "files_to_deploy": [ "package.json", "index.js", "lib/" ]
+}
 ```
 
 This tells `dpl` to copy these files and directory (with all contents)
