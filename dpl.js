@@ -1,11 +1,15 @@
 require('./test/00_env.test.js');
 var dpl = require('./lib/index.js');
-
-dpl.copy_files();
-dpl.install_node_modules();
-dpl.zip();
-dpl.upload(function (err, data) {
-  console.log('Err:', err);
+dpl.utils.clean_up();                // delete any previous build
+dpl.copy_files();                    // copy required files & dirs
+dpl.install_node_modules();          // install only production node_modules
+dpl.zip();                           // zip the /dist directory
+dpl.upload(function (err, data) {    // upload the .zip file to AWS:
+  if (err) {
+    console.log('- - -  - - - - - - - - - - - - - - - - - - - - DEPLOY ERROR');
+    console.log(err);
+    console.log('- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -');
+  }
   console.log('Lambda Function:');
   console.log(data);
 });
