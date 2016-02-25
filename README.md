@@ -239,8 +239,9 @@ we just think this is a* ***leaner*** *way of deploying our Lambdas*.
 
 ### Advantages of using `dpl` to *deploy* your Lambdas
 
-+ **On Dependency** - Our solution to the deployment task uses only *one* dependency:
-the [`aws-sdk`](https://github.com/aws/aws-sdk-js).  
++ **Minial Dependencies** - Our solution to the deployment task uses only *one*
+core dependency: the [`aws-sdk`](https://github.com/aws/aws-sdk-js).  
+(*we include Babel for the people who want to use ES6 but this is optional*)
 
 + **Small Code** - The *entire* `dpl` ("*Deploy Lambda*") module is fewer lines
 than our original  
@@ -261,7 +262,6 @@ and run that task before deploying.
 + **No _Global_ packages** required or implied, just *one `dev` Dependency*.
 
 
-
 ### Babel ?
 
 Given that AWS Lambda only supports Node.js **v0.10.36** (*at present*)
@@ -271,10 +271,13 @@ Since most of the *cool kids* are using ES6/2015
 the *build* script includes a *transform* step to translate ES6 into ES5
 so your ES6 Code will run on Lambda.
 
+see: https://github.com/numo-labs/aws-lambda-deploy/issues/23
+
 ### Alterantives?
 
 + https://www.npmjs.com/package/deploy-aws-lambda > https://github.com/aesinv/aws-lambda-toolkit *looks un-maintained/abandoned with lots of "Todo" items and no tests.*.
-+
++ https://github.com/ThoughtWorksStudios/node-aws-lambda (The Gulp way... code duplication)
+
 
 ## Background
 
