@@ -1,6 +1,6 @@
 {
   "name": "dpl",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "deploy your lambda function to AWS the quick and easy way.",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,6 @@
   },
   "files_to_deploy": [
     "package.json",
-    "index.js",
     "lib/"
   ],
   "repository": {
@@ -43,12 +42,27 @@
     "snazzy": "^3.0.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.2.29"
+    "aws-sdk": "^2.2.29",
+    "babel-core": "^6.5.2",
+    "babel-preset-es2015": "^6.5.0"
   },
   "semistandard": {
     "rules": {
-      "no-multi-spaces": [2, { "exceptions": { "VariableDeclarator": true } }],
-      "brace-style":[2, "stroustrup", { "allowSingleLine": true }],
+      "no-multi-spaces": [
+        2,
+        {
+          "exceptions": {
+            "VariableDeclarator": true
+          }
+        }
+      ],
+      "brace-style": [
+        2,
+        "stroustrup",
+        {
+          "allowSingleLine": true
+        }
+      ],
       "no-trailing-spaces": 0
     },
     "globals": [

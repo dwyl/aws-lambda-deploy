@@ -13,6 +13,7 @@ var FUNCTION_NAME; // GLOBAL used to delete the function.
 describe('upload', function () {
   it('upload the lambda function to S3', function (done) {
     copy_files();
+    // remove babel from package.json to speed up installation of prod node_modules
     install_node_modules();
     zip();
     upload(function (err, data) {
