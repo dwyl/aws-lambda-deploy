@@ -271,7 +271,12 @@ Since most of the *cool kids* are using ES6/2015
 the *build* script includes a *transform* step to translate ES6 into ES5
 so your ES6 Code will run on Lambda.
 
+> Babel transpilation requires that the base directory of your project contains
+a `.babelrc` file.
+
+
 see: https://github.com/numo-labs/aws-lambda-deploy/issues/23
+
 
 ### Alterantives?
 

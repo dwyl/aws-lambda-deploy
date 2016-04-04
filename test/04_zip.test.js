@@ -28,9 +28,10 @@ describe('zip', function () {
     zip.unzip();
     var unzipped = path.normalize(process.env.TMPDIR + 'unzipped');
     // console.log('unzipped:', unzipped);
-    var unzipped_pkg = require(path.normalize(unzipped + '/package.json'));
-    assert.deepEqual(pkg.devDependencies, unzipped_pkg.devDependencies);
+    var unzipped_utils = require(path.normalize(unzipped + '/lib/utils'));
+    assert.equal(JSON.stringify(utils), JSON.stringify(unzipped_utils));
     utils.delete_dir_contents(unzipped, true);   // delete unzipped completely
+    utils.clean_up();
     done();
   });
 });

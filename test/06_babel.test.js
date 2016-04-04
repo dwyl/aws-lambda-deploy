@@ -30,7 +30,7 @@ describe('Test transpiling code from ES6 to ES5 using Babel', function () {
     // check that an ES6 File has been transpiled when it is copied
     var babel_str = '_interopRequireDefault(obj)';
     var file_contents = fs.readFileSync(file_path).toString();
-    console.log(file_contents);
+    // console.log(file_contents);
     assert(file_contents.indexOf(babel_str) > -1); // confirm transformed
     // require the babel-ified index.js and execute it:
     var handler = require(file_path).handler;
