@@ -16,6 +16,9 @@ describe('Test transpiling code from ES6 to ES5 using Babel', function () {
     fs.mkdirSync(babel_dir); // create temporary dir
     var es6file = fs.readFileSync(base + 'test/fixtures/index.js', 'utf8');
     fs.writeFileSync(babel_dir + 'index.js', es6file);
+    var schema = fs.readFileSync(base + 'test/fixtures/schema/index.js', 'utf8');
+    fs.mkdirSync(babel_dir + 'schema'); // create temporary nested
+    fs.writeFileSync(babel_dir + 'schema/index.js', schema);
     done();
   });
 
@@ -44,7 +47,7 @@ describe('Test transpiling code from ES6 to ES5 using Babel', function () {
   });
 
   after('remove /babel directory', function (done) {
-    // setTimeout(function () {
+    // setTimeout(function () { // in case you need to check the files...
     utils.delete_dir_contents(base + 'babel', true);
     fs.unlinkSync(base + '.babelrc'); // delete the temp .babelrc file!
     utils.delete_dir_contents(process.env.TMPDIR + 'dist', true);
