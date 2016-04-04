@@ -15,14 +15,11 @@ var FUNCTION_NAME; // GLOBAL used to delete the function.
 describe('upload', function () {
   it('upload the lambda function to S3', function (done) {
     copy_files();
-    // remove babel from package.json to speed up installation of prod node_modules
     install_node_modules();
     zip();
     upload(function (err, data) {
-      // console.log(err);
       assert(!err);
-      console.log('Lambda Function CREATED:');
-      console.log(data);
+      console.log('Lambda Function CREATED:', data);
       FUNCTION_NAME = data.FunctionName;
       assert(data.CodeSize > 100000);
       done();
@@ -31,10 +28,8 @@ describe('upload', function () {
 
   it('Call upload again to exercise the "updateFunctionCode" branch', function (done) {
     upload(function (err, data) {
-      console.log('Lambda Function UPDATED:');
-      // console.log(err);
       assert(!err);
-      console.log(data);
+      console.log('Lambda Function UPDATED:', data);
       assert(data.CodeSize > 100000);
       done();
     });
@@ -55,8 +50,7 @@ describe('clean_up', function () {
     var file_path = process.env.TMPDIR + pkg.name + '.zip';
     var exists = false;
     try {
-      exists = fs.statSync(file_path);
-      console.log(exists);
+      exists = fs.statSync(file_path); // the file should no longer exist
     } catch (e) {
     }
     assert.equal(exists, false); // .zip does not exist
