@@ -1,10 +1,10 @@
 {
   "name": "dpl",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "deploy your lambda function to AWS the quick and easy way.",
   "main": "lib/index.js",
   "scripts": {
-    "nocov": "node_modules/.bin/mocha",
+    "nocov": "node_modules/.bin/mocha test/*.test.js",
     "test": "node_modules/.bin/istanbul cover node_modules/.bin/_mocha --report lcov -- -R spec",
     "deploy": "node dpl.js",
     "check-coverage": "npm test && node_modules/.bin/istanbul check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
@@ -22,8 +22,9 @@
     "AWS",
     "Amazon",
     "Lambda",
-    "Deploy",
-    "Function"
+    "deploy",
+    "deployment",
+    "function"
   ],
   "author": "Dream Team @ Numo Labs",
   "license": "ISC",
@@ -33,6 +34,11 @@
   "homepage": "https://github.com/numo-labs/aws-lambda-deploy#readme",
   "devDependencies": {
     "aws-lambda-test-utils": "^1.0.2",
+    "babel-core": "^6.5.2",
+    "babel-plugin-transform-object-rest-spread": "^6.6.5",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "decache": "^3.0.5",
     "eslint": "^2.2.0",
     "git-rev": "^0.2.1",
     "istanbul": "^0.4.2",
@@ -42,9 +48,7 @@
     "snazzy": "^3.0.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.2.29",
-    "babel-core": "^6.5.2",
-    "babel-preset-es2015": "^6.5.0"
+    "aws-sdk": "^2.3.0"
   },
   "semistandard": {
     "rules": {
@@ -67,7 +71,9 @@
     },
     "globals": [
       "describe",
-      "it"
+      "it",
+      "before",
+      "after"
     ]
   },
   "pre-commit": [

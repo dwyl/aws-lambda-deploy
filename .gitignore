@@ -35,3 +35,4 @@ dist/
 .DS_Store
 *.zip
 unzipped/
+tmp

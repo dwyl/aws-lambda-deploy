@@ -1,5 +1,5 @@
 // your ES6 lambda function goes here!
-import utils from '../../lib/utils';
+import utils from '../lib/utils';
 
 exports.handler = (event, context) => {
   const base_path = utils.get_base_path();

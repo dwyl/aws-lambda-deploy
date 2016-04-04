@@ -19,24 +19,6 @@ describe('copy_files', function () {
     done();
   });
 
-  it('ES6 Babel Test for the JS Hipsters', function (done) {
-    copy_files();
-    // Regression test for: https://github.com/numo-labs/aws-lambda-deploy/issues/21
-    var file_path = process.env.TMPDIR + 'dist/lib/schema/index.js'; // deep-nested
-    // check that an ES6 File has been transpiled when it is copied
-    var babel_str = '_interopRequireDefault(obj)';
-    var file_contents = fs.readFileSync(file_path).toString();
-    assert(file_contents.indexOf(babel_str) > -1); // confirm transformed
-    // require the babel-ified index.js and execute it:
-    var handler = require(file_path).handler;
-    var context = {};
-    context.succeed = function (result) {
-      assert.equal(result.message, base_path);
-      done();
-    };
-    handler({}, context);
-  });
-
   it('delete /dist directory for next test', function (done) {
     var dist_path = process.env.TMPDIR + 'dist';
     var exists = false;

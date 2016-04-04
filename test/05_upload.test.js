@@ -16,7 +16,6 @@ describe('upload', function () {
   it('upload the lambda function to S3', function (done) {
     copy_files();
     // remove babel from package.json to speed up installation of prod node_modules
-    require('./dont_install_babel_in_prod.js')(); // don't install 200mb of Babel!!
     install_node_modules();
     zip();
     upload(function (err, data) {

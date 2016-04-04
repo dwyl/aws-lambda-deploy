@@ -11,10 +11,13 @@ var zip = require('../lib/zip');
 
 describe('zip', function () {
   it('zip the /dist directory', function (done) {
+    // console.log('helllo');
     copy_files(); // setup /dist
-    require('./dont_install_babel_in_prod.js')(); // don't install 200mb of Babel!!
+    // console.log('copy_files ...')
+    // require('./dont_install_babel_in_prod.js')(); // don't install 200mb of Babel!!
     install_node_modules();
     var zip_file_path = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
+    // console.log('>> zip_file_path', zip_file_path)
     zip();
     var stat = fs.statSync(zip_file_path);
     assert(stat.size > 1000000); // the zip is bigger than a megabyte!

@@ -172,7 +172,7 @@ describe('utils.description', function () {
     var description = utils.description();
     console.log('description:', description);
     git.long(function (hash) {
-      var expected = pkg.description + ' | ' + hash + ' | ' + url;
+      var expected = pkg.description + ' | ' + url;
       assert.equal(description, expected);
       done();
     });
