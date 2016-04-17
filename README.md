@@ -207,6 +207,13 @@ Once the `zip` has been packaged we upload it to AWS using the `aws-sdk`.
 Your Lambda function will be named according to the `"name"` in
 the `package.json` file for your project.
 
+> **Note**: We are using the ***latest stable version*** of **Node.js**
+when deploying packages.
+see: https://aws.amazon.com/blogs/compute/node-js-4-3-2-runtime-now-available-on-lambda/  
+If for any reason you *prefer*/*need* to use
+the "*Old*" (*legacy*) version, please let us know:
+https://github.com/numo-labs/aws-lambda-deploy/issues/33
+
 <br />
 
 ## tl;dr
