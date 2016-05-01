@@ -13,9 +13,10 @@ Deploy Amazon Web Services Lambda function(s) with a single command.
 
 ## Why?
 
-Deploying Lambda functions *manually* involves quite a few steps.
+Deploying Lambda functions *manually* involves quite a few steps.  
 Manually clicking buttons to upload zip files is fine the first few times
-but gets old pretty quickly. There is an *easier* way!
+but gets old pretty quickly.  
+There is an *easier* way!
 
 
 ## What?
