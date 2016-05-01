@@ -49,7 +49,8 @@
     "snazzy": "^4.0.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.3.7"
+    "aws-sdk": "^2.3.7",
+    "env2": "^2.0.7"
   },
   "semistandard": {
     "rules": {
