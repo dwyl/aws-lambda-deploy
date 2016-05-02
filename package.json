@@ -1,6 +1,6 @@
 {
   "name": "dpl",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "deploy your lambda function to AWS the quick and easy way.",
   "main": "lib/index.js",
   "scripts": {
@@ -12,7 +12,8 @@
   },
   "files_to_deploy": [
     "package.json",
-    "lib/"
+    "lib/",
+    ".env"
   ],
   "repository": {
     "type": "git",
@@ -26,7 +27,7 @@
     "deployment",
     "function"
   ],
-  "author": "Dream Team @ Numo Labs",
+  "author": "Pascal & Pals @ Numo Labs",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/numo-labs/aws-lambda-deploy/issues"
@@ -45,10 +46,11 @@
     "mocha": "^2.4.5",
     "pre-commit": "^1.1.2",
     "semistandard": "^7.0.5",
-    "snazzy": "^3.0.1"
+    "snazzy": "^4.0.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.3.3"
+    "aws-sdk": "^2.3.7",
+    "env2": "^2.0.7"
   },
   "semistandard": {
     "rules": {

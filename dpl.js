@@ -1,3 +1,4 @@
+require('env2')('.env');
 require('./test/00_env.test.js');
 var dpl = require('./lib/index.js');
 dpl.copy_files();                    // copy required files & dirs

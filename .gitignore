@@ -36,3 +36,4 @@ dist/
 *.zip
 unzipped/
 tmp
+.env
