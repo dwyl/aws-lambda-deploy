@@ -147,7 +147,7 @@ you want to be included in your distribution.
 
 Example:
 ```js
-"files_to_deploy": [ "package.json", "index.js", "lib/" ]
+"files_to_deploy": [ "package.json", "index.js", "lib/", ".env" ]
 ```
 
 This tells `dpl` to copy these files and directory (with all contents)
@@ -269,21 +269,52 @@ and run that task before deploying.
 
 + **No _Global_ packages** required or implied, just *one `dev` Dependency*.
 
+### *Environment Variables*?
 
-### Babel ?
+Unlike other AWS Lambda deployment methods, `dpl` lets you use environment
+variables in your Lambda Functions!
 
-Given that AWS Lambda only supports Node.js **v0.10.36** (*at present*)
-the code you *deploy* to Lambda needs to be **ES5 _Only_**.
+Simply add `.env` to your list of `"files_to_deploy"` in your `package.json`
+
+Example:
+```js
+"files_to_deploy": [ "package.json", "index.js", "lib/", ".env" ]
+```
+And an `.env` file will included in your `.zip` file that gets uploaded to AWS.
+This means you can use an Environment Variable loader
+e.g [`env2`](https://www.npmjs.com/package/env2)
+in your Lambda function:
+
+```js
+require('env2')('.env');
+
+exports.handler = (event, context) => {
+  if (event.hello === 'world') {
+    return context.fail(JSON.stringify({
+      statusCode: 500,
+      message: 'sorry'
+    }));
+  } else {
+    return context.succeed({
+      statusCode: 200,
+      message: process.env.HELLO  // or how ever you use environment variables!
+    });
+  }
+};
+
+```
+
+### *Babel* ?
+
+Given that AWS Lambda only supports Node.js **v4.3.2** (_which does not have **ALL** the ES6 features_)
+the code you *deploy* to Lambda should be *transpiled* to **ES5**.
 Since most of the *cool kids* are using ES6/2015
 (*aka* [***modern javascript***](https://twitter.com/ericdfields/status/677677470590570496) ...)
-the *build* script includes a *transform* step to translate ES6 into ES5
+the `dpl` *build* script includes a *transform* step to translate ES6 into ES5
 so your ES6 Code will run on Lambda.
 
 > Babel transpilation requires that the base directory of your project contains
-a `.babelrc` file.
-
-
-see: https://github.com/numo-labs/aws-lambda-deploy/issues/23
+a `.babelrc` file. see: https://github.com/numo-labs/aws-lambda-deploy/issues/23
 
 
 ### Alterantives?
