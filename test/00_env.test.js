@@ -1,3 +1,4 @@
+require('env2')('.env'); // load environment variables from file if available
 if (typeof process.env.TMPDIR === 'undefined') { // This is for CODSHIP!!!
   var path = require('path');
   process.env.TMPDIR = path.resolve(__dirname + '/../') + '/';
