@@ -1,4 +1,4 @@
-'use strict';
+require('env2')('.env'); // load environment variables from file if available
 var assert = require('assert');
 var fs = require('fs');
 var path = require('path');
@@ -187,7 +187,11 @@ describe('utils.make_env_file', function () {
     var dir = fs.readdirSync(base);
     console.log('DIR:', dir);
     var env_file = fs.readFileSync(base + '.env', 'utf8');
-    assert.equal(env_file.match(/AWS_IAM_ROLE/));
+    // console.log(env_file.split('\n').length);
+    // console.log(' - - - - - - - - - - - - - - - ');
+    // console.log(env_file);
+    // console.log(' - - - - - - - - - - - - - - - ');
+    assert(env_file.indexOf('AWS_REGION') > -1);
     done();
   });
 });
