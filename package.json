@@ -13,7 +13,8 @@
   "files_to_deploy": [
     "package.json",
     "lib/",
-    ".env"
+    ".env",
+    "babel/"
   ],
   "repository": {
     "type": "git",
