@@ -1,4 +1,4 @@
-/*
+
 'use strict';
 var fs = require('fs');
 var assert = require('assert');
@@ -12,14 +12,17 @@ var FUNCTION_NAME; // GLOBAL used to delete the function.
 var PKG = require(base_path + 'package.json');
 
 describe('upload > testing lambda_timeout and lambda_memory', function () {
-  it('upload the lambda function to S3', function (done) {
+  before('Setup the package.json to have the optional settings', function (done) {
     var pkg = JSON.parse(JSON.stringify(PKG));
     pkg.lambda_memory = '512'; // 512 MB
     pkg.lambda_timeout = '42'; // 42 seconds
     // delete pkg.lambda_memory;
     // delete pkg.lambda_timeout;
     fs.writeFileSync(base_path + 'package.json', JSON.stringify(pkg, null, 2));
+    done();
+  });
 
+  it('upload the lambda function to S3', function (done) {
     decache('../lib/upload');
     decache(base_path + 'package.json');
     decache('../lib/utils');
@@ -53,10 +56,8 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
       done();
     });
   });
-});
 
-describe('clean_up', function () {
-  it('DELETE the /dist folder and lambda.zip', function (done) {
+  after('clean_up > DELETE the /dist folder and lambda.zip', function (done) {
     var pkg = require(base_path + 'package.json');
     utils.clean_up();
     var file_path = process.env.TMPDIR + pkg.name + '.zip';
@@ -69,4 +70,3 @@ describe('clean_up', function () {
     done();
   });
 });
-*/
