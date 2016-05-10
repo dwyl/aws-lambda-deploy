@@ -269,6 +269,20 @@ and run that task before deploying.
 
 + **No _Global_ packages** required or implied, just *one `dev` Dependency*.
 
+### Optional configuration
+
+Want to specify the `MemorySize` or `Timeout` settings for your Lambda function?
+
++ `"lambda_memory"` - maximum memory allocation for your lambda function.
++ `"lambda_timeout"` - maximum execution time.
+
+In your `package.json` add:
+
+```js
+"lambda_memory":"512",
+"lambda_timeout": "30",
+```
+
 ### *Environment Variables*?
 
 Unlike other AWS Lambda deployment methods, `dpl` lets you use environment
