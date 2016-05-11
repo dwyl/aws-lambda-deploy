@@ -9,11 +9,11 @@ var AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
 var lambda = new AWS.Lambda();
 var FUNCTION_NAME; // GLOBAL used to delete the function.
-var PKG = require(base_path + 'package.json');
+var PKG_FROZEN = JSON.parse(JSON.stringify(require(base_path + 'package.json')));
 
 describe('upload > testing lambda_timeout and lambda_memory', function () {
   before('Setup the package.json to have the optional settings', function (done) {
-    var pkg = JSON.parse(JSON.stringify(PKG));
+    var pkg = JSON.parse(JSON.stringify(PKG_FROZEN));
     pkg.lambda_memory = '512'; // 512 MB
     pkg.lambda_timeout = '42'; // 42 seconds
     // delete pkg.lambda_memory;
@@ -52,7 +52,7 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
     lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
       assert.equal(err, null);
       // restore the package.json to original state:
-      fs.writeFileSync(base_path + 'package.json', JSON.stringify(PKG, null, 2));
+      fs.writeFileSync(base_path + 'package.json', JSON.stringify(PKG_FROZEN, null, 2));
       done();
     });
   });
