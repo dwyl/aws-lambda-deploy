@@ -22,8 +22,8 @@ describe('upload', function () {
       console.log('Lambda Function CREATED:', data);
       FUNCTION_NAME = data.FunctionName;
       assert(data.CodeSize > 100000);
-      // assert.equal(data.Timeout, 42);
-      // assert.equal(data.MemorySize, 512);
+      assert.equal(data.Timeout, 42);
+      assert.equal(data.MemorySize, 512);
       done();
     });
   });
