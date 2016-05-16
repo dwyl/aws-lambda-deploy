@@ -39,7 +39,7 @@ describe('Test transpiling code from ES6 to ES5 using Babel', function () {
     var babel_str = '_interopRequireDefault(obj)';
     var file_contents = fs.readFileSync(file_path).toString();
     // console.log(file_contents);
-    // assert(file_contents.indexOf(babel_str) > -1); // confirm transformed
+    assert(file_contents.indexOf(babel_str) > -1); // confirm transformed
     // require the babel-ified index.js and execute it:
     var handler = require(file_path).handler;
     var context = {};
@@ -52,11 +52,9 @@ describe('Test transpiling code from ES6 to ES5 using Babel', function () {
   });
 
   after('remove /babel directory', function (done) {
-    // setTimeout(function () { // in case you need to check the files...
     utils.delete_dir_contents(base + 'babel', true);
     fs.unlinkSync(base + '.babelrc'); // delete the temp .babelrc file!
     utils.delete_dir_contents(process.env.TMPDIR + 'dist', true);
     done();
-    // }, 10000);
   });
 });

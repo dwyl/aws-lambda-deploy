@@ -8,7 +8,7 @@ var zip = require('../lib/zip');
 var upload = require('../lib/upload');
 var utils = require('../lib/utils');
 
-var base_path = utils.get_base_path()
+var base_path = utils.get_base_path();
 var AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
 var lambda = new AWS.Lambda();
