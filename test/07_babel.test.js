@@ -3,6 +3,11 @@ var assert = require('assert');
 require('decache')('../lib/copy_files'); // need to re-require the file below
 var utils = require('../lib/utils');
 var base = utils.get_base_path();
+var decache = require('decache');
+decache('../lib/upload');
+decache(base + 'package.json');
+decache('../lib/utils');
+decache('../lib/copy_files');
 
 var babelrc = {
   presets: ['es2015', 'react'],
@@ -47,11 +52,9 @@ describe('Test transpiling code from ES6 to ES5 using Babel', function () {
   });
 
   after('remove /babel directory', function (done) {
-    // setTimeout(function () { // in case you need to check the files...
     utils.delete_dir_contents(base + 'babel', true);
     fs.unlinkSync(base + '.babelrc'); // delete the temp .babelrc file!
     utils.delete_dir_contents(process.env.TMPDIR + 'dist', true);
     done();
-    // }, 10000);
   });
 });

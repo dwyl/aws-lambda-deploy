@@ -19,9 +19,11 @@ describe('upload', function () {
     zip();
     upload(function (err, data) {
       assert(!err);
-      console.log('Lambda Function CREATED:', data);
+      // console.log('Lambda Function CREATED:', data);
       FUNCTION_NAME = data.FunctionName;
       assert(data.CodeSize > 100000);
+      assert.equal(data.Timeout, 42);
+      assert.equal(data.MemorySize, 512);
       done();
     });
   });
@@ -29,7 +31,7 @@ describe('upload', function () {
   it('Call upload again to exercise the "updateFunctionCode" branch', function (done) {
     upload(function (err, data) {
       assert(!err);
-      console.log('Lambda Function UPDATED:', data);
+      // console.log('Lambda Function UPDATED:', data);
       assert(data.CodeSize > 100000);
       done();
     });
