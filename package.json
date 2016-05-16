@@ -15,6 +15,8 @@
     "lib/",
     ".env"
   ],
+  "lambda_memory":512,
+  "lambda_timeout":42,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/numo-labs/aws-lambda-deploy.git"
@@ -49,8 +51,8 @@
     "snazzy": "^4.0.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.3.7",
-    "env2": "^2.0.7"
+    "aws-sdk": "^2.3.11",
+    "env2": "^2.0.8"
   },
   "semistandard": {
     "rules": {
