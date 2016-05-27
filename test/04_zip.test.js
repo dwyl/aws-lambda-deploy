@@ -10,6 +10,16 @@ var pkg = require(base_path + 'package.json');
 var zip = require('../lib/zip');
 
 describe('zip', function () {
+  before(() => {
+    utils.delete_dir_contents(path.join(process.env.TMPDIR, 'unzipped'), true);   // delete unzipped completely
+    try { utils.clean_up(); } catch (e) {/* ignore */}
+  });
+
+  after(() => {
+    utils.delete_dir_contents(path.join(process.env.TMPDIR, 'unzipped'), true);   // delete unzipped completely
+    try { utils.clean_up(); } catch (e) {/* ignore */}
+  });
+
   it('zip the /dist directory', function (done) {
     copy_files(); // setup /dist
     install_node_modules();
@@ -25,8 +35,6 @@ describe('zip', function () {
     var unzipped = path.normalize(process.env.TMPDIR + 'unzipped');
     var unzipped_utils = require(path.normalize(unzipped + '/lib/utils'));
     assert.equal(JSON.stringify(utils), JSON.stringify(unzipped_utils));
-    utils.delete_dir_contents(unzipped, true);   // delete unzipped completely
-    utils.clean_up();
     done();
   });
 });
