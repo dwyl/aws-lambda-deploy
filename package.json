@@ -77,7 +77,8 @@
       "describe",
       "it",
       "before",
-      "after"
+      "after",
+      "afterEach"
     ]
   },
   "pre-commit": [
