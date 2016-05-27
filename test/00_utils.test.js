@@ -181,8 +181,9 @@ describe('utils.description', function () {
 
 describe('utils.make_env_file', function () {
   it('create an .env file based on the current environment variables', function (done) {
+    var base = utils.get_target_path();
+    mkdir_sync(base);
     utils.make_env_file();
-    var base = utils.get_base_path();
     console.log('base_path');
     var dir = fs.readdirSync(base);
     console.log('DIR:', dir);
