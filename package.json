@@ -1,6 +1,6 @@
 {
   "name": "dpl",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "deploy your lambda function to AWS the quick and easy way.",
   "main": "lib/index.js",
   "scripts": {
@@ -15,8 +15,8 @@
     "lib/",
     ".env"
   ],
-  "lambda_memory":512,
-  "lambda_timeout":42,
+  "lambda_memory": 512,
+  "lambda_timeout": 42,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/numo-labs/aws-lambda-deploy.git"
