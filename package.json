@@ -1,6 +1,6 @@
 {
   "name": "dpl",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "deploy your lambda function to AWS the quick and easy way.",
   "main": "lib/index.js",
   "scripts": {
