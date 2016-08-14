@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var start = Date.now();
 require('./test/00_env.test.js'); // check if AWS keys are set
 var dpl = require('./lib/index.js');
