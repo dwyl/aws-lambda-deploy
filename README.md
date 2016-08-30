@@ -3,11 +3,11 @@
 
 Deploy Amazon Web Services Lambda function(s) with a single command.
 
-[ ![Codeship Status for numo-labs/aws-lambda-deploy](https://codeship.com/projects/cb362fc0-b8a0-0133-b733-0e8881fc1b37/status?branch=master)](https://codeship.com/projects/135243)
-[![codecov.io](https://codecov.io/github/numo-labs/aws-lambda-deploy/coverage.svg?branch=master)](https://codecov.io/github/numo-labs/aws-lambda-deploy?branch=master)
-[![Code Climate](https://codeclimate.com/github/numo-labs/aws-lambda-deploy/badges/gpa.svg)](https://codeclimate.com/github/numo-labs/aws-lambda-deploy)
-[![Dependency Status](https://david-dm.org/numo-labs/aws-lambda-deploy.svg)](https://david-dm.org/numo-labs/aws-lambda-deploy)
-[![devDependency Status](https://david-dm.org/numo-labs/aws-lambda-deploy/dev-status.svg)](https://david-dm.org/numo-labs/aws-lambda-deploy#info=devDependencies)
+[ ![Codeship Status for dwyl/aws-lambda-deploy](https://codeship.com/projects/cb362fc0-b8a0-0133-b733-0e8881fc1b37/status?branch=master)](https://codeship.com/projects/135243)
+[![codecov.io](https://codecov.io/github/dwyl/aws-lambda-deploy/coverage.svg?branch=master)](https://codecov.io/github/dwyl/aws-lambda-deploy?branch=master)
+[![Code Climate](https://codeclimate.com/github/dwyl/aws-lambda-deploy/badges/gpa.svg)](https://codeclimate.com/github/dwyl/aws-lambda-deploy)
+[![Dependency Status](https://david-dm.org/dwyl/aws-lambda-deploy.svg)](https://david-dm.org/dwyl/aws-lambda-deploy)
+[![devDependency Status](https://david-dm.org/dwyl/aws-lambda-deploy/dev-status.svg)](https://david-dm.org/dwyl/aws-lambda-deploy#info=devDependencies)
 [![npm install dpl](https://nodei.co/npm/dpl.png?downloads=true)](https://www.npmjs.com/package/dpl)
 
 
@@ -213,7 +213,7 @@ when deploying packages.
 see: https://aws.amazon.com/blogs/compute/node-js-4-3-2-runtime-now-available-on-lambda/  
 If for any reason you *prefer*/*need* to use
 the "*Old*" (*legacy*) version, please let us know:
-https://github.com/numo-labs/aws-lambda-deploy/issues/33
+https://github.com/dwyl/aws-lambda-deploy/issues/33
 
 <br />
 
@@ -237,7 +237,7 @@ have varing degrees of quality in their documentation/testing
 and will need to be updated *soon* when Gulp v.4 is released.
 
 2. The devDependencies take up
-[***28 Megabytes on disk***](https://github.com/numo-labs/aws-lambda-deploy/issues/14)
+[***28 Megabytes on disk***](https://github.com/dwyl/aws-lambda-deploy/issues/14)
 For *one* lambda function that's insignificant,
 but if, like us, you have *many* Lambda functions (*e.g: 40*)
 you using Gulp will take up a *Gigabyte* of your hard drive.
@@ -253,13 +253,13 @@ core dependency: the [`aws-sdk`](https://github.com/aws/aws-sdk-js).
 
 + **Small Code** - The *entire* `dpl` ("*Deploy Lambda*") module is fewer lines
 than our original  
-[`gulpfile.js`](https://github.com/numo-labs/aws-lambda-canary/blob/d18ccc099ec4ab1a7a612716563ec57364c03cc4/gulpfile.js)
+[`gulpfile.js`](https://github.com/dwyl/aws-lambda-canary/blob/d18ccc099ec4ab1a7a612716563ec57364c03cc4/gulpfile.js)
 and uses *only* node.js core modules
 (*you know and love*) and your OS-native `zip` command.
 
 + A *beginner* can ***read and understand*** all the code used in `dpl`
 in a few minutes; our code has *both* JavaDoc and *in-line comments* and we are
-[*here*](https://github.com/numo-labs/aws-lambda-deploy/issues)
+[*here*](https://github.com/dwyl/aws-lambda-deploy/issues)
 to help if you have *any questions*!
 
 + **No assumptions** about your code style.
@@ -328,7 +328,7 @@ the `dpl` *build* script includes a *transform* step to translate ES6 into ES5
 so your ES6 Code will run on Lambda.
 
 > Babel transpilation requires that the base directory of your project contains
-a `.babelrc` file. see: https://github.com/numo-labs/aws-lambda-deploy/issues/23
+a `.babelrc` file. see: https://github.com/dwyl/aws-lambda-deploy/issues/23
 
 
 ### Alterantives?

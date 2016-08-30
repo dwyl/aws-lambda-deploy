@@ -2,24 +2,24 @@
 require('env2')('.env');
 var fs = require('fs');
 var assert = require('assert');
-var copy_files = require('../lib/copy_files');
+var copyfiles = require('../lib/copyfiles');
 var install_node_modules = require('../lib/install_node_modules');
 var zip = require('../lib/zip');
 var upload = require('../lib/upload');
 var utils = require('../lib/utils');
 
-var base_path = utils.get_base_path();
+var basepath = utils.getBasepath();
 var AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
 var lambda = new AWS.Lambda();
 var FUNCTION_NAME; // GLOBAL used to delete the function.
-var pkg = require(base_path + 'package.json');
+var pkg = require(basepath + 'package.json');
 
 describe('upload > testing lambda_timeout and lambda_memory', function () {
   it('exercise default values for lambda_memory & timeout', function (done) {
     delete pkg.lambda_memory;
     delete pkg.lambda_timeout;
-    copy_files();
+    copyfiles();
     install_node_modules();
     zip();
     // pass in the modified pkg (with lambda_memory & lambda_timeout set)
@@ -44,7 +44,7 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
     pkg.lambda_memory = 1536; // 1.5 GB (the most you can have!)
     pkg.lambda_timeout = 300; // 300 seconds (max execution time)
 
-    copy_files();
+    copyfiles();
     install_node_modules();
     zip();
     // pass in the modified pkg (with lambda_memory & lambda_timeout set)

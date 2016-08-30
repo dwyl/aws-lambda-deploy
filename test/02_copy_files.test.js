@@ -2,13 +2,13 @@
 const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
-const copy_files = require('../lib/copy_files');
+const copyfiles = require('../lib/copyfiles');
 const utils = require('../lib/utils');
-const base_path = utils.get_base_path();
-const pkg = require(base_path + 'package.json');
+const basepath = utils.getBasepath();
+const pkg = require(basepath + 'package.json');
 // var files_to_deploy = pkg.files_to_deploy;
 
-describe('copy_files', () => {
+describe('copyfiles', () => {
   afterEach(() => {
     try {
       utils.delete_dir_contents(utils.get_target_path(), true); // completely remove /dist
@@ -17,7 +17,7 @@ describe('copy_files', () => {
     }
   });
   it('copies all files_to_deploy to the /dist directory', (done) => {
-    copy_files();
+    copyfiles();
     var dist_pkg = require(process.env.TMPDIR + 'dist/package.json');
     assert.deepEqual(dist_pkg, pkg);
     // confirm that a nested file has been copied over:
@@ -29,7 +29,7 @@ describe('copy_files', () => {
 
   describe('if no .env file is present', () => {
     var tmpfile;
-    const env = path.join(base_path, '.env');
+    const env = path.join(basepath, '.env');
     before(() => {
       if (fs.existsSync(env)) {
         tmpfile = fs.readFileSync(env, 'utf8');
@@ -41,7 +41,7 @@ describe('copy_files', () => {
     });
 
     it('creates an empty .env', () => {
-      copy_files();
+      copyfiles();
       assert.equal(fs.readFileSync(env, 'utf8'), '');
     });
   });

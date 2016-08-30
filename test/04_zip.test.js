@@ -3,10 +3,10 @@ var assert = require('assert');
 var fs = require('fs');
 var path = require('path');
 var utils = require('../lib/utils');
-var base_path = utils.get_base_path();
-var copy_files = require('../lib/copy_files');
+var basepath = utils.getBasepath();
+var copyfiles = require('../lib/copyfiles');
 var install_node_modules = require('../lib/install_node_modules');
-var pkg = require(base_path + 'package.json');
+var pkg = require(basepath + 'package.json');
 var zip = require('../lib/zip');
 
 describe('zip', function () {
@@ -21,7 +21,7 @@ describe('zip', function () {
   });
 
   it('zip the /dist directory', function (done) {
-    copy_files(); // setup /dist
+    copyfiles(); // setup /dist
     install_node_modules();
     var zip_file_path = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
     zip();

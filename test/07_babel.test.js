@@ -1,13 +1,13 @@
 var fs = require('fs');
 var assert = require('assert');
-require('decache')('../lib/copy_files'); // need to re-require the file below
+require('decache')('../lib/copyfiles'); // need to re-require the file below
 var utils = require('../lib/utils');
-var base = utils.get_base_path();
+var base = utils.getBasepath();
 var decache = require('decache');
 decache('../lib/upload');
 decache(base + 'package.json');
 decache('../lib/utils');
-decache('../lib/copy_files');
+decache('../lib/copyfiles');
 
 var babelrc = {
   presets: ['es2015', 'react'],
@@ -31,8 +31,8 @@ describe('Test transpiling code from ES6 to ES5 using Babel', function () {
     var pkg = require(base + 'package.json');
     var files_to_deploy = pkg.files_to_deploy;
     files_to_deploy.push('babel/');
-    var copy_files = require('../lib/copy_files');
-    copy_files(files_to_deploy);
+    var copyfiles = require('../lib/copyfiles');
+    copyfiles(files_to_deploy);
     // Regression test for: https://github.com/numo-labs/aws-lambda-deploy/issues/21
     var file_path = process.env.TMPDIR + 'dist/babel/index.js'; // deep-nested
     // check that an ES6 File has been transpiled when it is copied
