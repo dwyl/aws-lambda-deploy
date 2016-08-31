@@ -1,3 +1,7 @@
+var path = require('path');
+var aguid = require('aguid');
+var fs = require('fs');
+
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 console.log(process);
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
@@ -12,16 +16,16 @@ console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 console.log('utils.getBasepath()', utils.getBasepath());
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 
-console.log('process.env.TMPDIR:', process.env.TMPDIR);
+console.log('process.env.TMPDIR:', process.env.TMPDIR, '(BEFORE)');
+console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
+process.env.TMPDIR = process.env.TMPDIR || path.resolve(process.cwd(), '../');
+console.log('process.env.TMPDIR:', process.env.TMPDIR, '(SET)');
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 
 console.log('utils.getTargetPath()', utils.getTargetPath());
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 
 var mkdirSync = require('../lib/mkdirSync');
-var path = require('path');
-var aguid = require('aguid');
-var fs = require('fs');
 
 var distpath = path.normalize(process.env.TMPDIR + '/' + aguid() + '/');
 var res = mkdirSync(distpath); // sync
