@@ -34,9 +34,10 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dwyl/aws-lambda-deploy/issues"
-  },  
+  },
   "homepage": "https://github.com/dwyl/aws-lambda-deploy#readme",
   "devDependencies": {
+    "aguid": "^1.0.4",
     "aws-lambda-test-utils": "^1.0.2",
     "babel-core": "^6.8.0",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",

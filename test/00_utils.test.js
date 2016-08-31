@@ -10,7 +10,7 @@ describe('utils.getBasepath', function () {
     var dir = path.resolve(__dirname, '/../node_modules/aws_sdk/node_modules/sax');
     var parent = path.resolve(__dirname, '/../');
     var base = utils.getBasepath(dir);
-    // console.log('base:',base);
+    console.log('utils.getBasepath:', base);
     // console.log('parent:',parent);
     assert.equal(base, parent);
     done();
