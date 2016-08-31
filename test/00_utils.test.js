@@ -28,7 +28,8 @@ describe('utils.getBasepath', function () {
 
 describe('utils.deleteDirContents', function () {
   it('delete existing /dist directory (if there is one)', function (done) {
-    var distpath = process.env.TMPDIR + 'my_dir';
+    console.log('>>>> process.env.TMPDIR', process.env.TMPDIR);
+    var distpath = path.normalize(process.env.TMPDIR + 'my_dir');
     var exists = false;
     try {
       utils.deleteDirContents(distpath, true); // completely remove /dist
@@ -42,15 +43,15 @@ describe('utils.deleteDirContents', function () {
   });
 
   it('create *NEW* /dist directory', function (done) {
-    var distpath = process.env.TMPDIR + 'my_dir';
-    // console.log('>> distpath:',distpath);
+    var distpath = path.normalize(process.env.TMPDIR + 'my_dir');
+    console.log('>> distpath:', distpath);
     var res = mkdirSync(distpath); // sync
     assert.equal(distpath, res, 'distpath: ' + distpath);
     done();
   });
 
   it('attempt to re-create /dist directory again (try/catch branch test)', function (done) {
-    var distpath = process.env.TMPDIR + 'my_dir';
+    var distpath = path.normalize(process.env.TMPDIR + 'my_dir');
     // console.log('>> distpath:',distpath);
     var err = mkdirSync(distpath); // expect to return error
     // console.log(err);
@@ -67,7 +68,7 @@ describe('utils.deleteDirContents', function () {
   });
 
   it('create files *inside* /dist and dist/node_modules dirs to test deletion', function (done) {
-    var distpath = process.env.TMPDIR + 'my_dir'; // temporary /dist directory
+    var distpath = path.normalize(process.env.TMPDIR + 'my_dir'); // temporary /dist directory
     var dirpath = distpath + '/node_modules'; // fake node_modules
     var file1 = distpath + '/hello.txt';
     var file2 = dirpath + '/another.txt';
@@ -85,7 +86,7 @@ describe('utils.deleteDirContents', function () {
   });
 
   it('delete contents of directory but NOT the directory itself', function (done) {
-    var distpath = process.env.TMPDIR + 'my_dir'; // temporary /dist directory
+    var distpath = path.normalize(process.env.TMPDIR + 'my_dir'); // temporary /dist directory
     var dirpath = distpath + '/another_dir'; // another_dir to delete shortly
     mkdirSync(dirpath);
     var file1 = distpath + '/picaboo.go';
@@ -115,7 +116,7 @@ describe('utils.deleteDirContents', function () {
   });
 
   it('delete existing /dist directory and all its contents', function (done) {
-    var distpath = process.env.TMPDIR + 'my_dir';
+    var distpath = path.normalize(process.env.TMPDIR + 'my_dir');
     var exists = false;
     try {
       utils.deleteDirContents(distpath, true); // sync
