@@ -17,31 +17,31 @@ var babelrc = {
 describe('Test transpiling code from ES6 to ES5 using Babel', function () {
   before(function (done) {
     fs.writeFileSync(base + '.babelrc', JSON.stringify(babelrc));
-    var babel_dir = base + 'babel/';
-    fs.mkdirSync(babel_dir); // create temporary dir
+    var babeldir = base + 'babel/';
+    fs.mkdirSync(babeldir); // create temporary dir
     var es6file = fs.readFileSync(base + 'test/fixtures/index.js', 'utf8');
-    fs.writeFileSync(babel_dir + 'index.js', es6file);
+    fs.writeFileSync(babeldir + 'index.js', es6file);
     var schema = fs.readFileSync(base + 'test/fixtures/schema/index.js', 'utf8');
-    fs.mkdirSync(babel_dir + 'schema'); // create temporary nested
-    fs.writeFileSync(babel_dir + 'schema/index.js', schema);
+    fs.mkdirSync(babeldir + 'schema'); // create temporary nested
+    fs.writeFileSync(babeldir + 'schema/index.js', schema);
     done();
   });
 
   it('ES6 Babel Test for the JS Hipsters', function (done) {
     var pkg = require(base + 'package.json');
-    var files_to_deploy = pkg.files_to_deploy;
-    files_to_deploy.push('babel/');
+    var filestodeploy = pkg['files_to_deploy'];
+    filestodeploy.push('babel/');
     var copyfiles = require('../lib/copyfiles');
-    copyfiles(files_to_deploy);
+    copyfiles(filestodeploy);
     // Regression test for: https://github.com/numo-labs/aws-lambda-deploy/issues/21
-    var file_path = process.env.TMPDIR + 'dist/babel/index.js'; // deep-nested
+    var filepath = process.env.TMPDIR + 'dist/babel/index.js'; // deep-nested
     // check that an ES6 File has been transpiled when it is copied
-    var babel_str = '_interopRequireDefault(obj)';
-    var file_contents = fs.readFileSync(file_path).toString();
-    // console.log(file_contents);
-    assert(file_contents.indexOf(babel_str) > -1); // confirm transformed
+    var babelstr = '_interopRequireDefault(obj)';
+    var filecontents = fs.readFileSync(filepath).toString();
+    // console.log(filecontents);
+    assert(filecontents.indexOf(babelstr) > -1); // confirm transformed
     // require the babel-ified index.js and execute it:
-    var handler = require(file_path).handler;
+    var handler = require(filepath).handler;
     var context = {};
     context.succeed = function (result) {
       // console.log(result);
@@ -52,9 +52,9 @@ describe('Test transpiling code from ES6 to ES5 using Babel', function () {
   });
 
   after('remove /babel directory', function (done) {
-    utils.delete_dir_contents(base + 'babel', true);
+    utils.deleteDirContents(base + 'babel', true);
     fs.unlinkSync(base + '.babelrc'); // delete the temp .babelrc file!
-    utils.delete_dir_contents(process.env.TMPDIR + 'dist', true);
+    utils.deleteDirContents(process.env.TMPDIR + 'dist', true);
     done();
   });
 });

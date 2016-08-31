@@ -3,7 +3,7 @@ require('env2')('.env');
 var fs = require('fs');
 var assert = require('assert');
 var copyfiles = require('../lib/copyfiles');
-var install_node_modules = require('../lib/install_node_modules');
+var installnodemodules = require('../lib/install_node_modules');
 var zip = require('../lib/zip');
 var upload = require('../lib/upload');
 var utils = require('../lib/utils');
@@ -20,7 +20,7 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
     delete pkg.lambda_memory;
     delete pkg.lambda_timeout;
     copyfiles();
-    install_node_modules();
+    installnodemodules();
     zip();
     // pass in the modified pkg (with lambda_memory & lambda_timeout set)
     upload(pkg, function (err, data) {
@@ -45,7 +45,7 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
     pkg.lambda_timeout = 300; // 300 seconds (max execution time)
 
     copyfiles();
-    install_node_modules();
+    installnodemodules();
     zip();
     // pass in the modified pkg (with lambda_memory & lambda_timeout set)
     upload(pkg, function (err, data) {
@@ -64,12 +64,12 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
     });
   });
 
-  after('clean_up > restore package.json, DELETE the /dist folder and lambda.zip', function (done) {
-    utils.clean_up();
-    var file_path = process.env.TMPDIR + pkg.name + '.zip';
+  after('cleanUp > restore package.json, DELETE the /dist folder and lambda.zip', function (done) {
+    utils.cleanUp();
+    var filepath = process.env.TMPDIR + pkg.name + '.zip';
     var exists = false;
     try {
-      exists = fs.statSync(file_path); // the file should no longer exist
+      exists = fs.statSync(filepath); // the file should no longer exist
     } catch (e) {
     }
     assert.equal(exists, false); // .zip does not exist

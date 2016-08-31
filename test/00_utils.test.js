@@ -7,29 +7,31 @@ var mkdirSync = require('../lib/mkdirSync');
 
 describe('utils.getBasepath', function () {
   it('getBasepath for the project with nested start', function (done) {
-    var dir = path.resolve(__dirname + '/../node_modules/aws_sdk/node_modules/sax');
-    var parent = path.resolve(__dirname + '/../') + '/';
+    var dir = path.resolve(__dirname, '/../node_modules/aws_sdk/node_modules/sax');
+    var parent = path.resolve(__dirname, '/../');
     var base = utils.getBasepath(dir);
     // console.log('base:',base);
+    // console.log('parent:',parent);
     assert.equal(base, parent);
     done();
   });
 
   it('getBasepath for the project without specifying start dir', function (done) {
-    var parent = path.resolve(__dirname + '/../') + '/';
+    var parent = path.join(__dirname, '../');
     var base = utils.getBasepath();
     // console.log('base:',base);
+    // console.log('parent:',parent);
     assert.equal(base, parent);
     done();
   });
 });
 
-describe('utils.delete_dir_contents', function () {
+describe('utils.deleteDirContents', function () {
   it('delete existing /dist directory (if there is one)', function (done) {
     var distpath = process.env.TMPDIR + 'my_dir';
     var exists = false;
     try {
-      utils.delete_dir_contents(distpath, true); // completely remove /dist
+      utils.deleteDirContents(distpath, true); // completely remove /dist
       exists = fs.statSync(distpath);
     } catch (e) {
       // console.log(e);
@@ -101,7 +103,7 @@ describe('utils.delete_dir_contents', function () {
     // now delete the CONTENTS of dirpath but not the dir itself:
     var exists = false;
     try {
-      utils.delete_dir_contents(dirpath); // no second argument!
+      utils.deleteDirContents(dirpath); // no second argument!
       exists = fs.statSync(dirpath);
     } catch (e) {
       // console.log(e);
@@ -116,7 +118,7 @@ describe('utils.delete_dir_contents', function () {
     var distpath = process.env.TMPDIR + 'my_dir';
     var exists = false;
     try {
-      utils.delete_dir_contents(distpath, true); // sync
+      utils.deleteDirContents(distpath, true); // sync
       exists = fs.statSync(distpath);
     } catch (e) {
       // console.log(e);
@@ -129,7 +131,7 @@ describe('utils.delete_dir_contents', function () {
     var distpath = process.env.TMPDIR + 'fakedir';
     var exists = false;
     try {
-      utils.delete_dir_contents(distpath, true); // sync
+      utils.deleteDirContents(distpath, true); // sync
       exists = fs.statSync(distpath);
     } catch (e) {
       // console.log(e);
@@ -142,24 +144,24 @@ describe('utils.delete_dir_contents', function () {
 var git = require('git-rev'); // ONLY used in testing
 describe('utils.get_git_hash', function () {
   it('retrieve the latest git hash', function (done) {
-    var git_hash = utils.git_commit_hash(); // synchronous
-    console.log('git_hash:', git_hash);
+    var githash = utils.gitcommithash(); // synchronous
+    console.log('githash:', githash);
     git.long(function (hash) {
-      assert.equal(git_hash, hash);
+      assert.equal(githash, hash);
       done();
     });
   });
 });
 
-describe('utils.github_commit_url', function () {
+describe('utils.githubcommiturl', function () {
   it('retrieve the latest git hash', function (done) {
-    var github_url = utils.github_commit_url(); // synchronous
-    console.log('github_url:', github_url);
+    var githuburl = utils.githubcommiturl(); // synchronous
+    console.log('githuburl:', githuburl);
     git.long(function (hash) {
       var pkg = require(utils.getBasepath() + 'package.json');
       var url = pkg.repository.url.replace('git+', '').replace('.git', '');
       var gurl = url + '/commit/' + hash;
-      assert.equal(github_url, gurl);
+      assert.equal(githuburl, gurl);
       done();
     });
   });
@@ -168,7 +170,7 @@ describe('utils.github_commit_url', function () {
 describe('utils.description', function () {
   it('retrieve the description for the lambda', function (done) {
     var pkg = require(utils.getBasepath() + 'package.json');
-    var url = utils.github_commit_url(); // synchronous
+    var url = utils.githubcommiturl(); // synchronous
     var description = utils.description();
     console.log('description:', description);
     git.long(function (hash) {
@@ -179,20 +181,20 @@ describe('utils.description', function () {
   });
 });
 
-describe('utils.make_env_file', function () {
+describe('utils.makeEnvFile', function () {
   it('create an .env file based on the current environment variables', function (done) {
-    var base = utils.get_target_path();
+    var base = utils.getTargetPath();
     mkdirSync(base);
-    utils.make_env_file();
+    utils.makeEnvFile();
     console.log('basepath');
     var dir = fs.readdirSync(base);
     console.log('DIR:', dir);
-    var env_file = fs.readFileSync(base + '.env', 'utf8');
+    var envfile = fs.readFileSync(base + '.env', 'utf8');
     // console.log(env_file.split('\n').length);
     // console.log(' - - - - - - - - - - - - - - - ');
     // console.log(env_file);
     // console.log(' - - - - - - - - - - - - - - - ');
-    assert(env_file.indexOf('AWS_REGION') > -1);
+    assert(envfile.indexOf('AWS_REGION') > -1);
     done();
   });
 });

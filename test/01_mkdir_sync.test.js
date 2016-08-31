@@ -1,6 +1,6 @@
 'use strict';
 var assert = require('assert');
-var create_dist = require('../lib/mkdirSync');
+var createDist = require('../lib/mkdirSync');
 var utils = require('../lib/utils');
 var fs = require('fs');
 // create /dist directory to store all the files we are going to zip
@@ -9,7 +9,7 @@ describe('mkdirSync', function () {
     var distpath = process.env.TMPDIR + 'dist/';
     var exists = false;
     try {
-      utils.delete_dir_contents(distpath, true); // sync
+      utils.deleteDirContents(distpath, true); // sync
       exists = fs.statSync(distpath);
     } catch (e) {
       // console.log(e);
@@ -22,7 +22,7 @@ describe('mkdirSync', function () {
   it('create *NEW* /dist directory', function (done) {
     var distpath = process.env.TMPDIR + 'dist/';
     // console.log('>> distpath:',distpath);
-    var res = create_dist(distpath); // sync
+    var res = createDist(distpath); // sync
     assert.equal(distpath, res, 'distpath: ' + distpath);
     done();
   });

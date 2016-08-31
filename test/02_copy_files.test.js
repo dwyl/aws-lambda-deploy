@@ -11,18 +11,18 @@ const pkg = require(basepath + 'package.json');
 describe('copyfiles', () => {
   afterEach(() => {
     try {
-      utils.delete_dir_contents(utils.get_target_path(), true); // completely remove /dist
+      utils.deleteDirContents(utils.getTargetPath(), true); // completely remove /dist
     } catch (e) {
       /* ignore */
     }
   });
   it('copies all files_to_deploy to the /dist directory', (done) => {
     copyfiles();
-    var dist_pkg = require(process.env.TMPDIR + 'dist/package.json');
-    assert.deepEqual(dist_pkg, pkg);
+    var distpkg = require(path.resolve(process.env.TMPDIR, 'dist/package.json'));
+    assert.deepEqual(distpkg, pkg);
     // confirm that a nested file has been copied over:
-    var file_path = process.env.TMPDIR + 'dist/lib/utils.js'; // nested
-    var exists = fs.statSync(file_path);
+    var filepath = process.env.TMPDIR + 'dist/lib/utils.js'; // nested
+    var exists = fs.statSync(filepath);
     assert(exists);
     done();
   });

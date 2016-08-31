@@ -1,7 +1,7 @@
 'use strict';
 var assert = require('assert');
 var copyfiles = require('../lib/copyfiles');
-var install_node_modules = require('../lib/install_node_modules');
+var installnodemodules = require('../lib/install_node_modules');
 var zip = require('../lib/zip');
 var upload = require('../lib/upload');
 var utils = require('../lib/utils');
@@ -15,7 +15,7 @@ var FUNCTION_NAME; // GLOBAL used to delete the function.
 describe('upload', function () {
   it('upload the lambda function to S3', function (done) {
     copyfiles();
-    install_node_modules();
+    installnodemodules();
     zip();
     upload(function (err, data) {
       assert(!err);
@@ -45,14 +45,14 @@ describe('upload', function () {
   });
 });
 
-describe('clean_up', function () {
+describe('cleanUp', function () {
   it('DELETE the /dist folder and lambda.zip', function (done) {
     var pkg = require(utils.getBasepath() + 'package.json');
-    utils.clean_up();
-    var file_path = process.env.TMPDIR + pkg.name + '.zip';
+    utils.cleanUp();
+    var filepath = process.env.TMPDIR + pkg.name + '.zip';
     var exists = false;
     try {
-      exists = fs.statSync(file_path); // the file should no longer exist
+      exists = fs.statSync(filepath); // the file should no longer exist
     } catch (e) {
     }
     assert.equal(exists, false); // .zip does not exist
