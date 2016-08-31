@@ -6,6 +6,7 @@ var zip = require('../lib/zip');
 var upload = require('../lib/upload');
 var utils = require('../lib/utils');
 var fs = require('fs');
+var path = require('path');
 
 var AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
@@ -49,7 +50,7 @@ describe('cleanUp', function () {
   it('DELETE the /dist folder and lambda.zip', function (done) {
     var pkg = require(utils.getBasepath() + 'package.json');
     utils.cleanUp();
-    var filepath = process.env.TMPDIR + pkg.name + '.zip';
+    var filepath = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
     var exists = false;
     try {
       exists = fs.statSync(filepath); // the file should no longer exist

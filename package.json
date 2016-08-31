@@ -34,7 +34,7 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/dwyl/aws-lambda-deploy/issues"
-  },
+  },  
   "homepage": "https://github.com/dwyl/aws-lambda-deploy#readme",
   "devDependencies": {
     "aws-lambda-test-utils": "^1.0.2",

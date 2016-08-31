@@ -21,7 +21,7 @@ describe('copyfiles', () => {
     var distpkg = require(path.resolve(process.env.TMPDIR, 'dist/package.json'));
     assert.deepEqual(distpkg, pkg);
     // confirm that a nested file has been copied over:
-    var filepath = process.env.TMPDIR + 'dist/lib/utils.js'; // nested
+    var filepath = path.normalize(process.env.TMPDIR + 'dist/lib/utils.js'); // nested
     var exists = fs.statSync(filepath);
     assert(exists);
     done();

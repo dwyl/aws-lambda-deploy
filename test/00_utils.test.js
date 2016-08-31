@@ -60,7 +60,7 @@ describe('utils.deleteDirContents', function () {
   });
 
   it('create a directory *inside* the /dist dir (so we can test deletion)', function (done) {
-    var dirpath = process.env.TMPDIR + 'my_dir/node_modules'; // fake node_modules
+    var dirpath = path.normalize(process.env.TMPDIR + 'my_dir/node_modules'); // fake node_modules
     // console.log('node_modules path:',dirpath);
     var res = mkdirSync(dirpath); // sync
     assert.equal(dirpath, res, 'node_modules folder created');
@@ -87,10 +87,10 @@ describe('utils.deleteDirContents', function () {
 
   it('delete contents of directory but NOT the directory itself', function (done) {
     var distpath = path.normalize(process.env.TMPDIR + 'my_dir'); // temporary /dist directory
-    var dirpath = distpath + '/another_dir'; // another_dir to delete shortly
+    var dirpath = path.normalize(distpath + '/another_dir'); // another_dir to delete shortly
     mkdirSync(dirpath);
-    var file1 = distpath + '/picaboo.go';
-    var file2 = dirpath + '/anotherfile.doc';
+    var file1 = path.normalize(distpath + '/picaboo.go');
+    var file2 = path.normalize(dirpath + '/anotherfile.doc');
     fs.writeFileSync(file1, 'hello world');
     fs.writeFileSync(file2, 'hello world');
     var stat = false;
@@ -185,12 +185,12 @@ describe('utils.description', function () {
 describe('utils.makeEnvFile', function () {
   it('create an .env file based on the current environment variables', function (done) {
     var base = utils.getTargetPath();
+    console.log('>> utils.makeEnvFile base:', base);
     mkdirSync(base);
     utils.makeEnvFile();
-    console.log('basepath');
-    var dir = fs.readdirSync(base);
+    var dir = fs.readdirSync(path.normalize(base));
     console.log('DIR:', dir);
-    var envfile = fs.readFileSync(base + '.env', 'utf8');
+    var envfile = fs.readFileSync(path.resolve(base + '.env'), 'utf8');
     // console.log(env_file.split('\n').length);
     // console.log(' - - - - - - - - - - - - - - - ');
     // console.log(env_file);

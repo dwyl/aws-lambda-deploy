@@ -1,6 +1,7 @@
 'use strict';
 require('env2')('.env');
 var fs = require('fs');
+var path = require('path');
 var assert = require('assert');
 var copyfiles = require('../lib/copyfiles');
 var installnodemodules = require('../lib/install_node_modules');
@@ -13,7 +14,7 @@ var AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
 var lambda = new AWS.Lambda();
 var FUNCTION_NAME; // GLOBAL used to delete the function.
-var pkg = require(basepath + 'package.json');
+var pkg = require(path.resolve(basepath, 'package.json'));
 
 describe('upload > testing lambda_timeout and lambda_memory', function () {
   it('exercise default values for lambda_memory & timeout', function (done) {
@@ -66,7 +67,7 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
 
   after('cleanUp > restore package.json, DELETE the /dist folder and lambda.zip', function (done) {
     utils.cleanUp();
-    var filepath = process.env.TMPDIR + pkg.name + '.zip';
+    var filepath = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
     var exists = false;
     try {
       exists = fs.statSync(filepath); // the file should no longer exist
