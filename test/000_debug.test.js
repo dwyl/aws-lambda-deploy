@@ -18,7 +18,7 @@ console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 
 console.log('process.env.TMPDIR:', process.env.TMPDIR, '(BEFORE)');
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
-process.env.TMPDIR = process.env.TMPDIR || path.resolve(process.cwd(), '../');
+process.env.TMPDIR = process.env.TMPDIR || path.resolve(process.cwd(), '../') + '/';
 console.log('process.env.TMPDIR:', process.env.TMPDIR, '(SET)');
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 

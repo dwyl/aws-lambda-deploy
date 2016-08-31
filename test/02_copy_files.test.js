@@ -18,11 +18,14 @@ describe('copyfiles', () => {
   });
   it('copies all files_to_deploy to the /dist directory', (done) => {
     copyfiles();
-    var distpkg = require(path.resolve(process.env.TMPDIR, 'dist/package.json'));
+    var distpkgpath = path.resolve(process.env.TMPDIR, 'dist/package.json');
+    console.log('distpkgpath:', distpkgpath);
+    var distpkg = require(distpkgpath);
     assert.deepEqual(distpkg, pkg);
     // confirm that a nested file has been copied over:
-    var filepath = path.normalize(process.env.TMPDIR + 'dist/lib/utils.js'); // nested
-    var exists = fs.statSync(filepath);
+    var utilspath = path.normalize(process.env.TMPDIR + 'dist/lib/utils.js'); // nested
+    console.log('utilspath:', utilspath);
+    var exists = fs.statSync(utilspath);
     assert(exists);
     done();
   });
