@@ -53,8 +53,8 @@
     "snazzy": "^4.0.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.3.11",
-    "env2": "^2.0.8"
+    "aws-sdk": "^2.5.4",
+    "env2": "^2.1.1"
   },
   "semistandard": {
     "rules": {
