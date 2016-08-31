@@ -3,11 +3,11 @@
 
 Deploy Amazon Web Services Lambda function(s) with a single command.
 
-[ ![Codeship Status for dwyl/aws-lambda-deploy](https://codeship.com/projects/cb362fc0-b8a0-0133-b733-0e8881fc1b37/status?branch=master)](https://codeship.com/projects/135243)
-[![codecov.io](https://codecov.io/github/dwyl/aws-lambda-deploy/coverage.svg?branch=master)](https://codecov.io/github/dwyl/aws-lambda-deploy?branch=master)
-[![Code Climate](https://codeclimate.com/github/dwyl/aws-lambda-deploy/badges/gpa.svg)](https://codeclimate.com/github/dwyl/aws-lambda-deploy)
-[![Dependency Status](https://david-dm.org/dwyl/aws-lambda-deploy.svg)](https://david-dm.org/dwyl/aws-lambda-deploy)
-[![devDependency Status](https://david-dm.org/dwyl/aws-lambda-deploy/dev-status.svg)](https://david-dm.org/dwyl/aws-lambda-deploy#info=devDependencies)
+[![Codeship Build Status](https://img.shields.io/codeship/cb362fc0-b8a0-0133-b733-0e8881fc1b37.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/dpl)
+[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/aws-lambda-deploy.svg?maxAge=2592000?style=flat-square)](https://codecov.io/github/dwyl/aws-lambda-deploy?branch=master)
+[![Code Climate](https://img.shields.io/codeclimate/github/dwyl/aws-lambda-deploy.svg?maxAge=2592000?style=flat-square)](https://codeclimate.com/github/dwyl/aws-lambda-deploy)
+[![dependencies Status](https://david-dm.org/dwyl/aws-lambda-deploy/status.svg?style=flat-square)](https://david-dm.org/dwyl/aws-lambda-deploy)
+[![devDependencies Status](https://david-dm.org/dwyl/aws-lambda-deploy/dev-status.svg?style=flat-square)](https://david-dm.org/dwyl/aws-lambda-deploy?type=dev)
 [![npm install dpl](https://nodei.co/npm/dpl.png?downloads=true)](https://www.npmjs.com/package/dpl)
 
 
