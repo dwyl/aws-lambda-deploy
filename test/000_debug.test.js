@@ -11,6 +11,10 @@ console.log('utils.getBasepath(process.cwd())', utils.getBasepath(process.cwd())
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 console.log('utils.getBasepath()', utils.getBasepath());
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
+
+console.log('process.env.TMPDIR:', process.env.TMPDIR);
+console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
+
 console.log('utils.getTargetPath()', utils.getTargetPath());
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 
