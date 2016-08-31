@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 var assert = require('assert');
 require('decache')('../lib/copyfiles'); // need to re-require the file below
 var utils = require('../lib/utils');
@@ -34,7 +35,7 @@ describe('Test transpiling code from ES6 to ES5 using Babel', function () {
     var copyfiles = require('../lib/copyfiles');
     copyfiles(filestodeploy);
     // Regression test for: https://github.com/numo-labs/aws-lambda-deploy/issues/21
-    var filepath = process.env.TMPDIR + 'dist/babel/index.js'; // deep-nested
+    var filepath = path.normalize(process.env.TMPDIR + 'dist/babel/index.js'); // deep-nested
     // check that an ES6 File has been transpiled when it is copied
     var babelstr = '_interopRequireDefault(obj)';
     var filecontents = fs.readFileSync(filepath).toString();
@@ -54,7 +55,7 @@ describe('Test transpiling code from ES6 to ES5 using Babel', function () {
   after('remove /babel directory', function (done) {
     utils.deleteDirContents(base + 'babel', true);
     fs.unlinkSync(base + '.babelrc'); // delete the temp .babelrc file!
-    utils.deleteDirContents(process.env.TMPDIR + 'dist', true);
+    utils.deleteDirContents(path.resolve(process.env.TMPDIR, 'dist'), true);
     done();
   });
 });

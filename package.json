@@ -37,6 +37,7 @@
   },
   "homepage": "https://github.com/dwyl/aws-lambda-deploy#readme",
   "devDependencies": {
+    "aguid": "^1.0.4",
     "aws-lambda-test-utils": "^1.0.2",
     "babel-core": "^6.8.0",
     "babel-plugin-transform-object-rest-spread": "^6.8.0",
@@ -52,8 +53,8 @@
     "snazzy": "^4.0.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.3.11",
-    "env2": "^2.0.8"
+    "aws-sdk": "^2.5.4",
+    "env2": "^2.1.1"
   },
   "semistandard": {
     "rules": {

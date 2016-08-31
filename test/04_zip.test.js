@@ -40,7 +40,7 @@ describe('zip', function () {
 
   it(' unzip the package and confirm the package.json is intact', function (done) {
     zip.unzip();
-    var unzipped = path.normalize(process.env.TMPDIR + 'unzipped');
+    var unzipped = path.normalize(process.env.TMPDIR + '/unzipped');
     var unzippedutils = require(path.normalize(unzipped + '/lib/utils'));
     assert.equal(JSON.stringify(utils), JSON.stringify(unzippedutils));
     done();
