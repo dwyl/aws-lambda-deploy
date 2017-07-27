@@ -22,9 +22,7 @@ dpl.upload(function (err, data) {    // upload the .zip file to AWS:
     console.log(data);
     console.log('- - - - - - - - > took', (Date.now() - start) / 1000, 'seconds');
   }
-  console.log('- - - - - - - - > Lambda Function Deployed:');
-  console.log(data);
-  console.log('- - - - - - - - > took', (Date.now() - start) / 1000, 'seconds');
+
   dpl.utils.cleanUp();              // delete /dist and .zip file for next time
   process.exit(exitcode);
 });
