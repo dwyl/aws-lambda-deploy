@@ -98,12 +98,12 @@ to be set.
 #### AWS Credentials
 
 As with all node.js code which uses the `aws-sdk`,
-it expects to have your AWS credentials stored on *locally*.
+it expects to have your AWS credentials stored *locally*.
 Your credentials are *expected* to be at: `~/.aws/credentials`
 (*e.g: if your username is* ***alex***, *your AWS credentials will
   be stored at* `/Users/alex/.aws/credentials`)
 If you have not yet set your AWS credentials on your machine
-do this *now*.
+do this *now*. Read about the [AWS credential format](http://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html#credentials-file-format).
 
 #### `AWS_IAM_ROLE`
 
