@@ -21,7 +21,7 @@
       "lib/**/*.js"
     ],
     "exclude": [
-      "test/**/*.spec.js"
+      "lib/index.js"
     ],
     "reporter": [
       "lcov",
