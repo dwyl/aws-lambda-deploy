@@ -6,7 +6,7 @@
   "bin": "dpl.js",
   "scripts": {
     "nocov": "node_modules/.bin/mocha test/*.test.js",
-    "test": "nyc node_modules/.bin/_mocha -- -R spec",
+    "test": "nyc node_modules/.bin/_mocha --timeout 1000s -- -R spec",
     "deploy": "node dpl.js",
     "check-coverage": "npm test && nyc check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
     "eslint": "semistandard  --verbose | snazzy"
