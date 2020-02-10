@@ -18,10 +18,10 @@ var pkg = require(path.resolve(basepath, 'package.json'));
 
 describe('upload > testing lambda_timeout and lambda_memory', function () {
   it('exercise default values for lambda_memory & timeout', function (done) {
-    console.log('pkg: (before)', pkg);
+    // console.log('pkg: (before)', pkg);
     delete pkg.lambda_memory;
     delete pkg.lambda_timeout;
-    console.log('pkg: (after)', pkg);
+    // console.log('pkg: (after)', pkg);
     copyfiles();
     installnodemodules();
     zip();
