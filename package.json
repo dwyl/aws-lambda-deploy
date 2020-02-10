@@ -64,9 +64,7 @@
     "git-rev": "^0.2.1",
     "mocha": "^7.0.1",
     "nyc": "^15.0.0",
-    "pre-commit": "^1.2.2",
-    "semistandard": "^14.2.0",
-    "snazzy": "^8.0.0"
+    "pre-commit": "^1.2.2"
   },
   "dependencies": {
     "aws-sdk": "^2.614.0",
@@ -100,7 +98,6 @@
     ]
   },
   "pre-commit": [
-    "eslint",
     "check-coverage"
   ]
 }
