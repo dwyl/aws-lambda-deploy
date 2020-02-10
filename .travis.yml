@@ -6,6 +6,9 @@ node_js:
 before_install:
   - mkdir tmp
   - chmod 777 tmp
+  # create a dummy .env file on CI:
+  - echo "export HELLO=world" >> .env
+  - cat .env
 before_script:
 # - npm run eslint
 after_success:
