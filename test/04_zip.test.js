@@ -11,16 +11,16 @@ var zip = require('../lib/zip');
 
 describe('zip', function () {
   before(() => {
-    utils.deleteDirContents(path.join(process.env.TMPDIR, 'unzipped'), true);   // delete unzipped completely
-    try {
+    try { // delete unzipped completely
+      utils.deleteDirContents(path.join(process.env.TMPDIR, 'unzipped'), true);
       utils.cleanUp();
     } catch (e) {
       /* ignore */
     }
   });
 
-  after(() => {
-    utils.deleteDirContents(path.join(process.env.TMPDIR, 'unzipped'), true);   // delete unzipped completely
+  after(() => { // delete unzipped completely
+    utils.deleteDirContents(path.join(process.env.TMPDIR, 'unzipped'), true);
     try {
       utils.cleanUp();
     } catch (e) {

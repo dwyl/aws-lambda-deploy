@@ -20,7 +20,7 @@ describe('upload', function () {
     zip();
     upload(function (err, data) {
       assert(!err);
-      // console.log('Lambda Function CREATED:', data);
+      console.log('Lambda Function CREATED:', data);
       FUNCTION_NAME = data.FunctionName;
       assert(data.CodeSize > 100000);
       assert.equal(data.Timeout, 42);
