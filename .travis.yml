@@ -1,7 +1,9 @@
-sudo: false
 language: node_js
 node_js:
 - '12'
+cache:
+  directories:
+  - node_modules
 before_install:
   - mkdir tmp
   - chmod 777 tmp
