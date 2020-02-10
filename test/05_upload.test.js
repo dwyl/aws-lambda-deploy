@@ -31,8 +31,11 @@ describe('upload', function () {
 
   it('Call upload again to exercise the "updateFunctionCode" branch', function (done) {
     upload(function (err, data) {
+      console.log('- - - - - - - - -');
+      console.log('err:', err);
       assert(!err);
-      // console.log('Lambda Function UPDATED:', data);
+      console.log('- - - - - - - - -');
+      console.log('Lambda Function UPDATED:', data);
       assert(data.CodeSize > 100000);
       done();
     });
