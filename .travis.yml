@@ -1,0 +1,11 @@
+sudo: false
+language: node_js
+node_js:
+  - "12"
+  - "node"
+env:
+  - JWT_SECRET="EverythingIsAwesome!"
+before_script:
+  - npm run eslint
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
