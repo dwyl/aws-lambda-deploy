@@ -217,39 +217,11 @@ https://github.com/dwyl/aws-lambda-deploy/issues/33
 
 <br />
 
-## tl;dr
-
-### Why not use an *existing* task runner like Gulp or Grunt?
-
-*Originally* we were using Gulp to perform the tasks to deploy our
-Lambda Functions. however this required us to duplicate a *very similar*
-`gulpfile.js` in all our projects.
-
-***Disadvantages of using Gulp***:
-
-3. New developers on your team who have never used Gulp have
-*one-more-thing* to *learn* before they can be productive.
-
-4. Gulp is (*up to*) **50% Slower** than using node.js core modules/methods.
-
-1. Each repo has to duplicate *several* Gulp devDependencies which
-have varing degrees of quality in their documentation/testing
-and will need to be updated *soon* when Gulp v.4 is released.
-
-2. The devDependencies take up
-[***28 Megabytes on disk***](https://github.com/dwyl/aws-lambda-deploy/issues/14)
-For *one* lambda function that's insignificant,
-but if, like us, you have *many* Lambda functions (*e.g: 40*)
-you using Gulp will take up a *Gigabyte* of your hard drive.
-
-> ***Note***: *we still love Gulp and use it in our non-lambda projects,
-we just think this is a* ***leaner*** *way of deploying our Lambdas*.
 
 ### Advantages of using `dpl` to *deploy* your Lambdas
 
 + **Minial Dependencies** - Our solution to the deployment task uses only *one*
 core dependency: the [`aws-sdk`](https://github.com/aws/aws-sdk-js).  
-(*we include Babel for the people who want to use ES6 but this is optional*)
 
 + **Small Code** - The *entire* `dpl` ("*Deploy Lambda*") module is fewer lines
 than our original  
@@ -263,7 +235,7 @@ in a few minutes; our code has *both* JavaDoc and *in-line comments* and we are
 to help if you have *any questions*!
 
 + **No assumptions** about your code style.
-e.g if you need any custom processing (_e.g `babel` for your **ES6**_)
+e.g if you need any custom processing
 simply add a task in your `scripts` section of your `package.json`
 and run that task before deploying.
 
@@ -318,32 +290,6 @@ exports.handler = (event, context) => {
 
 ```
 
-### *Babel* ?
-
-Given that AWS Lambda only supports Node.js **v4.3.2** (_which does not have **ALL** the ES6 features_)
-the code you *deploy* to Lambda should be *transpiled* to **ES5**.
-Since most of the *cool kids* are using ES6/2015
-(*aka* [***modern javascript***](https://twitter.com/ericdfields/status/677677470590570496) ...)
-the `dpl` *build* script includes a *transform* step to translate ES6 into ES5
-so your ES6 Code will run on Lambda.
-
-> Babel transpilation requires that the base directory of your project contains
-a `.babelrc` file. see: https://github.com/dwyl/aws-lambda-deploy/issues/23
-
-
-### Alterantives?
-
-+ https://www.npmjs.com/package/deploy-aws-lambda > https://github.com/aesinv/aws-lambda-toolkit *looks un-maintained/abandoned with lots of "Todo" items and no tests.*.
-+ https://github.com/ThoughtWorksStudios/node-aws-lambda (The Gulp way... code duplication)
-
-
-## Background
-
-We *briefly* considered using [`node-fs-extra`](https://github.com/jprichardson/node-fs-extra)
-to do the heavy lifting, but they are about to remove support for node.js v.0.10
-which, if we want to be able to run the deploy script from a CI Environment
-running node v.0.10.36 (*the Lambda version of node!*)
-we need to DIY the file operations.
 
 ## Suggested Reading
 
