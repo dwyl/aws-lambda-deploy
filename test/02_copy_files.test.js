@@ -45,7 +45,7 @@ describe('copyfiles', () => {
 
     it('creates an empty .env', () => {
       copyfiles();
-      assert.equal(fs.readFileSync(env, 'utf8'), '');
+      assert.strictEqual(fs.readFileSync(env, 'utf8'), '');
     });
   });
 });

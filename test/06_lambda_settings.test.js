@@ -33,11 +33,11 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
 
       assert(data.CodeSize > 100000);
       // these are the default values:
-      assert.equal(data.MemorySize, 128);
-      assert.equal(data.Timeout, 10);
+      assert.strictEqual(data.MemorySize, 128);
+      assert.strictEqual(data.Timeout, 10);
       // now delete the function so we can do it all again!
       lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
-        assert.equal(err, null);
+        assert.strictEqual(err, null);
         done();
       });
     });
@@ -57,11 +57,11 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
 
       assert(data.CodeSize > 100000);
       // these are the default values:
-      assert.equal(data.MemorySize, 1536);
-      assert.equal(data.Timeout, 300);
+      assert.strictEqual(data.MemorySize, 1536);
+      assert.strictEqual(data.Timeout, 300);
       // delete it again!
       lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
-        assert.equal(err, null);
+        assert.strictEqual(err, null);
         done();
       });
     });
@@ -75,7 +75,7 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
       exists = fs.statSync(filepath); // the file should no longer exist
     } catch (e) {
     }
-    assert.equal(exists, false); // .zip does not exist
+    assert.strictEqual(exists, false); // .zip does not exist
     done();
   });
 });

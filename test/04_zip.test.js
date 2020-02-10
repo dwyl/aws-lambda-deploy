@@ -42,7 +42,7 @@ describe('zip', function () {
     zip.unzip();
     var unzipped = path.normalize(process.env.TMPDIR + '/unzipped');
     var unzippedutils = require(path.normalize(unzipped + '/lib/utils'));
-    assert.equal(JSON.stringify(utils), JSON.stringify(unzippedutils));
+    assert.strictEqual(JSON.stringify(utils), JSON.stringify(unzippedutils));
     done();
   });
 });

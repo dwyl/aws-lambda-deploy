@@ -16,7 +16,7 @@ describe('mkdirSync', function () {
       // console.log(e);
     }
     // console.log('exist?', exists);
-    assert.equal(exists, false);
+    assert.strictEqual(exists, false);
     done();
   });
 
@@ -24,7 +24,7 @@ describe('mkdirSync', function () {
     var distpath = path.normalize(process.env.TMPDIR + '/dist/');
     // console.log('>> distpath:',distpath);
     var res = mkdirSync(distpath); // sync
-    assert.equal(distpath, res, 'distpath: ' + distpath);
+    assert.strictEqual(distpath, res, 'distpath: ' + distpath);
     done();
   });
 });

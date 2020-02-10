@@ -12,7 +12,7 @@ describe('utils.getBasepath', function () {
     var base = utils.getBasepath(dir);
     console.log('utils.getBasepath:', base);
     // console.log('parent:',parent);
-    assert.equal(base, parent);
+    assert.strictEqual(base, parent);
     done();
   });
 
@@ -21,7 +21,7 @@ describe('utils.getBasepath', function () {
     var base = utils.getBasepath();
     // console.log('base:',base);
     // console.log('parent:',parent);
-    assert.equal(base, parent);
+    assert.strictEqual(base, parent);
     done();
   });
 });
@@ -38,7 +38,7 @@ describe('utils.deleteDirContents', function () {
       // console.log(e);
     }
     // console.log('exist?', exists);
-    assert.equal(exists, false);
+    assert.strictEqual(exists, false);
     done();
   });
 
@@ -46,7 +46,7 @@ describe('utils.deleteDirContents', function () {
     var distpath = path.normalize(process.env.TMPDIR + 'my_dir');
     console.log('>> distpath:', distpath);
     var res = mkdirSync(distpath); // sync
-    assert.equal(distpath, res, 'distpath: ' + distpath);
+    assert.strictEqual(distpath, res, 'distpath: ' + distpath);
     done();
   });
 
@@ -55,7 +55,7 @@ describe('utils.deleteDirContents', function () {
     // console.log('>> distpath:',distpath);
     var err = mkdirSync(distpath); // expect to return error
     // console.log(err);
-    assert.equal(err.code, 'EEXIST', 'already exists.');
+    assert.strictEqual(err.code, 'EEXIST', 'already exists.');
     done();
   });
 
@@ -63,7 +63,7 @@ describe('utils.deleteDirContents', function () {
     var dirpath = path.normalize(process.env.TMPDIR + 'my_dir/node_modules'); // fake node_modules
     // console.log('node_modules path:',dirpath);
     var res = mkdirSync(dirpath); // sync
-    assert.equal(dirpath, res, 'node_modules folder created');
+    assert.strictEqual(dirpath, res, 'node_modules folder created');
     done();
   });
 
@@ -81,7 +81,7 @@ describe('utils.deleteDirContents', function () {
     } catch (e) {
       console.log(e);
     }
-    assert.equal(exists.size, 11, 'file created: ' + file1);
+    assert.strictEqual(exists.size, 11, 'file created: ' + file1);
     done();
   });
 
@@ -100,7 +100,7 @@ describe('utils.deleteDirContents', function () {
     } catch (e) {
       console.log(e);
     }
-    assert.equal(stat.size, 11, 'file created: ' + file1);
+    assert.strictEqual(stat.size, 11, 'file created: ' + file1);
     // now delete the CONTENTS of dirpath but not the dir itself:
     var exists = false;
     try {
@@ -111,7 +111,7 @@ describe('utils.deleteDirContents', function () {
     }
     assert(exists.size > 0);
     var files = fs.readdirSync(dirpath);
-    assert.equal(files.length, 0);
+    assert.strictEqual(files.length, 0);
     done();
   });
 
@@ -124,7 +124,7 @@ describe('utils.deleteDirContents', function () {
     } catch (e) {
       // console.log(e);
     }
-    assert.equal(exists, false);
+    assert.strictEqual(exists, false);
     done();
   });
 
@@ -137,7 +137,7 @@ describe('utils.deleteDirContents', function () {
     } catch (e) {
       // console.log(e);
     }
-    assert.equal(exists, false);
+    assert.strictEqual(exists, false);
     done();
   });
 });
@@ -148,7 +148,7 @@ describe('utils.get_git_hash', function () {
     var githash = utils.gitcommithash(); // synchronous
     console.log('githash:', githash);
     git.long(function (hash) {
-      assert.equal(githash, hash);
+      assert.strictEqual(githash, hash);
       done();
     });
   });
@@ -162,7 +162,7 @@ describe('utils.githubcommiturl', function () {
       var pkg = require(utils.getBasepath() + 'package.json');
       var url = pkg.repository.url.replace('git+', '').replace('.git', '');
       var gurl = url + '/commit/' + hash;
-      assert.equal(githuburl, gurl);
+      assert.strictEqual(githuburl, gurl);
       done();
     });
   });
@@ -176,7 +176,7 @@ describe('utils.description', function () {
     console.log('description:', description);
     git.long(function (hash) {
       var expected = pkg.description + ' | ' + url;
-      assert.equal(description, expected);
+      assert.strictEqual(description, expected);
       done();
     });
   });
