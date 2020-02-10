@@ -2,7 +2,6 @@ sudo: false
 language: node_js
 node_js:
 - '12'
-- node
 before_install:
   - mkdir tmp
   - chmod 777 tmp
