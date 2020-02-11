@@ -13,8 +13,8 @@ var basepath = utils.getBasepath();
 var AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
 var lambda = new AWS.Lambda();
-var FUNCTION_NAME; // GLOBAL used to delete the function.
-var pkg = require(path.resolve(basepath, 'package.json'));
+let pkg = require(path.resolve(basepath, 'package.json'));
+const FUNCTION_NAME = utils.FunctionName(pkg);
 
 describe('upload > testing lambda_timeout and lambda_memory', function () {
   it('exercise default values for lambda_memory & timeout', function (done) {
@@ -27,10 +27,11 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
     zip();
     // pass in the modified pkg (with lambda_memory & lambda_timeout set)
     upload(pkg, function (err, data) {
+      console.log('- - - - - - - - - CREATE (settings defaults)');
+      console.log('err:', err);
+      console.log('- - - - - - - - -');
+      console.log('data:', data);
       assert(!err);
-      console.log('Lambda Function CREATED:', data);
-      FUNCTION_NAME = data.FunctionName;
-
       assert(data.CodeSize > 100000);
       // these are the default values:
       assert.strictEqual(data.MemorySize, 128);
@@ -52,9 +53,11 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
     zip();
     // pass in the modified pkg (with lambda_memory & lambda_timeout set)
     upload(pkg, function (err, data) {
+      console.log('- - - - - - - - - CREATE (settings)');
+      console.log('err:', err);
+      console.log('- - - - - - - - -');
+      console.log('data:', data);
       assert(!err);
-      console.log('Lambda Function CREATED:', data);
-
       assert(data.CodeSize > 100000);
       // these are the default values:
       assert.strictEqual(data.MemorySize, 1536);
