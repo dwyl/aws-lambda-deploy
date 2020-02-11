@@ -32,7 +32,6 @@ test('exercise default values for lambda_memory & timeout', async function (t) {
     console.log('- - - - - - - - -');
     console.log('data:', data);
     t.equal(err, null, 'upload err: ' + err);
-    t.ok(data.CodeSize > 1000000, 'data.CodeSize: ' + data.CodeSize);
     // these are the default values:
     t.equal(data.Timeout, 10, 'data.Timeout: ' + data.Timeout);
     t.equal(data.MemorySize, 128, 'data.MemorySize: ' + data.MemorySize);
@@ -59,7 +58,6 @@ test('Max the settings for lambda_memory & timeout', async function (t) {
     console.log('- - - - - - - - -');
     console.log('data:', data);
     t.equal(err, null, 'upload err: ' + err);
-    t.ok(data.CodeSize > 1000000, 'data.CodeSize: ' + data.CodeSize);
     // values we defined above:
     t.equal(data.Timeout, 300, 'data.Timeout: ' + data.Timeout);
     t.equal(data.MemorySize, 1536, 'data.MemorySize: ' + data.MemorySize);
