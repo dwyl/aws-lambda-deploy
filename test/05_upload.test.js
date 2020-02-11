@@ -28,31 +28,27 @@ test('upload the lambda function to S3', async function (t) {
     t.ok(data.CodeSize > 1000000, 'data.CodeSize: ' + data.CodeSize);
     t.equal(data.Timeout, 42, 'data.Timeout: ' + data.Timeout);
     t.equal(data.MemorySize, 512, 'data.MemorySize: ' + data.MemorySize);
-    t.end();
-  });
-});
 
-test('Call upload again to exec "updateFunctionCode"', async function (t) {
-  upload(function (err, data) {
-    console.log('- - - - - - - - - UPDATE');
-    console.log('err:', err);
-    console.log('data:', data);
-    t.equal(err, null, 'err: ' + err);
-    console.log('- - - - - - - - -');
-    // console.log('Lambda Function UPDATED:', data);
-    t.ok(data.CodeSize > 1000000, 'data.CodeSize: ' + data.CodeSize);
-    t.end();
-  });
-});
+    // Call upload again to exec "updateFunctionCode"
+    upload(function (err, data) {
+      console.log('- - - - - - - - - UPDATE');
+      console.log('err:', err);
+      console.log('data:', data);
+      t.equal(err, null, 'err: ' + err);
+      console.log('- - - - - - - - -');
+      // console.log('Lambda Function UPDATED:', data);
+      t.ok(data.CodeSize > 1000000, 'data.CodeSize: ' + data.CodeSize);
 
-test('DELETE Lambda Function so we can re-upload it', async function (t) {
-  lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
-    console.log('- - - - - - - - - DELETE');
-    console.log('err:', err);
-    console.log('- - - - - - - - -');
-    console.log('data:', data);
-    t.equal(err, null, 'err: ' + err);
-    t.end();
+      // DELETE Lambda Function so we can re-upload it
+      lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
+        console.log('- - - - - - - - - DELETE');
+        console.log('err:', err);
+        console.log('- - - - - - - - -');
+        console.log('data:', data);
+        t.equal(err, null, 'err: ' + err);
+        t.end();
+      });
+    });
   });
 });
 
