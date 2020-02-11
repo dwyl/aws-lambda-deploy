@@ -40,14 +40,6 @@ test('upload the lambda function to S3', async function (t) {
       t.ok(data.CodeSize > 1000000, 'data.CodeSize: ' + data.CodeSize);
 
       // DELETE Lambda Function so we can re-upload it
-      lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
-        console.log('- - - - - - - - - DELETE');
-        console.log('err:', err);
-        console.log('- - - - - - - - -');
-        console.log('data:', data);
-        t.equal(err, null, 'err: ' + err);
-        t.end();
-      });
     });
   });
 });
