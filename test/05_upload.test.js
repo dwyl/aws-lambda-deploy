@@ -17,18 +17,9 @@ function functionName (pkg) {
   const version = pkg.version;
   return pkg.name + '-v' + version.substring(0, version.indexOf('.'));
 }
-var FUNCTION_NAME = functionName(pkg); // GLOBAL used to delete the function.
-console.log('>>> FUNCTION_NAME:', FUNCTION_NAME);
+const FUNCTION_NAME = functionName(pkg);
 
 describe('upload', function () {
-
-  it('DELETE the Lambda Function if it exists before upload', function (done) {
-    lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
-      console.log(err, data);
-      // assert.strictEqual(err, null);
-      done();
-    });
-  });
 
   it('upload the lambda function to S3', function (done) {
     copyfiles();
@@ -37,7 +28,6 @@ describe('upload', function () {
     upload(function (err, data) {
       assert(!err);
       console.log('Lambda Function CREATED:', data);
-      FUNCTION_NAME = data.FunctionName;
       assert(data.CodeSize > 100000);
       assert.strictEqual(data.Timeout, 42);
       assert.strictEqual(data.MemorySize, 512);
