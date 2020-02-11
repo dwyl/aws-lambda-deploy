@@ -18,6 +18,7 @@ function functionName (pkg) {
   return pkg.name + '-v' + version.substring(0, version.indexOf('.'));
 }
 var FUNCTION_NAME = functionName(pkg); // GLOBAL used to delete the function.
+console.log('>>> FUNCTION_NAME:', FUNCTION_NAME);
 
 describe('upload', function () {
 
