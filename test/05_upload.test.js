@@ -26,8 +26,11 @@ describe('upload', function () {
     installnodemodules();
     zip();
     upload(function (err, data) {
+      console.log('- - - - - - - - -');
+      console.log('err:', err);
+      console.log('- - - - - - - - -');
+      console.log('data:', data);
       assert(!err);
-      console.log('Lambda Function CREATED:', data);
       assert(data.CodeSize > 100000);
       assert.strictEqual(data.Timeout, 42);
       assert.strictEqual(data.MemorySize, 512);

@@ -3,12 +3,14 @@
 
 Deploy Amazon Web Services Lambda function(s) with a single command.
 
-[![Codeship Build Status](https://img.shields.io/codeship/cb362fc0-b8a0-0133-b733-0e8881fc1b37.svg?maxAge=2592000?style=flat-square)](https://www.npmjs.com/package/dpl)
-[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/aws-lambda-deploy.svg?maxAge=2592000?style=flat-square)](https://codecov.io/github/dwyl/aws-lambda-deploy?branch=master)
-[![Code Climate](https://img.shields.io/codeclimate/github/dwyl/aws-lambda-deploy.svg?maxAge=2592000?style=flat-square)](https://codeclimate.com/github/dwyl/aws-lambda-deploy)
+[![Build Status](https://img.shields.io/travis/dwyl/aws-lambda-deploy/master.svg?style=flat-square)](https://travis-ci.org/dwyl/aws-lambda-deploy)
+[![codecov.io](https://img.shields.io/codecov/c/github/dwyl/aws-lambda-deploy/master.svg?style=flat-square)](http://codecov.io/github/dwyl/aws-lambda-deploy?branch=master)
+[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/dwyl/aws-lambda-deploy?color=brightgreen&style=flat-square)](https://codeclimate.com/github/dwyl/aws-lambda-deploy)
 [![dependencies Status](https://david-dm.org/dwyl/aws-lambda-deploy/status.svg?style=flat-square)](https://david-dm.org/dwyl/aws-lambda-deploy)
 [![devDependencies Status](https://david-dm.org/dwyl/aws-lambda-deploy/dev-status.svg?style=flat-square)](https://david-dm.org/dwyl/aws-lambda-deploy?type=dev)
-[![npm install dpl](https://nodei.co/npm/dpl.png?downloads=true)](https://www.npmjs.com/package/dpl)
+[![HitCount](http://hits.dwyl.com/dwyl/aws-lambda-deploy.svg)](http://hits.dwyl.com/dwyl/aws-lambda-deploy)
+[![npm package version](https://img.shields.io/npm/v/aws-lambda-deploy.svg?color=brightgreen&style=flat-square)](https://www.npmjs.com/package/aws-lambda-deploy)
+
 
 
 ## Why?
