@@ -1,7 +1,8 @@
+<div align="center">
+
 ![dpl-logo](https://cloud.githubusercontent.com/assets/194400/13200090/e0a7831c-d831-11e5-809e-4a802b267045.png)
 
-
-Deploy Amazon Web Services Lambda function(s) with a single command.
+Deploy your AWS Lambda function(s) in seconds with a single command.
 
 [![Build Status](https://img.shields.io/travis/dwyl/aws-lambda-deploy/master.svg?style=flat-square)](https://travis-ci.org/dwyl/aws-lambda-deploy)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/aws-lambda-deploy/master.svg?style=flat-square)](http://codecov.io/github/dwyl/aws-lambda-deploy?branch=master)
@@ -9,8 +10,10 @@ Deploy Amazon Web Services Lambda function(s) with a single command.
 [![dependencies Status](https://david-dm.org/dwyl/aws-lambda-deploy/status.svg?style=flat-square)](https://david-dm.org/dwyl/aws-lambda-deploy)
 [![devDependencies Status](https://david-dm.org/dwyl/aws-lambda-deploy/dev-status.svg?style=flat-square)](https://david-dm.org/dwyl/aws-lambda-deploy?type=dev)
 [![HitCount](http://hits.dwyl.com/dwyl/aws-lambda-deploy.svg)](http://hits.dwyl.com/dwyl/aws-lambda-deploy)
-[![npm package version](https://img.shields.io/npm/v/aws-lambda-deploy.svg?color=brightgreen&style=flat-square)](https://www.npmjs.com/package/aws-lambda-deploy)
+[![npm package version](https://img.shields.io/npm/v/dpl.svg?color=brightgreen&style=flat-square)](https://www.npmjs.com/package/dpl)
 
+</div>
+<br />
 
 
 ## Why?
@@ -39,16 +42,20 @@ npm install dpl --save-dev
 
 ### 2. Ensure that the *required* AWS Environment Variables are set:
 
-You need to have `AWS_REGION` and `AWS_IAM_ROLE` set:
+You need to have `AWS_REGION` and `AWS_IAM_ROLE` set.
+We have created a
+[`.env_sample`](https://github.com/dwyl/aws-lambda-deploy/blob/master/.env_sample)
+that shows you _exactly_ which environment variables you need.
 
-Example:
+Simply copy it into your project. e.g:
+
 ```sh
-export AWS_REGION=eu-west-1
-export AWS_IAM_ROLE=arn:aws:iam::123456789:role/LambdaExecRole
+cp node_modules/dpl/.env_sample .env && echo ".env\n" >> .gitignore
 ```
-<small>*these need to be your real values*</small>
 
-> **Note**: You *also* need to have your AWS Credentials set
+And then update the values with the _real_ ones for your project.
+
+> **Note**: You need to have your AWS Credentials set
 to use the `aws-sdk` if you have not yet done this,
 see below for instructions.
 
@@ -62,6 +69,9 @@ Example:
 ```js
 "files_to_deploy": [ "package.json", "index.js", "lib/" ]
 ```
+
+> Sample: [package.json#L14-L17](https://github.com/dwyl/aws-lambda-deploy/blob/81766f9c20157039e14703e36dbbbaef4cfb4ac3/package.json#L14-L17)
+
 
 ### 4. Add the deployment script to the `scripts` section in your `package.json`
 
@@ -81,13 +91,17 @@ npm run deploy
 
 ### *Congratulations* your Lambda Function is Deployed!  
 
+
+<br />
+
 ### *Troubleshooting*
 
 > If you see an *error* message in your console,
 > read the message and resolve it by correcting your setup.
 > you have either not set your AWS Credentials or not defined
 > the required environment variables.
-> If you get stuck or have questions, *ping* us!
+> If you get stuck or have questions,
+[*ping* us!](https://github.com/dwyl/aws-lambda-deploy/issues)
 
 
 ## *Implementation Detail*
@@ -109,8 +123,8 @@ do this *now*. Read about the [AWS credential format](http://docs.aws.amazon.com
 
 #### `AWS_IAM_ROLE`
 
-The script needs to know which `AWS_IAM_ROLE` you want to use to deploy/run
-the function.
+The script needs to know which `AWS_IAM_ROLE`
+you want to use to deploy/run the function.
 
 Example:
 ```sh
@@ -259,7 +273,8 @@ In your `package.json` add:
 
 ### *Environment Variables*?
 
-Unlike other AWS Lambda deployment methods, `dpl` lets you use environment
+Unlike other AWS Lambda deployment methods,
+`dpl` lets you use environment
 variables in your Lambda Functions!
 
 Simply add `.env` to your list of `"files_to_deploy"` in your `package.json`
