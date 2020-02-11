@@ -11,9 +11,24 @@ var path = require('path');
 var AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
 var lambda = new AWS.Lambda();
-var FUNCTION_NAME; // GLOBAL used to delete the function.
+const basepath = utils.getBasepath();
+const pkg = require(basepath + 'package.json');
+function functionName (pkg) {
+  const version = pkg.version;
+  return pkg.name + '-v' + version.substring(0, version.indexOf('.'));
+}
+var FUNCTION_NAME = functionName(pkg); // GLOBAL used to delete the function.
 
 describe('upload', function () {
+
+  it('DELETE the Lambda Function if it exists before upload', function (done) {
+    lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
+      console.log(err, data);
+      // assert.strictEqual(err, null);
+      done();
+    });
+  });
+
   it('upload the lambda function to S3', function (done) {
     copyfiles();
     installnodemodules();
