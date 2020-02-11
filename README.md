@@ -169,7 +169,12 @@ Example:
 This tells `dpl` to copy these files and directory (with all contents)
 to the `/dist` which will be zipped and sent to AWS.
 
-Check our `package.json` if in doubt.
+Check our
+[package.json#L14-L17](https://github.com/dwyl/aws-lambda-deploy/blob/81766f9c20157039e14703e36dbbbaef4cfb4ac3/package.json#L14-L17)
+file if in doubt.
+
+<br />
+
 
 ## Explanation of the Steps
 
