@@ -1,14 +1,14 @@
 'use strict';
-var assert = require('assert');
-var mkdirSync = require('../lib/mkdirSync');
-var utils = require('../lib/utils');
-var fs = require('fs');
-var path = require('path');
+const assert = require('assert');
+const mkdirSync = require('../lib/mkdirSync');
+const utils = require('../lib/utils');
+const fs = require('fs');
+const path = require('path');
 // create /dist directory to store all the files we are going to zip
 describe('mkdirSync', function () {
   it('delete existing /dist directory (if there is one - so we can test creation...)', function (done) {
-    var distpath = path.normalize(process.env.TMPDIR + '/dist/');
-    var exists = false;
+    const distpath = path.normalize(process.env.TMPDIR + '/dist/');
+    let exists = false;
     try {
       utils.deleteDirContents(distpath, true); // sync
       exists = fs.statSync(distpath);
@@ -21,9 +21,9 @@ describe('mkdirSync', function () {
   });
 
   it('mkdirSync *NEW* /dist directory', function (done) {
-    var distpath = path.normalize(process.env.TMPDIR + '/dist/');
+    const distpath = path.normalize(process.env.TMPDIR + '/dist/');
     // console.log('>> distpath:',distpath);
-    var res = mkdirSync(distpath); // sync
+    const res = mkdirSync(distpath); // sync
     assert.strictEqual(distpath, res, 'distpath: ' + distpath);
     done();
   });

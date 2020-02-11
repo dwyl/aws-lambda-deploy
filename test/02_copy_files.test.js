@@ -6,7 +6,7 @@ const copyfiles = require('../lib/copyfiles');
 const utils = require('../lib/utils');
 const basepath = utils.getBasepath();
 const pkg = require(basepath + 'package.json');
-// var files_to_deploy = pkg.files_to_deploy;
+// const files_to_deploy = pkg.files_to_deploy;
 
 describe('copyfiles', () => {
   afterEach(() => {
@@ -18,20 +18,20 @@ describe('copyfiles', () => {
   });
   it('copies all files_to_deploy to the /dist directory', (done) => {
     copyfiles();
-    var distpkgpath = path.resolve(process.env.TMPDIR, 'dist/package.json');
+    const distpkgpath = path.resolve(process.env.TMPDIR, 'dist/package.json');
     console.log('distpkgpath:', distpkgpath);
-    var distpkg = require(distpkgpath);
+    const distpkg = require(distpkgpath);
     assert.deepStrictEqual(distpkg, pkg);
     // confirm that a nested file has been copied over:
-    var utilspath = path.normalize(process.env.TMPDIR + 'dist/lib/utils.js'); // nested
+    const utilspath = path.normalize(process.env.TMPDIR + 'dist/lib/utils.js'); // nested
     console.log('utilspath:', utilspath);
-    var exists = fs.statSync(utilspath);
+    const exists = fs.statSync(utilspath);
     assert(exists);
     done();
   });
 
   describe('if no .env file is present', () => {
-    var tmpfile;
+    let tmpfile;
     const env = path.join(basepath, '.env');
     before(() => {
       if (fs.existsSync(env)) {
