@@ -1,6 +1,5 @@
 require('env2')('.env'); // load environment variables from file if available
 const test = require('tape');
-const assert = require('assert');
 const fs = require('fs');
 const path = require('path');
 const utils = require('../lib/utils');
@@ -98,7 +97,7 @@ test('delete contents of dir but NOT the dir itself', async function (t) {
   } catch (e) {
     console.log(e);
   }
-  assert.strictEqual(stat.size, 11, 'file created: ' + file1);
+  t.equal(stat.size, 11, 'file created: ' + file1);
   // now delete the CONTENTS of dirpath but not the dir itself:
   let exists = false;
   try {
@@ -107,9 +106,9 @@ test('delete contents of dir but NOT the dir itself', async function (t) {
   } catch (e) {
     // console.log(e);
   }
-  assert(exists.size > 0);
+  t.ok(exists.size > 0, 'exists.size: ' + exists.size);
   const files = fs.readdirSync(dirpath);
-  t.equal(files.length, 0);
+  t.equal(files.length, 0, 'files.lengt: ' + files.length);
   t.end();
 });
 

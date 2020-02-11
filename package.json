@@ -5,8 +5,8 @@
   "main": "lib/index.js",
   "bin": "dpl.js",
   "scripts": {
-    "nocov": "node_modules/.bin/mocha test/*.test.js",
-    "test": "nyc node_modules/.bin/_mocha -- -R spec",
+    "nocov": "./node_modules/tape/bin/tape ./test/*.test.js",
+    "test": "nyc tape ./test/*.test.js | tap-nyc",
     "deploy": "node dpl.js",
     "check-coverage": "npm test && nyc check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
     "eslint": "semistandard  --verbose | snazzy"
@@ -56,6 +56,9 @@
     "url": "https://github.com/dwyl/aws-lambda-deploy/issues"
   },
   "homepage": "https://github.com/dwyl/aws-lambda-deploy#readme",
+  "engines": {
+    "node": ">=12.5.0"
+  },
   "devDependencies": {
     "aguid": "^2.0.0",
     "aws-lambda-test-utils": "^1.3.0",
@@ -64,7 +67,9 @@
     "git-rev": "^0.2.1",
     "mocha": "^7.0.1",
     "nyc": "^15.0.0",
-    "pre-commit": "^1.2.2"
+    "pre-commit": "^1.2.2",
+    "tap-nyc": "^1.0.3",
+    "tape": "^4.13.0"
   },
   "dependencies": {
     "aws-sdk": "^2.614.0",
