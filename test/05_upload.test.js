@@ -8,16 +8,12 @@ var utils = require('../lib/utils');
 var fs = require('fs');
 var path = require('path');
 
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
-var lambda = new AWS.Lambda();
+const lambda = new AWS.Lambda();
 const basepath = utils.getBasepath();
-const pkg = require(basepath + 'package.json');
-function functionName (pkg) {
-  const version = pkg.version;
-  return pkg.name + '-v' + version.substring(0, version.indexOf('.'));
-}
-const FUNCTION_NAME = functionName(pkg);
+const PKG = require(basepath + 'package.json');
+const FUNCTION_NAME = utils.functionName(PKG);
 
 describe('upload', function () {
 
@@ -42,6 +38,7 @@ describe('upload', function () {
     upload(function (err, data) {
       console.log('- - - - - - - - - UPDATE');
       console.log('err:', err);
+      console.log('data:', data);
       assert.strictEqual(err, null);
       console.log('- - - - - - - - -');
       // console.log('Lambda Function UPDATED:', data);
