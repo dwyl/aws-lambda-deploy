@@ -16,7 +16,7 @@ Deploy your AWS Lambda function(s) in seconds with a single command.
 <br />
 
 
-## Why?
+## Why? 🤷
 
 Deploying Lambda functions *manually* involves quite a few steps.  
 Manually clicking buttons to upload zip files is fine the first few times
@@ -24,28 +24,31 @@ but gets old pretty quickly.
 There is an *easier* way!
 
 
-## What?
+## What? 💭
 
 Simplify the process of deploying a AWS Lambda Function
 *without having to adopt a build tool/system*.
 
 
-## How?
+## How? ✅
 
 There are ***5 Steps*** to setup deployment for your Lambda Function:
 
-### 1. install the `dpl` package from NPM
+### 1. install the `dpl` package from NPM 📦
 
 ```sh
 npm install dpl --save-dev
 ```
 
-### 2. Ensure that the *required* AWS Environment Variables are set:
+### 2. Ensure that the *required* AWS Environment Variables are set: 🔐
 
-You need to have `AWS_REGION` and `AWS_IAM_ROLE` set.
+In order to use `dpl` to deploy your Lambda function,
+you need to have a few environment variables defined.
+e.g: `AWS_REGION` and `AWS_IAM_ROLE`.
+
 We have created a
 [`.env_sample`](https://github.com/dwyl/aws-lambda-deploy/blob/master/.env_sample)
-that shows you _exactly_ which environment variables you need.
+file that shows you _exactly_ which environment variables you need.
 
 Simply copy it into your project. e.g:
 
@@ -56,14 +59,15 @@ cp node_modules/dpl/.env_sample .env && echo ".env\n" >> .gitignore
 And then update the values with the _real_ ones for your project.
 
 > **Note**: You need to have your AWS Credentials set
-to use the `aws-sdk` if you have not yet done this,
+to use the `aws-sdk` <br />
+if you have not yet done this,
 see below for instructions.
 
 
-### 3. Add the *list* of `files_to_deploy` entry to your `package.json`
+### 3. Add the *list* of `files_to_deploy` entry to your `package.json` 📝
 
 In your `package.json` file, add the list of files & directories
-you want to be included in your distribution.
+you want to be included in this zip that gets uploaded to AWS.
 
 Example:
 ```js
@@ -73,7 +77,7 @@ Example:
 > Sample: [package.json#L14-L17](https://github.com/dwyl/aws-lambda-deploy/blob/81766f9c20157039e14703e36dbbbaef4cfb4ac3/package.json#L14-L17)
 
 
-### 4. Add the deployment script to the `scripts` section in your `package.json`
+### 4. Add a deployment script to the `scripts` section in `package.json` 📜
 
 Example:
 ```js
@@ -83,18 +87,20 @@ Example:
 ```
 
 
-### 5. Use the script to *Deploy*!
+### 5. Use the script to *Deploy*! 🚀
 
 ```sh
 npm run deploy
 ```
 
-### *Congratulations* your Lambda Function is Deployed!  
+<br />
+
+### *Congratulations* your Lambda Function is Deployed! 🎉
 
 
 <br />
 
-### *Troubleshooting*
+### *Troubleshooting* 🙅‍
 
 > If you see an *error* message in your console,
 > read the message and resolve it by correcting your setup.
@@ -104,14 +110,14 @@ npm run deploy
 [*ping* us!](https://github.com/dwyl/aws-lambda-deploy/issues)
 
 
-## *Implementation Detail*
+## *Implementation Detail* 👷‍
 
-### *Required* Environment Variables
+### *Required* Environment Variables 🔐
 
 Deploying your Lambda function requires a few Environment Variables
 to be set.
 
-#### AWS Credentials
+#### AWS Credentials 🕸
 
 As with all node.js code which uses the `aws-sdk`,
 it expects to have your AWS credentials stored *locally*.
@@ -176,11 +182,11 @@ file if in doubt.
 <br />
 
 
-## Explanation of the Steps
+## Explanation of the Steps 👩‍🏫
 
 ### `dpl` ("*Deploy Lambda*") performs the following 5 tasks
 
-#### 1. *Create* the `/dist` (*distribution*) directory
+#### 1. *Create* the `/dist` (*distribution*) directory 📁
 
 Instead of uploading *all* the files in a project to S3/Lambda we upload only
 the *required* files. e.g: `/src` or `/lib` and `./index.js`.
@@ -192,7 +198,7 @@ see: http://stackoverflow.com/questions/17946360/what-are-the-benefits-of-using-
 
 <br />
 
-#### 2. *Copy* required files into `/dist` directory
+#### 2. *Copy* required files into `/dist` directory ☕️
 
 This typically includes the following:
 
@@ -204,7 +210,7 @@ includes the Lambda function name, any configuration and dependencies.
 
 <br />
 
-#### 3. *Install* (*only production*) `node_modules` in `/dist` directory
+#### 3. *Install* (*only production*) `node_modules` in `/dist` directory 📥
 
 We only need the "*production*" dependencies to be zipped and shipped.
 so instead of copying all the *devDependencies* in `node_modules`,
@@ -212,7 +218,7 @@ we simply install a fresh set using the `--production` flag.
 
 <br />
 
-#### 4. *Zip* the contents of the `/dist` folder to `{function_name}.zip`
+#### 4. *Zip* the contents of the `/dist` folder to `{function_name}.zip` 🤐
 
 Once the `/dist` directory has been created with the necessary files
 and the dependencies have been installed in `/dist/node_modules`
@@ -223,7 +229,7 @@ Lambda function has.
 
 <br />
 
-#### 5. *Upload*
+#### 5. *Upload* 🆙
 
 Once the `zip` has been packaged we upload it to AWS using the `aws-sdk`.
 Your Lambda function will be named according to the `"name"` in
@@ -239,7 +245,7 @@ https://github.com/dwyl/aws-lambda-deploy/issues/33
 <br />
 
 
-### Advantages of using `dpl` to *deploy* your Lambdas
+### Advantages of using `dpl` to *deploy* your Lambdas 💡
 
 + **Minial Dependencies** - Our solution to the deployment task uses only *one*
 core dependency: the [`aws-sdk`](https://github.com/aws/aws-sdk-js).  
@@ -313,7 +319,7 @@ exports.handler = (event, context) => {
 ```
 
 
-## Suggested Reading
+## Suggested Reading 👀 
 
 + Using NPM as a build tool:
 http://blog.keithcirkel.co.uk/how-to-use-npm-as-a-build-tool/
