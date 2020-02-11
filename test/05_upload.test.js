@@ -30,7 +30,7 @@ describe('upload', function () {
       console.log('err:', err);
       console.log('- - - - - - - - -');
       console.log('data:', data);
-      assert(!err);
+      assert.strictEqual(err, null);
       assert(data.CodeSize > 100000);
       assert.strictEqual(data.Timeout, 42);
       assert.strictEqual(data.MemorySize, 512);
