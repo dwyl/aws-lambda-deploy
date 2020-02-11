@@ -1,12 +1,12 @@
 'use strict';
-var assert = require('assert');
-var copyfiles = require('../lib/copyfiles');
-var installnodemodules = require('../lib/install_node_modules');
-var zip = require('../lib/zip');
-var upload = require('../lib/upload');
-var utils = require('../lib/utils');
-var fs = require('fs');
-var path = require('path');
+const assert = require('assert');
+const copyfiles = require('../lib/copyfiles');
+const installnodemodules = require('../lib/install_node_modules');
+const zip = require('../lib/zip');
+const upload = require('../lib/upload');
+const utils = require('../lib/utils');
+const fs = require('fs');
+const path = require('path');
 
 const AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
@@ -61,10 +61,9 @@ describe('upload', function () {
 
 describe('cleanUp', function () {
   it('DELETE the /dist folder and lambda.zip', function (done) {
-    var pkg = require(utils.getBasepath() + 'package.json');
     utils.cleanUp();
-    var filepath = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
-    var exists = false;
+    const filepath = path.normalize(process.env.TMPDIR + PKG.name + '.zip');
+    let exists = false;
     try {
       exists = fs.statSync(filepath); // the file should no longer exist
     } catch (e) {

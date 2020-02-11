@@ -1,20 +1,20 @@
 'use strict';
 require('env2')('.env');
-var fs = require('fs');
-var path = require('path');
-var assert = require('assert');
-var copyfiles = require('../lib/copyfiles');
-var installnodemodules = require('../lib/install_node_modules');
-var zip = require('../lib/zip');
-var upload = require('../lib/upload');
-var utils = require('../lib/utils');
+const fs = require('fs');
+const path = require('path');
+const assert = require('assert');
+const copyfiles = require('../lib/copyfiles');
+const installnodemodules = require('../lib/install_node_modules');
+const zip = require('../lib/zip');
+const upload = require('../lib/upload');
+const utils = require('../lib/utils');
 
-var basepath = utils.getBasepath();
-var AWS = require('aws-sdk');
+const basepath = utils.getBasepath();
+const AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
-var lambda = new AWS.Lambda();
+const lambda = new AWS.Lambda();
 let pkg = require(path.resolve(basepath, 'package.json'));
-const FUNCTION_NAME = utils.FunctionName(pkg);
+const FUNCTION_NAME = utils.functionName(pkg);
 
 describe('upload > testing lambda_timeout and lambda_memory', function () {
   it('exercise default values for lambda_memory & timeout', function (done) {
@@ -72,8 +72,8 @@ describe('upload > testing lambda_timeout and lambda_memory', function () {
 
   after('cleanUp > restore package.json, DELETE the /dist folder and lambda.zip', function (done) {
     utils.cleanUp();
-    var filepath = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
-    var exists = false;
+    const filepath = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
+    let exists = false;
     try {
       exists = fs.statSync(filepath); // the file should no longer exist
     } catch (e) {
