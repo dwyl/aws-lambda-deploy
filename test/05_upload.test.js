@@ -26,7 +26,7 @@ describe('upload', function () {
     installnodemodules();
     zip();
     upload(function (err, data) {
-      console.log('- - - - - - - - -');
+      console.log('- - - - - - - - - CREATE');
       console.log('err:', err);
       console.log('- - - - - - - - -');
       console.log('data:', data);
@@ -40,11 +40,11 @@ describe('upload', function () {
 
   it('Call upload again to exercise the "updateFunctionCode" branch', function (done) {
     upload(function (err, data) {
-      console.log('- - - - - - - - -');
+      console.log('- - - - - - - - - UPDATE');
       console.log('err:', err);
-      assert(!err);
+      assert.strictEqual(err, null);
       console.log('- - - - - - - - -');
-      console.log('Lambda Function UPDATED:', data);
+      // console.log('Lambda Function UPDATED:', data);
       assert(data.CodeSize > 100000);
       done();
     });
@@ -52,6 +52,10 @@ describe('upload', function () {
 
   it('DELETE the Lambda Function from AWS so we can re-upload it', function (done) {
     lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
+      console.log('- - - - - - - - - DELETE');
+      console.log('err:', err);
+      console.log('- - - - - - - - -');
+      console.log('data:', data);
       assert.strictEqual(err, null);
       done();
     });
