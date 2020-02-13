@@ -1,48 +1,39 @@
 'use strict';
-var assert = require('assert');
-var fs = require('fs');
-var path = require('path');
-var utils = require('../lib/utils');
-var basepath = utils.getBasepath();
-var copyfiles = require('../lib/copyfiles');
-var installnodemodules = require('../lib/install_node_modules');
-var pkg = require(basepath + 'package.json');
-var zip = require('../lib/zip');
+const test = require('tape');
+const fs = require('fs');
+const path = require('path');
+const utils = require('../lib/utils');
+const basepath = utils.getBasepath();
+const copyfiles = require('../lib/copyfiles');
+const installnodemodules = require('../lib/install_node_modules');
+const pkg = require(basepath + 'package.json');
+const zip = require('../lib/zip');
 
-describe('zip', function () {
-  before(() => {
-    utils.deleteDirContents(path.join(process.env.TMPDIR, 'unzipped'), true);   // delete unzipped completely
-    try {
-      utils.cleanUp();
-    } catch (e) {
-      /* ignore */
-    }
-  });
+function cleanUp () {
+  try { // delete unzipped completely
+    utils.deleteDirContents(path.join(process.env.TMPDIR, 'unzipped'), true);
+    utils.cleanUp();
+  } catch (e) {
+    /* ignore */
+  }
+}
 
-  after(() => {
-    utils.deleteDirContents(path.join(process.env.TMPDIR, 'unzipped'), true);   // delete unzipped completely
-    try {
-      utils.cleanUp();
-    } catch (e) {
-      /* ignore */
-    }
-  });
+test('zip the /dist directory', async function (t) {
+  cleanUp()
+  copyfiles(); // setup /dist
+  installnodemodules();
+  const zipfilepath = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
+  zip();
+  const stat = fs.statSync(zipfilepath);
+  t.ok(stat.size > 1000000, 'stat.size: ' + stat.size); // zip > 1mb
+  t.end();
+});
 
-  it('zip the /dist directory', function (done) {
-    copyfiles(); // setup /dist
-    installnodemodules();
-    var zipfilepath = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
-    zip();
-    var stat = fs.statSync(zipfilepath);
-    assert(stat.size > 1000000); // the zip is bigger than a megabyte!
-    done();
-  });
-
-  it(' unzip the package and confirm the package.json is intact', function (done) {
-    zip.unzip();
-    var unzipped = path.normalize(process.env.TMPDIR + '/unzipped');
-    var unzippedutils = require(path.normalize(unzipped + '/lib/utils'));
-    assert.equal(JSON.stringify(utils), JSON.stringify(unzippedutils));
-    done();
-  });
+test(' unzip the package and confirm the package.json is intact', async function (t) {
+  zip.unzip();
+  const unzipped = path.normalize(process.env.TMPDIR + '/unzipped');
+  const unzippedutils = require(path.normalize(unzipped + '/lib/utils'));
+  t.equal(JSON.stringify(utils), JSON.stringify(unzippedutils));
+  cleanUp()
+  t.end();
 });

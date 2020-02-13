@@ -1,79 +1,83 @@
 'use strict';
 require('env2')('.env');
-var fs = require('fs');
-var path = require('path');
-var assert = require('assert');
-var copyfiles = require('../lib/copyfiles');
-var installnodemodules = require('../lib/install_node_modules');
-var zip = require('../lib/zip');
-var upload = require('../lib/upload');
-var utils = require('../lib/utils');
+const test = require('tape');
+const fs = require('fs');
+const path = require('path');
+const copyfiles = require('../lib/copyfiles');
+const installnodemodules = require('../lib/install_node_modules');
+const zip = require('../lib/zip');
+const upload = require('../lib/upload');
+const utils = require('../lib/utils');
 
-var basepath = utils.getBasepath();
-var AWS = require('aws-sdk');
+const basepath = utils.getBasepath();
+const AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
-var lambda = new AWS.Lambda();
-var FUNCTION_NAME; // GLOBAL used to delete the function.
-var pkg = require(path.resolve(basepath, 'package.json'));
+const lambda = new AWS.Lambda();
+let pkg = require(path.resolve(basepath, 'package.json'));
+const FUNCTION_NAME = utils.functionName(pkg);
 
-describe('upload > testing lambda_timeout and lambda_memory', function () {
-  it('exercise default values for lambda_memory & timeout', function (done) {
-    delete pkg.lambda_memory;
-    delete pkg.lambda_timeout;
-    copyfiles();
-    installnodemodules();
-    zip();
-    // pass in the modified pkg (with lambda_memory & lambda_timeout set)
-    upload(pkg, function (err, data) {
-      assert(!err);
-      console.log('Lambda Function CREATED:', data);
-      FUNCTION_NAME = data.FunctionName;
+// describe('upload > testing lambda_timeout and lambda_memory', function () {
+test('exercise default values for lambda_memory & timeout', async function (t) {
+  // console.log('pkg: (before)', pkg);
+  delete pkg.lambda_memory;
+  delete pkg.lambda_timeout;
+  // console.log('pkg: (after)', pkg);
+  copyfiles();
+  installnodemodules();
+  zip();
+  // pass in the modified pkg (with lambda_memory & lambda_timeout set)
+  upload(pkg, function (err, data) {
+    console.log('- - - - - - - - - CREATE (settings defaults)');
+    console.log('err:', err);
+    console.log('- - - - - - - - -');
+    console.log('data:', data);
+    t.equal(err, null, 'upload err: ' + err);
+    // these are the default values:
+    t.equal(data.Timeout, 10, 'data.Timeout: ' + data.Timeout);
+    t.equal(data.MemorySize, 128, 'data.MemorySize: ' + data.MemorySize);
 
-      assert(data.CodeSize > 100000);
-      // these are the default values:
-      assert.equal(data.MemorySize, 128);
-      assert.equal(data.Timeout, 10);
-      // now delete the function so we can do it all again!
-      lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
-        assert.equal(err, null);
-        done();
-      });
+    // now delete the function so we can do it all again!
+    lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
+      t.equal(err, null, 'deleteFunction err: ' + err);
+      t.end();
     });
   });
+});
 
-  it('Max the settings for lambda_memory & timeout', function (done) {
-    pkg.lambda_memory = 1536; // 1.5 GB (the most you can have!)
-    pkg.lambda_timeout = 300; // 300 seconds (max execution time)
+test('Max the settings for lambda_memory & timeout', async function (t) {
+  pkg.lambda_memory = 1536; // 1.5 GB (the most you can have!)
+  pkg.lambda_timeout = 300; // 300 seconds (max execution time)
 
-    copyfiles();
-    installnodemodules();
-    zip();
-    // pass in the modified pkg (with lambda_memory & lambda_timeout set)
-    upload(pkg, function (err, data) {
-      assert(!err);
-      console.log('Lambda Function CREATED:', data);
+  copyfiles();
+  installnodemodules();
+  zip();
+  // pass in the modified pkg (with lambda_memory & lambda_timeout set)
+  upload(pkg, function (err, data) {
+    console.log('- - - - - - - - - CREATE (settings)');
+    console.log('err:', err);
+    console.log('- - - - - - - - -');
+    console.log('data:', data);
+    t.equal(err, null, 'upload err: ' + err);
+    // values we defined above:
+    t.equal(data.Timeout, 300, 'data.Timeout: ' + data.Timeout);
+    t.equal(data.MemorySize, 1536, 'data.MemorySize: ' + data.MemorySize);
 
-      assert(data.CodeSize > 100000);
-      // these are the default values:
-      assert.equal(data.MemorySize, 1536);
-      assert.equal(data.Timeout, 300);
-      // delete it again!
-      lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
-        assert.equal(err, null);
-        done();
-      });
+    // delete it again!
+    lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
+      t.equal(err, null, 'deleteFunction err: ' + err);
+      t.end();
     });
   });
+});
 
-  after('cleanUp > restore package.json, DELETE the /dist folder and lambda.zip', function (done) {
-    utils.cleanUp();
-    var filepath = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
-    var exists = false;
-    try {
-      exists = fs.statSync(filepath); // the file should no longer exist
-    } catch (e) {
-    }
-    assert.equal(exists, false); // .zip does not exist
-    done();
-  });
+test('cleanUp > restore package.json, DELETE /dist folder & lambda.zip', async function (t) {
+  utils.cleanUp();
+  const filepath = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
+  let exists = false;
+  try {
+    exists = fs.statSync(filepath); // the file should no longer exist
+  } catch (e) {
+  }
+  t.equal(exists, false, 'zip does not exist'); // .zip does not exist
+  t.end();
 });

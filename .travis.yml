@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+- '12'
+cache:
+  directories:
+  - node_modules
+before_install:
+  - mkdir tmp
+  - chmod 777 tmp
+  # create a dummy .env file on CI:
+  - echo "export HELLO=world" >> .env
+  - cat .env
+before_script:
+# - npm run eslint
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+env:
+  global:
+    - AWS_REGION=eu-west-1
+    - TMPDIR=$TRAVIS_BUILD_DIR/tmp/
+    - secure: fd3Ph8xjdEMvT75e4ekS9NtTTCk5KIKAKRMANwHm++4oZev3LiyqaKX4qDRdg948p1WezB/7mPf0mzjsM1DngVDPx3iX5hf+8YLDEPJshLdDCx6FX3HJY8Xjl3vXaJ84RhVmm6auc31sL8Uoo3J7PSYcDw59nVA7IVPoStZX1PUL5oHwoz28HXF6pKmTqwwP2MXde+jY+hSRxcPYGmyfo0h6uNMVd/4sKb4kvcS3ihY2n8TuVLML1HXTMeR83OHUZWKRgfv5rqeFxnPUBjjUO2JMomGR2N6Cq2mGP74poinngt6LovfmTafpLSw5+5CKZTHNUCL1+c+O75HJOH9WhcmSslVkrL3bumjgbD55xWMfva2B3AiYFyizycUhYGeKhrYcDq4NlwXkiuuRF7umc4NKAIP1ic9kj5giRkZ8E2J5ztmlkoVIJ/S72HboEPLq4+W2kimPtD8ual6qBFkPvwLe29OtGumSMUUTi1BY7aZ3R696Igk+gzMEOfle/b/6kdu4gZ9+hbmnJg5czQwmUpisQvMLAjuzpwOrJeA7d/qQ4xBghemDkloLGruNnI9oO1TLUKSc8AP7d/xRsbMqxImpiESU4KMsiLWL5rJdxFNfXqY9ViXnjAAN88o0tASr/LmwAadqSl4g9NH54JQD5SRDS5bO6wh6DbX8O47aMKc=
+    - secure: qKu52bQFMHePRxsE6Bu7XC3bGVHYhN0lfElvvJ5xrB8DktKQ6e0xv45TzWtglHZKTBuZ9O+Jb1MFAUctDTeA33pSUapeuhNGAiAghvL1U0ytNFju35T805oeBibvrHN0/+gCmD1rXTK+LFVsLXcU1Xe6TSFvaF5KjfaPHZcvike9jc1bPcEtJLUP3SLHOB77vPxDHJDqgVGZaxoEVCSNUdzBB5ccggHXY+PrtV/U8C3ssYOuM/+ktOW/5FP/wf0iCB9xLKkpijyXfPKLGB1Y/3QNP+S5rSi78VOZ2buXbo3Yjyn2kZq2eyPPHNOgvuuWMExjPXKtWNUsqQvE/ZipG7NQjwWyejTrX76JjbZTGhe0sttoZBpX1kLsw84bkGMIrDMJqKx+Oi0z2gUxGswJsW7az+une/FYptgQLOnCDOWvsyefywz3OqSKRlUu8I7MKZJ45RSCnClNAyOizaTH9KcwZ0GPtYtoVQzpiG0yu+/hrQG60Uc9W3CMGZzfbDTZJdzrX8XlU7z3i1y1peMUC1ZwcuvMhXLA1KUSMKD30GAM93JdeOXGTb/Gxgz6m4QwaqWZqDWqFaoyNaA9uO2sk/aLpLJCetTN1kp1uRb6KtLnmY24QakEuoMOzZufl+p4cqPRjBXlHaxuDG7s+EA9ZqTFpldhods0A1jUA/lwEXc=
+    - secure: KyuAoDeLfPxmpHOVCHOpXFVjOx0kgp0haD+8Y7Pwdc1ertB5m5pFA+Sx8AcRk/OIPlZDHGsOAprDAI7ZZzbrL8tgcydVEyXdyeXpdsjRIYDB4Hv7ZZzyUIlmUV39aaV5V6S6hl+jpWb+X6IHTkpKkUFfUTp2zDdfdkIhmB1eQYebVXA9gaLsda6OKf8npKfYQ+at0QdtQEW3tRsrjEWe4NkWiuvsnoaG+ohsSlbDRD78H/aqZVQpbjptLeC99BI/Oz72+rWJwkKqMTz303mTgsBELE12y2XD/rdHsERhMUZcibSkVIObCdYdMa6ZSD0HB1xbMXyCSdpPRrYtSCTL6/FjI75QkaMKc/ke3sDtyppthOsTrDV6ydsLhEL5tSDOTflxVIJmQYBdwROr7o6+MxwoJQUiyEsQTXRdByzE15XB199e5GXVTW8SnmUZkj9JQ4lqQ1XRZHtC4baCofFsiEyjWNZw/PCWOXOkrRQ0QV8qRGQf4oAjBAj/KvHLNhOWSfoO/xKJHNKso1620eIF4dK2Lehf65iJdWZETq8yFBo+qKFxtWSaSjCDOzBZNE8q2uUlmglf0bD0c0Z7PGIjXhjwU7LJxHgKfX9msyBXqLnS4pCd12/4K/s386F7KV5E3+y4jONh+BnOvTl9Hdp0vb6sSFQPLVfp48E39j/b3WI=

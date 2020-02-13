@@ -1,62 +1,65 @@
 'use strict';
-var assert = require('assert');
-var copyfiles = require('../lib/copyfiles');
-var installnodemodules = require('../lib/install_node_modules');
-var zip = require('../lib/zip');
-var upload = require('../lib/upload');
-var utils = require('../lib/utils');
-var fs = require('fs');
-var path = require('path');
+const test = require('tape');
+const copyfiles = require('../lib/copyfiles');
+const installnodemodules = require('../lib/install_node_modules');
+const zip = require('../lib/zip');
+const upload = require('../lib/upload');
+const utils = require('../lib/utils');
+const fs = require('fs');
+const path = require('path');
 
-var AWS = require('aws-sdk');
+const AWS = require('aws-sdk');
 AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
-var lambda = new AWS.Lambda();
-var FUNCTION_NAME; // GLOBAL used to delete the function.
+const lambda = new AWS.Lambda();
+const basepath = utils.getBasepath();
+const PKG = require(basepath + 'package.json');
+const FUNCTION_NAME = utils.functionName(PKG);
 
-describe('upload', function () {
-  it('upload the lambda function to S3', function (done) {
-    copyfiles();
-    installnodemodules();
-    zip();
-    upload(function (err, data) {
-      assert(!err);
-      // console.log('Lambda Function CREATED:', data);
-      FUNCTION_NAME = data.FunctionName;
-      assert(data.CodeSize > 100000);
-      assert.equal(data.Timeout, 42);
-      assert.equal(data.MemorySize, 512);
-      done();
-    });
-  });
+test('upload the lambda function to S3', async function (t) {
+  copyfiles();
+  installnodemodules();
+  zip();
+  upload(function (err, data) {
+    console.log('- - - - - - - - - CREATE');
+    console.log('err:', err);
+    console.log('- - - - - - - - -');
+    console.log('data:', data);
+    t.equal(err, null, 'err: ' + err);
+    t.ok(data.CodeSize > 1000000, 'data.CodeSize: ' + data.CodeSize);
+    t.equal(data.Timeout, 42, 'data.Timeout: ' + data.Timeout);
+    t.equal(data.MemorySize, 512, 'data.MemorySize: ' + data.MemorySize);
 
-  it('Call upload again to exercise the "updateFunctionCode" branch', function (done) {
+    // Call upload again to exec "updateFunctionCode"
     upload(function (err, data) {
-      assert(!err);
+      console.log('- - - - - - - - - UPDATE');
+      console.log('err:', err);
+      console.log('data:', data);
+      t.equal(err, null, 'err: ' + err);
+      console.log('- - - - - - - - -');
       // console.log('Lambda Function UPDATED:', data);
-      assert(data.CodeSize > 100000);
-      done();
-    });
-  });
+      t.ok(data.CodeSize > 1000000, 'data.CodeSize: ' + data.CodeSize);
 
-  it('DELETE the Lambda Function from AWS so we can re-upload it', function (done) {
-    lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
-      assert.equal(err, null);
-      done();
+      // DELETE Lambda Function so we can re-upload it
+      lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
+        console.log('- - - - - - - - - DELETE');
+        console.log('err:', err);
+        console.log('- - - - - - - - -');
+        console.log('data:', data);
+        t.equal(err, null, 'err: ' + err);
+        t.end();
+      });
     });
   });
 });
 
-describe('cleanUp', function () {
-  it('DELETE the /dist folder and lambda.zip', function (done) {
-    var pkg = require(utils.getBasepath() + 'package.json');
-    utils.cleanUp();
-    var filepath = path.normalize(process.env.TMPDIR + pkg.name + '.zip');
-    var exists = false;
-    try {
-      exists = fs.statSync(filepath); // the file should no longer exist
-    } catch (e) {
-    }
-    assert.equal(exists, false); // .zip does not exist
-    done();
-  });
+test('DELETE the /dist folder and lambda.zip', async function (t) {
+  utils.cleanUp();
+  const filepath = path.normalize(process.env.TMPDIR + PKG.name + '.zip');
+  let exists = false;
+  try {
+    exists = fs.statSync(filepath); // the file should no longer exist
+  } catch (e) {
+  }
+  t.equal(exists, false, 'zip file does not exist'); // .zip does not exist
+  t.end()
 });

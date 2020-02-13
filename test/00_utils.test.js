@@ -1,201 +1,189 @@
 require('env2')('.env'); // load environment variables from file if available
-var assert = require('assert');
-var fs = require('fs');
-var path = require('path');
-var utils = require('../lib/utils');
-var mkdirSync = require('../lib/mkdirSync');
+const test = require('tape');
+const fs = require('fs');
+const path = require('path');
+const utils = require('../lib/utils');
+const mkdirSync = require('../lib/mkdirSync');
 
-describe('utils.getBasepath', function () {
-  it('getBasepath for the project with nested start', function (done) {
-    var dir = path.resolve(__dirname, '/../node_modules/aws_sdk/node_modules/sax');
-    var parent = path.resolve(__dirname, '/../');
-    var base = utils.getBasepath(dir);
-    console.log('utils.getBasepath:', base);
-    // console.log('parent:',parent);
-    assert.equal(base, parent);
-    done();
-  });
+test('getBasepath for the project with nested start', async function (t) {
+  const dir = path.resolve(__dirname, '/../node_modules/aws_sdk/node_modules/sax');
+  const parent = path.resolve(__dirname, '/../');
+  const base = utils.getBasepath(dir);
+  console.log('utils.getBasepath:', base);
+  // console.log('parent:',parent);
+  t.equal(base, parent);
+  t.end();
+});
 
-  it('getBasepath for the project without specifying start dir', function (done) {
-    var parent = path.join(__dirname, '../');
-    var base = utils.getBasepath();
-    // console.log('base:',base);
-    // console.log('parent:',parent);
-    assert.equal(base, parent);
-    done();
+test('getBasepath for the project without specifying start dir', async function (t) {
+  const parent = path.join(__dirname, '../');
+  const base = utils.getBasepath();
+  // console.log('base:',base);
+  // console.log('parent:',parent);
+  t.equal(base, parent);
+  t.end();
+});
+
+test('delete existing /dist directory (if there is one)', async function (t) {
+  console.log('>>>> process.env.TMPDIR', process.env.TMPDIR);
+  const distpath = path.normalize(process.env.TMPDIR + 'my_dir');
+  let exists = false;
+  try {
+    utils.deleteDirContents(distpath, true); // completely remove /dist
+    exists = fs.statSync(distpath);
+  } catch (e) {
+    // console.log(e);
+  }
+  // console.log('exist?', exists);
+  t.equal(exists, false);
+  t.end();
+});
+
+test('create *NEW* /dist directory', function (t) {
+  const distpath = path.normalize(process.env.TMPDIR + 'my_dir');
+  console.log('>> distpath:', distpath);
+  const res = mkdirSync(distpath); // sync
+  t.equal(distpath, res, 'distpath: ' + distpath);
+  t.end();
+});
+
+test('re-create /dist directory again (try/catch branch test)', async function (t) {
+  const distpath = path.normalize(process.env.TMPDIR + 'my_dir');
+  // console.log('>> distpath:',distpath);
+  const err = mkdirSync(distpath); // expect to return error
+  // console.log(err);
+  t.equal(err.code, 'EEXIST', 'already exists.');
+  t.end();
+});
+
+test('create a directory *inside* /dist dir (test deletion)', async function (t) {
+  const dirpath = path.normalize(process.env.TMPDIR + 'my_dir/node_modules'); // fake node_modules
+  // console.log('node_modules path:',dirpath);
+  const res = mkdirSync(dirpath); // sync
+  t.equal(dirpath, res, 'node_modules folder created');
+  t.end();
+});
+
+test('create files *inside* /dist and dist/node_modules dirs to test deletion', async function (t) {
+  const distpath = path.normalize(process.env.TMPDIR + 'my_dir'); // temp /dist
+  const dirpath = distpath + '/node_modules'; // fake node_modules
+  const file1 = distpath + '/hello.txt';
+  const file2 = dirpath + '/another.txt';
+  fs.writeFileSync(file1, 'hello world');
+  fs.writeFileSync(file2, 'hello world');
+  let exists = false;
+  try {
+    exists = fs.statSync(file1);
+    // console.log(exists);
+  } catch (e) {
+    console.log(e);
+  }
+  t.equal(exists.size, 11, 'file created: ' + file1);
+  t.end();
+});
+
+test('delete contents of dir but NOT the dir itself', async function (t) {
+  const distpath = path.normalize(process.env.TMPDIR + 'my_dir'); // temporary /dist directory
+  const dirpath = path.normalize(distpath + '/another_dir'); // another_dir to delete shortly
+  mkdirSync(dirpath);
+  const file1 = path.normalize(distpath + '/picaboo.go');
+  const file2 = path.normalize(dirpath + '/anotherfile.doc');
+  fs.writeFileSync(file1, 'hello world');
+  fs.writeFileSync(file2, 'hello world');
+  let stat = false;
+  try {
+    stat = fs.statSync(file1);
+    // console.log(exists);
+  } catch (e) {
+    console.log(e);
+  }
+  t.equal(stat.size, 11, 'file created: ' + file1);
+  // now delete the CONTENTS of dirpath but not the dir itself:
+  let exists = false;
+  try {
+    utils.deleteDirContents(dirpath); // no second argument!
+    exists = fs.statSync(dirpath);
+  } catch (e) {
+    // console.log(e);
+  }
+  t.ok(exists.size > 0, 'exists.size: ' + exists.size);
+  const files = fs.readdirSync(dirpath);
+  t.equal(files.length, 0, 'files.lengt: ' + files.length);
+  t.end();
+});
+
+test('delete existing /dist directory and all its contents', async function (t) {
+  const distpath = path.normalize(process.env.TMPDIR + 'my_dir');
+  let exists = false;
+  try {
+    utils.deleteDirContents(distpath, true); // sync
+    exists = fs.statSync(distpath);
+  } catch (e) {
+    // console.log(e);
+  }
+  t.equal(exists, false);
+  t.end();
+});
+
+test('attempt to delete non-existent directory (catch test)', async function (t) {
+  const distpath = process.env.TMPDIR + 'fakedir';
+  let exists = false;
+  try {
+    utils.deleteDirContents(distpath, true); // sync
+    exists = fs.statSync(distpath);
+  } catch (e) {
+    // console.log(e);
+  }
+  t.equal(exists, false);
+  t.end();
+});
+
+const git = require('git-rev'); // ONLY used in testing
+test('retrieve the latest git hash', async function (t) {
+  const githash = utils.gitcommithash(); // synchronous
+  console.log('githash:', githash);
+  git.long(function (hash) {
+    t.equal(githash, hash);
+    t.end();
   });
 });
 
-describe('utils.deleteDirContents', function () {
-  it('delete existing /dist directory (if there is one)', function (done) {
-    console.log('>>>> process.env.TMPDIR', process.env.TMPDIR);
-    var distpath = path.normalize(process.env.TMPDIR + 'my_dir');
-    var exists = false;
-    try {
-      utils.deleteDirContents(distpath, true); // completely remove /dist
-      exists = fs.statSync(distpath);
-    } catch (e) {
-      // console.log(e);
-    }
-    // console.log('exist?', exists);
-    assert.equal(exists, false);
-    done();
-  });
-
-  it('create *NEW* /dist directory', function (done) {
-    var distpath = path.normalize(process.env.TMPDIR + 'my_dir');
-    console.log('>> distpath:', distpath);
-    var res = mkdirSync(distpath); // sync
-    assert.equal(distpath, res, 'distpath: ' + distpath);
-    done();
-  });
-
-  it('attempt to re-create /dist directory again (try/catch branch test)', function (done) {
-    var distpath = path.normalize(process.env.TMPDIR + 'my_dir');
-    // console.log('>> distpath:',distpath);
-    var err = mkdirSync(distpath); // expect to return error
-    // console.log(err);
-    assert.equal(err.code, 'EEXIST', 'already exists.');
-    done();
-  });
-
-  it('create a directory *inside* the /dist dir (so we can test deletion)', function (done) {
-    var dirpath = path.normalize(process.env.TMPDIR + 'my_dir/node_modules'); // fake node_modules
-    // console.log('node_modules path:',dirpath);
-    var res = mkdirSync(dirpath); // sync
-    assert.equal(dirpath, res, 'node_modules folder created');
-    done();
-  });
-
-  it('create files *inside* /dist and dist/node_modules dirs to test deletion', function (done) {
-    var distpath = path.normalize(process.env.TMPDIR + 'my_dir'); // temporary /dist directory
-    var dirpath = distpath + '/node_modules'; // fake node_modules
-    var file1 = distpath + '/hello.txt';
-    var file2 = dirpath + '/another.txt';
-    fs.writeFileSync(file1, 'hello world');
-    fs.writeFileSync(file2, 'hello world');
-    var exists = false;
-    try {
-      exists = fs.statSync(file1);
-      // console.log(exists);
-    } catch (e) {
-      console.log(e);
-    }
-    assert.equal(exists.size, 11, 'file created: ' + file1);
-    done();
-  });
-
-  it('delete contents of directory but NOT the directory itself', function (done) {
-    var distpath = path.normalize(process.env.TMPDIR + 'my_dir'); // temporary /dist directory
-    var dirpath = path.normalize(distpath + '/another_dir'); // another_dir to delete shortly
-    mkdirSync(dirpath);
-    var file1 = path.normalize(distpath + '/picaboo.go');
-    var file2 = path.normalize(dirpath + '/anotherfile.doc');
-    fs.writeFileSync(file1, 'hello world');
-    fs.writeFileSync(file2, 'hello world');
-    var stat = false;
-    try {
-      stat = fs.statSync(file1);
-      // console.log(exists);
-    } catch (e) {
-      console.log(e);
-    }
-    assert.equal(stat.size, 11, 'file created: ' + file1);
-    // now delete the CONTENTS of dirpath but not the dir itself:
-    var exists = false;
-    try {
-      utils.deleteDirContents(dirpath); // no second argument!
-      exists = fs.statSync(dirpath);
-    } catch (e) {
-      // console.log(e);
-    }
-    assert(exists.size > 0);
-    var files = fs.readdirSync(dirpath);
-    assert.equal(files.length, 0);
-    done();
-  });
-
-  it('delete existing /dist directory and all its contents', function (done) {
-    var distpath = path.normalize(process.env.TMPDIR + 'my_dir');
-    var exists = false;
-    try {
-      utils.deleteDirContents(distpath, true); // sync
-      exists = fs.statSync(distpath);
-    } catch (e) {
-      // console.log(e);
-    }
-    assert.equal(exists, false);
-    done();
-  });
-
-  it('attempt to delete non-existent directory (catch test)', function (done) {
-    var distpath = process.env.TMPDIR + 'fakedir';
-    var exists = false;
-    try {
-      utils.deleteDirContents(distpath, true); // sync
-      exists = fs.statSync(distpath);
-    } catch (e) {
-      // console.log(e);
-    }
-    assert.equal(exists, false);
-    done();
+test('utils.githubcommiturl > retrieve the latest git hash', async function (t) {
+  const githuburl = utils.githubcommiturl(); // synchronous
+  console.log('githuburl:', githuburl);
+  git.long(function (hash) {
+    const pkg = require(utils.getBasepath() + 'package.json');
+    const url = pkg.repository.url.replace('git+', '').replace('.git', '');
+    const gurl = url + '/commit/' + hash;
+    t.equal(githuburl, gurl);
+    t.end();
   });
 });
 
-var git = require('git-rev'); // ONLY used in testing
-describe('utils.get_git_hash', function () {
-  it('retrieve the latest git hash', function (done) {
-    var githash = utils.gitcommithash(); // synchronous
-    console.log('githash:', githash);
-    git.long(function (hash) {
-      assert.equal(githash, hash);
-      done();
-    });
+test('utils.description retrieve description for the lambda', async function (t) {
+  const pkg = require(utils.getBasepath() + 'package.json');
+  const url = utils.githubcommiturl(); // synchronous
+  const description = utils.description();
+  console.log('description:', description);
+  git.long(function (hash) {
+    const expected = pkg.description + ' | ' + url;
+    t.equal(description, expected);
+    t.end()
   });
 });
 
-describe('utils.githubcommiturl', function () {
-  it('retrieve the latest git hash', function (done) {
-    var githuburl = utils.githubcommiturl(); // synchronous
-    console.log('githuburl:', githuburl);
-    git.long(function (hash) {
-      var pkg = require(utils.getBasepath() + 'package.json');
-      var url = pkg.repository.url.replace('git+', '').replace('.git', '');
-      var gurl = url + '/commit/' + hash;
-      assert.equal(githuburl, gurl);
-      done();
-    });
-  });
-});
-
-describe('utils.description', function () {
-  it('retrieve the description for the lambda', function (done) {
-    var pkg = require(utils.getBasepath() + 'package.json');
-    var url = utils.githubcommiturl(); // synchronous
-    var description = utils.description();
-    console.log('description:', description);
-    git.long(function (hash) {
-      var expected = pkg.description + ' | ' + url;
-      assert.equal(description, expected);
-      done();
-    });
-  });
-});
-
-describe('utils.makeEnvFile', function () {
-  it('create an .env file based on the current environment variables', function (done) {
-    var base = utils.getTargetPath();
-    console.log('>> utils.makeEnvFile base:', base);
-    mkdirSync(base);
-    utils.makeEnvFile();
-    var dir = fs.readdirSync(path.normalize(base));
-    console.log('DIR:', dir);
-    var envfile = fs.readFileSync(path.resolve(base + '.env'), 'utf8');
-    // console.log(env_file.split('\n').length);
-    // console.log(' - - - - - - - - - - - - - - - ');
-    // console.log(env_file);
-    // console.log(' - - - - - - - - - - - - - - - ');
-    assert(envfile.indexOf('AWS_REGION') > -1);
-    done();
-  });
+test('utils.makeEnvFile create .env file based on current env vars', async function (t) {
+  const base = utils.getTargetPath();
+  console.log('>> utils.makeEnvFile base:', base);
+  mkdirSync(base);
+  utils.makeEnvFile();
+  const dir = fs.readdirSync(path.normalize(base));
+  console.log('DIR:', dir);
+  const envfile = fs.readFileSync(path.resolve(base + '.env'), 'utf8');
+  // console.log(env_file.split('\n').length);
+  // console.log(' - - - - - - - - - - - - - - - ');
+  // console.log(env_file);
+  // console.log(' - - - - - - - - - - - - - - - ');
+  t.ok(envfile.indexOf('AWS_REGION') > -1);
+  t.end();
 });
