@@ -57,7 +57,7 @@
   },
   "homepage": "https://github.com/dwyl/aws-lambda-deploy#readme",
   "engines": {
-    "node": ">=12.5.0"
+    "node": ">=20.0.0"
   },
   "devDependencies": {
     "aguid": "^2.0.0",
