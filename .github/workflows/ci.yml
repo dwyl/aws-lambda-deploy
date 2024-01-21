@@ -22,6 +22,8 @@ jobs:
     steps:
     - name: Pre Flight Checks
       run: |
+        mkdir tmp
+        chmod 777 tmp
         echo "export HELLO=world" >> .env 
         cat .env
     - uses: actions/checkout@v2
