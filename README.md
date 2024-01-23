@@ -7,8 +7,6 @@ Deploy your AWS Lambda function(s) in seconds with a single command.
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/dwyl/aws-lambda-deploy/ci.yml?label=build&style=flat-square&branch=main)](https://github.com/dwyl/aws-lambda-deploy/actions)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/aws-lambda-deploy/master.svg?style=flat-square)](http://codecov.io/github/dwyl/aws-lambda-deploy?branch=master)
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/dwyl/aws-lambda-deploy?color=brightgreen&style=flat-square)](https://codeclimate.com/github/dwyl/aws-lambda-deploy)
-[![dependencies Status](https://david-dm.org/dwyl/aws-lambda-deploy/status.svg?style=flat-square)](https://david-dm.org/dwyl/aws-lambda-deploy)
-[![devDependencies Status](https://david-dm.org/dwyl/aws-lambda-deploy/dev-status.svg?style=flat-square)](https://david-dm.org/dwyl/aws-lambda-deploy?type=dev)
 [![HitCount](http://hits.dwyl.com/dwyl/aws-lambda-deploy.svg)](http://hits.dwyl.com/dwyl/aws-lambda-deploy)
 [![npm package version](https://img.shields.io/npm/v/dpl.svg?color=brightgreen&style=flat-square)](https://www.npmjs.com/package/dpl)
 
