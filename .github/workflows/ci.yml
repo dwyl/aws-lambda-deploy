@@ -26,7 +26,10 @@ jobs:
         chmod 777 /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/tmp
         echo "export HELLO=world" >> /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env 
         cat /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
-        echo TMPDIR
+        echo "$TMPDIR" > /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
+        cat /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
+      env:
+        TMPDIR: 
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
