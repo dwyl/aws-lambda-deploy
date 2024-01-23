@@ -22,10 +22,10 @@ jobs:
     steps:
     - name: Pre Flight Checks
       run: |
-        mkdir tmp
-        chmod 777 tmp
-        echo "export HELLO=world" >> .env 
-        cat .env
+        mkdir -r /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/tmp
+        chmod 777 /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/tmp
+        echo "export HELLO=world" >> /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env 
+        cat /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
