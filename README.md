@@ -4,7 +4,7 @@
 
 Deploy your AWS Lambda function(s) in seconds with a single command.
 
-[![Build Status](https://img.shields.io/travis/dwyl/aws-lambda-deploy/master.svg?style=flat-square)](https://travis-ci.org/dwyl/aws-lambda-deploy)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/dwyl/aws-lambda-deploy/ci.yml?label=build&style=flat-square&branch=main)](https://github.com/dwyl/aws-lambda-deploy/actions)
 [![codecov.io](https://img.shields.io/codecov/c/github/dwyl/aws-lambda-deploy/master.svg?style=flat-square)](http://codecov.io/github/dwyl/aws-lambda-deploy?branch=master)
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/dwyl/aws-lambda-deploy?color=brightgreen&style=flat-square)](https://codeclimate.com/github/dwyl/aws-lambda-deploy)
 [![dependencies Status](https://david-dm.org/dwyl/aws-lambda-deploy/status.svg?style=flat-square)](https://david-dm.org/dwyl/aws-lambda-deploy)
