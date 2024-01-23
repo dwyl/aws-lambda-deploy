@@ -22,7 +22,7 @@ jobs:
     steps:
     - name: Pre Flight Checks
       run: |
-        mkdir -r /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/tmp
+        mkdir /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/tmp
         chmod 777 /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/tmp
         echo "export HELLO=world" >> /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env 
         cat /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
