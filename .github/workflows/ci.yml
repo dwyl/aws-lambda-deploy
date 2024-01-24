@@ -38,6 +38,11 @@ jobs:
     # - run: npm run lint
     - run: npm test
       env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_IAM_ROLE: "arn:aws:iam::110797354241:role/service-role/LambdaExecRole"
+        AWS_REGION: "eu-west-1"
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         TMPDIR: "/home/runner/work/aws-lambda-deploy/aws-lambda-deploy/tmp"
+
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1 
