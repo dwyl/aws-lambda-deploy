@@ -24,9 +24,11 @@ jobs:
       run: |
         mkdir /home/runner/work/_temp/my_dir
         chmod 777 /home/runner/work/_temp/my_dir
+        mkdir /home/runner/work/_temp/unzipped
+        chmod 777 /home/runner/work/_temp/unzipped
         echo "export HELLO=world" >> /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env 
         cat /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
-        
+
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
