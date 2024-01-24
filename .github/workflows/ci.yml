@@ -28,8 +28,6 @@ jobs:
         # cat /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
         echo "$TMPDIR" > /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
         cat /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
-      env:
-        TMPDIR: 
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
@@ -39,5 +37,7 @@ jobs:
     - run: npm ci
     # - run: npm run lint
     - run: npm test
+      env:
+        TMPDIR: "/home/runner/work/aws-lambda-deploy/aws-lambda-deploy/tmp"
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1 
