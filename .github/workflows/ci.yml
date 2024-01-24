@@ -42,7 +42,8 @@ jobs:
         AWS_IAM_ROLE: "arn:aws:iam::110797354241:role/service-role/LambdaExecRole"
         AWS_REGION: "eu-west-1"
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        TMPDIR: "/home/runner/work/aws-lambda-deploy/aws-lambda-deploy/tmp/"
+        # https://docs.github.com/en/actions/learn-github-actions/contexts#runner-context
+        TMPDIR: ${{ runner.temp }}
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1 
