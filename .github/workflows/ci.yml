@@ -43,7 +43,7 @@ jobs:
         AWS_REGION: "eu-west-1"
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         # https://docs.github.com/en/actions/learn-github-actions/contexts#runner-context
-        TMPDIR: ${{ runner.temp }}
+        TMPDIR: ${{ runner.temp }}/
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1 
