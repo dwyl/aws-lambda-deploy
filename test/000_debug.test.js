@@ -10,8 +10,8 @@
 // console.log('process.cwd():', process.cwd());
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 //
-// var utils = require('../lib/utils');
-// console.log('utils.getBasepath(process.cwd())', utils.getBasepath(process.cwd()));
+var utils = require('../lib/utils');
+console.log('utils.getBasepath(process.cwd())', utils.getBasepath(process.cwd()));
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 // console.log('utils.getBasepath()', utils.getBasepath());
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
