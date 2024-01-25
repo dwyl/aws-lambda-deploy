@@ -131,8 +131,9 @@ test('attempt to delete non-existent directory (catch test)', async function (t)
   try {
     utils.deleteDirContents(distpath, true); // sync
     exists = fs.statSync(distpath);
+    console.log(exists);
   } catch (e) {
-    // console.log(e);
+    console.log('utils.deleteDirContents', distpath, e);
   }
   t.equal(exists, false);
   t.end();
