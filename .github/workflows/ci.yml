@@ -29,6 +29,8 @@ jobs:
         # https://github.com/dwyl/aws-lambda-deploy/pull/92#issuecomment-1910566973
         mkdir /home/runner/work/_temp/fakedir
         chmod 777 /home/runner/work/_temp/fakedir
+        mkdir /home/runner/work/_temp/dist
+        chmod 777 /home/runner/work/_temp/dist
         echo "export HELLO=world" >> /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env 
         cat /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
 
