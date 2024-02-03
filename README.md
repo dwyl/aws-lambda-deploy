@@ -9,6 +9,7 @@ Deploy your AWS Lambda function(s) in seconds with a single command.
 [![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/dwyl/aws-lambda-deploy?color=brightgreen&style=flat-square)](https://codeclimate.com/github/dwyl/aws-lambda-deploy)
 [![HitCount](http://hits.dwyl.com/dwyl/aws-lambda-deploy.svg)](http://hits.dwyl.com/dwyl/aws-lambda-deploy)
 [![npm package version](https://img.shields.io/npm/v/dpl.svg?color=brightgreen&style=flat-square)](https://www.npmjs.com/package/dpl)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/dwyl/aws-lambda-deploy/issues)
 
 </div>
 <br />
@@ -216,7 +217,7 @@ we simply install a fresh set using the `--production` flag.
 
 <br />
 
-#### 4. *Zip* the contents of the `/dist` folder to `{function_name}.zip` 🤐
+#### 4. *Zip* the contents of the `/dist` folder to `{function_name}.zip` 📦
 
 Once the `/dist` directory has been created with the necessary files
 and the dependencies have been installed in `/dist/node_modules`
@@ -227,7 +228,7 @@ Lambda function has.
 
 <br />
 
-#### 5. *Upload* 🆙
+#### 5. *Upload* 🚀
 
 Once the `zip` has been packaged we upload it to AWS using the `aws-sdk`.
 Your Lambda function will be named according to the `"name"` in
