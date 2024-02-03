@@ -1,7 +1,17 @@
 // var path = require('path');
 // var aguid = require('aguid');
 // var fs = require('fs');
-//
+var utils = require('../lib/utils');
+const basepath = utils.getBasepath();
+console.log('utils.getBasepath(process.cwd())', utils.getBasepath(process.cwd()));
+
+const PKG = require(basepath + 'package.json');
+const FUNCTION_NAME = utils.functionName(PKG);
+console.log('FUNCTION_NAME:', FUNCTION_NAME);
+
+const AWS = require('aws-sdk');
+AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
+const lambda = new AWS.Lambda();
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 // console.log(process);
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
@@ -9,15 +19,19 @@
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 // console.log('process.cwd():', process.cwd());
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
-//
-var utils = require('../lib/utils');
-console.log('utils.getBasepath(process.cwd())', utils.getBasepath(process.cwd()));
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 // console.log('utils.getBasepath()', utils.getBasepath());
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 //
 console.log('process.env.TMPDIR:', process.env.TMPDIR, '(BEFORE)');
 console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
+
+lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
+  console.log('- - - - - - - - - DELETE Before Running Tests - - - - - ');
+  console.log('err:', err);
+  console.log('- - - - - - - - -');
+  console.log('data:', data);
+});
 // process.env.TMPDIR = process.env.TMPDIR || path.resolve(process.cwd(), '../') + '/';
 // console.log('process.env.TMPDIR:', process.env.TMPDIR, '(SET)');
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
