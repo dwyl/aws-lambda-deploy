@@ -9,9 +9,8 @@ const PKG = require(basepath + 'package.json');
 const FUNCTION_NAME = utils.functionName(PKG);
 console.log('FUNCTION_NAME:', FUNCTION_NAME);
 
-const AWS = require('aws-sdk');
-AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
-const lambda = new AWS.Lambda();
+const AWS = require("@aws-sdk/client-lambda");
+const lambda = new AWS.Lambda({ region: process.env.AWS_REGION });
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');
 // console.log(process);
 // console.log(' - - - - - - - - - - - - - - - - - - - - - - ');

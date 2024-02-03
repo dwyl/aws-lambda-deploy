@@ -10,9 +10,8 @@ const upload = require('../lib/upload');
 const utils = require('../lib/utils');
 
 const basepath = utils.getBasepath();
-const AWS = require('aws-sdk');
-AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
-const lambda = new AWS.Lambda();
+const AWS = require("@aws-sdk/client-lambda");
+const lambda = new AWS.Lambda({ region: process.env.AWS_REGION });
 let pkg = require(path.resolve(basepath, 'package.json'));
 const FUNCTION_NAME = utils.functionName(pkg);
 

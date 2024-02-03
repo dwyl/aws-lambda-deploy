@@ -71,7 +71,7 @@
     "tape": "^4.13.2"
   },
   "dependencies": {
-    "aws-sdk": "^2.1550.0",
+    "@aws-sdk/client-lambda": "^3.504.0",
     "env2": "^2.2.2"
   },
   "semistandard": {

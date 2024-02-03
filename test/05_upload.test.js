@@ -8,9 +8,9 @@ const utils = require('../lib/utils');
 const fs = require('fs');
 const path = require('path');
 
-const AWS = require('aws-sdk');
-AWS.config.region = process.env.AWS_REGION; // set your Environment Variables...
-const lambda = new AWS.Lambda();
+const AWS = require("@aws-sdk/client-lambda");
+const lambda = new AWS.Lambda({ region: process.env.AWS_REGION });
+
 const basepath = utils.getBasepath();
 const PKG = require(basepath + 'package.json');
 const FUNCTION_NAME = utils.functionName(PKG);
