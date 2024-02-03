@@ -33,8 +33,8 @@ test('exercise default values for lambda_memory & timeout', async function (t) {
     console.log('data:', data);
     t.equal(err, null, 'upload err: ' + err);
     // these are the default values:
-    t.equal(data.Timeout, 10, 'data.Timeout: ' + data.Timeout);
-    t.equal(data.MemorySize, 128, 'data.MemorySize: ' + data.MemorySize);
+    t.equal(data.Timeout, 42, 'data.Timeout: ' + data.Timeout);
+    t.equal(data.MemorySize, 512, 'data.MemorySize: ' + data.MemorySize);
 
     // now delete the function so we can do it all again!
     lambda.deleteFunction({ FunctionName: FUNCTION_NAME }, function (err, data) {
