@@ -1,6 +1,6 @@
 {
   "name": "dpl",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "deploy your lambda function to AWS the quick and easy way.",
   "main": "lib/index.js",
   "bin": "dpl.js",
@@ -57,7 +57,7 @@
   },
   "homepage": "https://github.com/dwyl/aws-lambda-deploy#readme",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=18.0.0"
   },
   "devDependencies": {
     "aguid": "^2.0.0",
@@ -71,7 +71,7 @@
     "tape": "^4.13.2"
   },
   "dependencies": {
-    "aws-sdk": "^2.653.0",
+    "@aws-sdk/client-lambda": "^3.504.0",
     "env2": "^2.2.2"
   },
   "semistandard": {
