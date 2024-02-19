@@ -68,7 +68,7 @@
     "nyc": "^15.0.1",
     "pre-commit": "^1.2.2",
     "tap-nyc": "^1.0.3",
-    "tape": "^4.13.2"
+    "tape": "^5.7.5"
   },
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.504.0",
