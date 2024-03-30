@@ -8,8 +8,7 @@
     "nocov": "./node_modules/tape/bin/tape ./test/*.test.js",
     "test": "nyc tape ./test/*.test.js | tap-nyc",
     "deploy": "node dpl.js",
-    "check-coverage": "npm test && nyc check-coverage --statements 100 --functions 100 --lines 100 --branches 100",
-    "eslint": "eslint lib"
+    "check-coverage": "npm test && nyc check-coverage --statements 100 --functions 100 --lines 100 --branches 100"
   },
   "nyc": {
     "check-coverage": true,
@@ -63,7 +62,6 @@
     "aguid": "^2.0.0",
     "aws-lambda-test-utils": "^1.3.0",
     "decache": "^4.5.1",
-    "eslint": "^8.57.0",
     "git-rev": "^0.2.1",
     "nyc": "^15.0.1",
     "pre-commit": "^1.2.2",
@@ -73,33 +71,6 @@
   "dependencies": {
     "@aws-sdk/client-lambda": "^3.504.0",
     "env2": "^2.2.2"
-  },
-  "semistandard": {
-    "rules": {
-      "no-multi-spaces": [
-        2,
-        {
-          "exceptions": {
-            "VariableDeclarator": true
-          }
-        }
-      ],
-      "brace-style": [
-        2,
-        "stroustrup",
-        {
-          "allowSingleLine": true
-        }
-      ],
-      "no-trailing-spaces": 0
-    },
-    "globals": [
-      "describe",
-      "it",
-      "before",
-      "after",
-      "afterEach"
-    ]
   },
   "pre-commit": [
     "test"
