@@ -63,7 +63,7 @@
     "aws-lambda-test-utils": "^1.3.0",
     "decache": "^4.5.1",
     "git-rev": "^0.2.1",
-    "nyc": "^15.0.1",
+    "nyc": "^17.0.0",
     "pre-commit": "^1.2.2",
     "tap-nyc": "^1.0.3",
     "tape": "^5.7.5"
