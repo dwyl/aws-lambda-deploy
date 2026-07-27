@@ -16,8 +16,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x] # [18.x, 20.x, 21.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [24.x, 26.x] # [18.x, 20.x, 21.x]
+        # Node.js release schedule: nodejs.org/en/about/releases/
 
     steps:
     - name: Pre Flight Checks
@@ -34,9 +34,9 @@ jobs:
         echo "export HELLO=world" >> /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env 
         cat /home/runner/work/aws-lambda-deploy/aws-lambda-deploy/.env
 
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7    # github.com/actions/checkout
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v7  # github.com/actions/setup-node
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
@@ -52,6 +52,6 @@ jobs:
         TMPDIR: ${{ runner.temp }}/
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v4
+      uses: codecov/codecov-action@v7 # github.com/codecov/codecov-action
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
